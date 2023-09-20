@@ -1,0 +1,192 @@
+/*Định dạng chung cho nguyên trang*/
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.KhungChinh{
+    width: 80vw;
+    height: 90vw;
+}
+
+/*--- Định dạng khung chính*/
+.KhungChinh{
+    display: flex;
+    width: 100vw;
+    height: 80vh;
+    justify-items: center;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+/*      ---         Định dạng khung cửa thứ nhất         ---         */
+.KhungCuaThuNhat, /*Bên Đăng ký*/.KhungCuaThuHai{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+.CuaSo1,.CuaSo2, /*Bên Đăng ký*/.CuaSo1Khung2, .CuaSo2Khung2{
+    flex: 50%;
+    padding: 2vh;
+}
+.CuaSo1{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    box-shadow: 2px 4px 4px rgb(162, 161, 161);
+}
+.BieuMauDangNhap{
+    padding: 5vh;
+}
+.CuaSo2, /*Bên Đăng ký*/.CuaSo1Khung2{
+    color: aliceblue;
+    background-image: linear-gradient(to right, rgb(43, 43, 251), rgb(43, 109, 251), rgb(43, 102, 251), rgb(43, 150, 251));
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 2px 4px 4px rgb(162, 161, 161), 2px 4px 4px rgb(162, 161, 161);
+    overflow: auto;
+}
+.ChuyenTrangDangKy{
+    padding: 5vh;
+    width: 30vw;
+}
+.NutDangNhap,.NutChuyenTrang,.NutDangky{
+    padding: 1em;
+    background-color: rgb(68, 68, 232);
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    border-radius: 7px;
+    box-shadow: 1px 4px 4px rgb(92, 90, 90);
+    color: aliceblue;
+    cursor: pointer;
+    margin-top: 3vh;
+}
+.NutDangNhap:hover,.NutDangky:hover{
+    background-image: linear-gradient(to left,rgb(68, 125, 232),rgb(68, 95, 232),rgb(68, 68, 232) );
+}
+.NutChuyenTrang{
+    margin-top: 1vh;
+    background: transparent;
+    border: 3px solid rgb(255, 255, 255);
+    box-shadow: none;
+}
+.NutChuyenTrang:hover{
+    background-image: linear-gradient(to left, rgb(43, 43, 251), rgb(43, 109, 251), rgb(43, 102, 251), rgb(43, 150, 251));
+}
+/*          ---          Định dạng khung thứ 2       ---       */
+#KhungCuaThuHai{
+    display: none;
+}
+/*  ### chính ###*/
+#ChonTaiKhoan{
+    display: grid;
+    grid-template-areas: 
+    "DKSV DKDVTT";
+}
+#Chon_DKSV{
+    grid: 'DKSV';
+}
+#Chon_DKDVTT{
+    grid: "DKDVTT";
+}
+#Chon_DKSV,#Chon_DKDVTT{
+    font-family: "Gill Sans", sans-serif;
+    margin-top: 1em;
+    font-size: 1.25em;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid black;
+    position: relative;
+    bottom: 0.25em;
+    padding: 0.25em 0 0.25em 0;
+
+}
+
+#Chon_DKSV:hover,#Chon_DKDVTT:hover{
+    text-decoration-line: underline;
+}
+/*  ### Đăng ký sinh viên ###*/
+#gioitinh{
+    width: auto;
+    padding: 0;
+    border-radius: 5px;
+}
+.CuaSo1Khung2{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+.CuaSo2Khung2{
+    background-color: #f5f5f5;
+    display:flex;
+    flex-direction: column;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 2px 4px 4px rgb(162, 161, 161), 2px 4px 4px rgb(162, 161, 161);
+}
+.inputDangNhap{
+    margin: 0;
+    width: 30vw;
+}
+.TieuDeDien{
+    text-align: left;
+    margin-top: 1em;
+    font-family:  Arial, sans-serif;
+    display: flex;
+}
+.NutDangky{
+    margin-bottom: 2em;
+    padding: 1em 2em 1em 2em;
+}
+.TruongDiaChi{
+    width: 30vw;
+    height: 20vh;
+}
+.TieuDeDangKy{
+    font-size: 2.5em;
+    font-family: Helvetica;
+    margin: 1em 0 1em 0;
+    font-weight: 600;
+    background: -webkit-linear-gradient(right,red,blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.BieuMauDangKy_SV{
+    overflow: auto;
+}
+/*  ### Đăng ký đơn vị thực tập ###*/
+.BieuMauDangKy_DVTT{
+    overflow: auto;
+    padding: 0;
+    
+}
+.CotDK_dvtt{
+    width: 1vw;
+}
+/*--- Định dạng các thẻ ---*/
+input,.TruongDiaChi{
+    outline: none;
+    border: 2px solid rgb(119, 118, 118);
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 5px;
+    box-shadow: 1px 3px 3px rgb(137, 137, 137);
+}
+input:hover,.TruongDiaChi:hover{
+    border: 2px solid rgb(80, 173, 240);
+}
+input{
+    width: 15vw;
+}
+input:focus,textarea:focus{
+    background-color: rgb(251, 249, 180);
+    border: royalblue 2px solid;
+}
+.ThongTinDangKy{
+    margin-top: 5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.25em;
+}

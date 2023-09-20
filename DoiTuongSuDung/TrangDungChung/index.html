@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Trang chủ</title>
+
+        <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/TrangChu.css">
+        <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
+
+        <script src="../../RangBuoc/TrangDungChung/TrangChu.js" async></script>
+        <script src="../../RangBuoc/TrangDungChung/DungChung.js"></script>
+    </head>
+    <body>
+        <head></head>
+        <main >
+            <div class="KhungChinh">
+                <!--
+                Bên trang đăng nhập
+                -->
+                <div class="KhungCuaThuNhat" id="KhungCuaThuNhat">
+                    <div class="CuaSo1">
+                        <form name="BieuMauDangNhap" class="BieuMauDangNhap" action="" autocomplete="off" method="post" enctype="application/x-www-form-urlencoded">
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <h1>Đăng Nhập</h1>
+                                    </td>
+                                </tr>
+                                <!--Hàng tài khoản-->
+                                <tr>
+                                    <td>
+                                        <p>Mã số đăng nhập</p> 
+                                    </td>
+                                    <td>
+                                        <input name="NhapMaDangNhap" type="text" size="30" maxlength="8" title="Nhập mã đăng nhập" placeholder="Mã đăng nhập"/>
+                                    </td>
+                                </tr>
+                                <!--Hàng mật khẩu-->
+                                <tr>
+                                    <td>
+                                        <p>Mật khẩu</p> 
+                                    </td>
+                                    <td>
+                                        <input name="NhapMatKhauDangNhap" type="password" size="30" title="Nhập mật khẩu đăng nhập" placeholder="Mật khẩu"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <button type="submit" class="NutDangNhap"> Đăng nhập </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <!--Thông tin cạnh bên-->
+                    <div class="CuaSo2">
+                            <div class=" ChuyenTrangDangKy">
+                                <h1>Hệ thống quản lý sinh viên thực tập thực tế</h1>
+                                <p class="ThongTinDangKy">Sinh viên và đơn vị thực tập có thể đăng ký trực tiếp trên hệ thống.<br>Giảng viên hướng dẫn liên hệ với khoa để được cấp tài khoản đăng nhập. <br>Cán bộ hướng dẫn liên hệ với đơn vị thực tập để được cấp tài khoản. </p>
+                            </div>
+                            <button class="NutChuyenTrang" id="NutDangKy">Đăng ký tài khoản</button>
+                    </div>
+                </div>
+                <!--
+                    Bên trang đăng ký
+                -->
+                <div class="KhungCuaThuHai" id="KhungCuaThuHai">
+                    <!--Thông tin cạnh bên-->
+                    <div class="CuaSo1Khung2">
+                        <div class=" ChuyenTrangDangKy">
+                            <h1>Hệ thống quản lý sinh viên thực tập thực tế</h1>
+                            <p class="ThongTinDangKy">Sinh viên và đơn vị thực tập có thể đăng ký trực tiếp trên hệ thống.<br>Giảng viên hướng dẫn liên hệ với khoa để được cấp tài khoản đăng nhập. <br>Cán bộ hướng dẫn liên hệ với đơn vị thực tập để được cấp tài khoản. </p>
+                        </div>
+                        <button class="NutChuyenTrang" id="NutDangNhap">Đăng nhập</button>
+                    </div>
+                    <!--Thông tin đăng ký-->
+                    <div class="CuaSo2Khung2">
+                        <!--Sinh viên-->
+                        <div>
+                            <h1>Đăng ký tài khoản</h1>
+                        </div>
+                        <div id="ChonTaiKhoan">
+                            <div id="Chon_DKSV"><p>Sinh viên</p></div>
+                            <div id="Chon_DKDVTT"><p>Đơn vị thực tập</p></div>
+                        </div>
+                        <div class="BieuMauDangKy_SV" id="BieuMauDangKy_SV">
+                            <form action="" method="post" id="BieuMauDangKySinhVien" autocomplete="off" enctype="application/x-www-form-urlencoded">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h1 class="TieuDeDangKy">Sinh viên</h1>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Họ tên</p>
+                                            <input class="inputDangNhap" name="HoTen" id="HoTen" type="text" size="50" maxlength="100" placeholder="Họ tên"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Giới tính:
+                                                <span>Nam</span><input name="gioitinh" id="gioitinh" type="radio" value="Nam" checked/><span>Nữ</span><input name="gioitinh" id="gioitinh" type="radio" value="Nu"/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Mã số sinh viên</p>
+                                            <input class="inputDangNhap" name="MSSV" id="MSSV" type="text" placeholder="Mã số sinh viên"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Mật khẩu</p>
+                                            <input class="inputDangNhap" type="password" name="pw_sv" id="pw_sv" placeholder="Mật khẩu"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Ngày sinh</p>
+                                            <input class="inputDangNhap" name="ngaySinh" id="ngaySinh" type="date" placeholder="Ngày sinh" value="Ngày sinh"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Email</p>
+                                            <input class="inputDangNhap" name="Email_sv" id="Email_sv" type="email" placeholder="Email" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Số điện thoại</p>
+                                            <input class="inputDangNhap" name="sdt_sv" id="sdt_sv" type="text" placeholder="Số điện thoại"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Căn cước công dân</p>
+                                            <input class="inputDangNhap" name="cccd" id="cccd" type="text" placeholder="Căn cước công dân"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Địa chỉ</p>
+                                            <textarea class="TruongDiaChi" name="diaChi_sv" id="diaChi_sv"  placeholder="Địa chỉ cư trú"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                          <button class="NutDangky">Đăng ký</button>  
+                                        </th>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                        <!--Đơn vị thực tập-->
+                        <div class="BieuMauDangKy_DVTT" id="BieuMauDangKy_DVTT">
+                            <form action="" method="post" id="BieuMauDangKyDonViThucTap">
+                                <table>
+                                    <tr>
+                                        <th>
+                                            <h1 class="TieuDeDangKy">Đơn vị thực tập</h1>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p class="TieuDeDien">Tên đơn vị nhận sinh viên thực tập</p>
+                                            <input class="inputDangNhap" name="tenDonViThucTap" id="tenDonViThucTap" type="text" placeholder="Đơn vị thực tập"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p class="TieuDeDien">Email:</p>
+                                            <input class="inputDangNhap" name="Email_DVTT" id="Email_DVTT" type="email" placeholder="Email"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p class="TieuDeDien">Số điện thoại liên lạc:</p>
+                                            <input class="inputDangNhap" name="sdt_dvtt" id="sdt_dvtt" type="email" placeholder="Số điện thoại"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p class="TieuDeDien">Mật khẩu:</p>
+                                            <input class="inputDangNhap" name="pw_dvtt" id="pw_dvtt" type="password" placeholder="Đặt mật khẩu"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p class="TieuDeDien">Mật khẩu:</p>
+                                            <input class="inputDangNhap" name="xacNhanPW_dvtt" id="xacNhanPW_dvtt" type="password" placeholder="Xác nhận lại mật khẩu"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <p class="TieuDeDien">Địa chỉ</p>
+                                            <textarea class="TruongDiaChi" name="diaChi_dvtt" id="diaChi_dvtt" placeholder="Địa chỉ"></textarea>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <button class="NutDangky">Đăng ký</button>  
+                                        </th>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="ChanBenPhai">
+                <p>&copy; <span id="NamHienTai"></span></p>
+                <p>
+                    Khoa Khoa Học Máy Tính - Trường Công Nghệ Thông Tin & Truyền Thông, Đại Học Cần Thơ 
+                </p>                
+            </div>
+            <div class="ChanBenTrai">
+                <div class="ChanTrai1">
+                    <p>Địa chỉ: phường Xuân Khánh,đường 3/2, Quận Ninh Kiều, TP Cần Thơ</p>
+                    <span>&phone; : </span>
+                </div>
+                <div class="ChanTrai2">
+                    <p>Email: abcd123@gmail.com</p>
+                    <p>Website: </p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

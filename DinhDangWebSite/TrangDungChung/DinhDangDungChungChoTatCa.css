@@ -1,0 +1,30 @@
+/*Chân trang*/
+footer{
+    display: grid;
+    grid-template-areas: 
+    "ChanPhai ChanTrai";
+    border: 1px solid rgb(157, 157, 157);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+}
+.ChanBenPhai{
+    grid: "ChanPhai";
+}
+.ChanBenTrai{
+    grid: "ChanTrai";
+    display: grid;
+    grid-template-areas: 
+    "ChanTrai1 ChanTrai2";
+}
+.ChanBenPhai,.ChanBenTrai{
+    margin: 2vh 0 2vh 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+.ChanTrai1{
+    grid: "ChanTrai1";
+}
+.ChanTrai2{
+    grid: "ChanTrai2";
+}
