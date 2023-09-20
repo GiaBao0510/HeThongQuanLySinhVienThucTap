@@ -1,0 +1,39 @@
+/* -- Chung -- */
+footer{
+    position: relative;
+    z-index: 1;
+}
+
+/*  -- Bố trí thông tin -- */
+.Khung_chinh{
+    z-index: 0;
+    display: grid;
+    grid-template-areas: 
+    "QuanLy ThongTin ThongTin ThongTin ThongTin";
+}
+.ThanhQuanLy{
+    grid: "QuanLy";
+    z-index: 0;
+    border: 1px solid;
+    height: 100vh;
+    background-color: #222831;
+    color: #EEEEEE;
+    overflow: auto;
+}
+.ThanhThongTin{
+    grid: "ThongTin";
+    width: 78vw;
+}
+.BoTriMuc,.BoTriMuc_ds{
+    text-align: center;
+    cursor: pointer;
+    padding: 2vh 0 2vh 0;
+    display: block;
+    font-size: 1.25em;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.BoTriMuc:hover , .BoTriMuc_ds:hover{
+    border: 1px solid #EEEEEE;
+    background-color: #00ADB5;
+}

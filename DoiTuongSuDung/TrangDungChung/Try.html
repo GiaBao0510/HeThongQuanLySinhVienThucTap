@@ -1,100 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang chủ nhà quản trị</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body {
-  font-family: sans-serif;
-  background-color: #fff;
+<title>Quản lý sinh viên thực tập</title>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<style>
+.container {
+  width: 300px;
+  margin: 0 auto;
 }
 
-header {
-  background-color: #000;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
+.select {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
 }
 
-h1 {
-  font-size: 30px;
+.select select {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
 }
 
-nav {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
+.select select option {
+  display: block;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
 }
 
-nav a {
-  padding: 10px 20px;
-  text-decoration: none;
-  color: #fff;
-  background-color: #000;
-  transition: 0.5s;
+.select select option:hover {
+  background-color: #eee;
 }
 
-nav a:hover {
-  background-color: #ccc;
+.select select option:selected {
+  background-color: #337ab7;
+  color: white;
 }
 
-main {
-  margin: 20px 0;
+.select .list {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  height: 0;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+  z-index: 10;
 }
 
-section {
-  padding: 20px;
+.select .list li {
+  display: block;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
 }
 
-.welcome {
-  background-color: #ccc;
+.select .list li:hover {
+  background-color: #eee;
 }
 
-.dashboard {
-  background-color: #fff;
+.select .list li.active {
+  background-color: #337ab7;
+  color: white;
 }
 
-footer {
-  padding: 20px;
-  text-align: center;
-}
+</style>
 
-  </style>
 </head>
 <body>
 
-  <header>
-    <h1>Trang chủ nhà quản trị</h1>
-    <nav>
-      <a href="#">Trang chủ</a>
-      <a href="#">Quản lý sinh viên</a>
-      <a href="#">Quản lý đơn vị thực tập</a>
-      <a href="#">Quản lý dữ liệu thực tập</a>
-      <a href="#">Thống kê</a>
-    </nav>
-  </header>
+<header>
+  <h1>Hệ thống quản lý sinh viên thực tập</h1>
+  <nav>
+    <ul>
+      <li><a href="#">Trang chủ</a></li>
+      <li><a href="#">Sinh viên</a></li>
+      <li><a href="#">Đơn vị thực tập</a></li>
+      <li><a href="#">Báo cáo</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <main>
-    <section class="welcome">
-      <h2>Chào mừng bạn đến với trang chủ nhà quản trị</h2>
-      <p>Từ đây, bạn có thể quản lý toàn bộ hệ thống quản lý sinh viên thực tập.</p>
-    </section>
+<div class="container">
+  <h1>Danh sách kéo thả</h1>
+  <div class="select">
+    <select name="quan">
+      <option value="0">Chọn quận</option>
+      <option value="1">Ninh Kiều</option>
+      <option value="2">Cái Răng</option>
+      <option value="3">Bình Thủy</option>
+    </select>
+  </div>
+</div>
 
-    <section class="dashboard">
-      <h2>Thống kê</h2>
-      <ul>
-        <li>Số lượng sinh viên: <span>100</span></li>
-        <li>Số lượng đơn vị thực tập: <span>50</span></li>
-        <li>Số lượng hồ sơ thực tập: <span>200</span></li>
-      </ul>
-    </section>
-  </main>
 
-  <footer>
-    <p>Copyright &copy; 2023</p>
-  </footer>
 
+<footer>
+  <p>Bản quyền thuộc về Trường ABC</p>
+</footer>
+<script async>
+function showList(el) {
+  el.classList.add("active");
+  el.nextElementSibling.style.height = "auto";
+  el.nextElementSibling.style.opacity = 1;
+}
+
+function hideList(el) {
+  el.classList.remove("active");
+  el.nextElementSibling.style.height = 0;
+  el.nextElementSibling.style.opacity = 0;
+}
+
+document.addEventListener("click", function(e) {
+  const select = document.querySelector(".select");
+  const list = select.nextElementSibling;
+
+  if (e.target === select) {
+    showList(select);
+  } else if (e.target === list || e.target === list.querySelector(".select")) {
+    hideList(select);
+  } else {
+    hideList(select);
+  }
+});
+
+
+</script>
 </body>
 </html>
