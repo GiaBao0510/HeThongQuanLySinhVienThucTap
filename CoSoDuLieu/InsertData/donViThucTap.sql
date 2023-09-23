@@ -1,0 +1,1 @@
+INSERT INTO donvithuctap VALUES('dvtt01','Trung tâm Công Nghệ Phần Mềm Đại học Cần Thơ','Khu III Đại học Cần Thơ - 01, Lý Tự Trọng, P.An Phú , Q.Ninh Kiều,TP Cần Thơ ','0939649044','tuyendung@cusc.ctu.edu.vn');

@@ -1,0 +1,50 @@
+    /* --- Biểu mẫu thêm đơn vị thực tập --- */
+/*Lớp*/
+.BangChinh{
+    display: grid;
+    grid-template-areas: 
+    "BangTrai BangPhai";
+    z-index: 0;
+    height: auto;
+}
+.BangTrai{
+    grid: "BangTrai";
+    width: 50vw;
+}
+.BangPhai{
+    grid: "BangPhai";
+    width: 50vw;
+}
+.BangTrai,.BangPhai{
+    margin-left: 3vw;
+}
+.inputDangNhap,.TruongDiaChi{
+    display: flex;
+    left: 55%;
+    width: 30vw;
+}
+.TruongDiaChi{
+    height: 10vh;
+}
+.KhoChuaNut{
+    display: flex;
+}
+.NutHuy{
+    cursor: pointer;
+    border: 1px black solid;
+    background-color: rgb(184, 184, 184);
+    border-radius: 5px;
+    box-shadow: 2px 4px 4px gray;
+    height: 3.25vw;
+    width: 4vw;
+    margin: 1.25vw 0 0 2vw;
+    font-weight: 500;
+    font-size: 1.25em;
+    background-image: linear-gradient( to right, rgb(184, 184, 184), rgb(208, 208, 208),rgb(220, 220, 220),rgb(243, 243, 243));
+}
+.NutHuy:hover{
+    height: 3.5vw;
+    width: 4.25vw;
+}
+/* --- Phần tử ---*/
+
