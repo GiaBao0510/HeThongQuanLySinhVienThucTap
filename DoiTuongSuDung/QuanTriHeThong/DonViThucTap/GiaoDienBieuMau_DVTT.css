@@ -1,4 +1,4 @@
-    /* --- Biểu mẫu thêm đơn vị thực tập --- */
+/* --- Biểu mẫu thêm đơn vị thực tập --- */
 /*Lớp*/
 .BangChinh{
     display: grid;
@@ -9,11 +9,9 @@
 }
 .BangTrai{
     grid: "BangTrai";
-    width: 50vw;
 }
 .BangPhai{
     grid: "BangPhai";
-    width: 50vw;
 }
 .BangTrai,.BangPhai{
     margin-left: 3vw;
@@ -29,22 +27,48 @@
 .KhoChuaNut{
     display: flex;
 }
-.NutHuy{
-    cursor: pointer;
+#Huy{
+    margin-top: 4vh;
+    margin-left: 2vw;
+    padding: 1vw;
+    height: 4vw;
+}
+.TieuDeDangKy{
+    text-align: center;
+    margin: 2vh;
+}
+.KhungChua{
+    position: relative;
     border: 1px black solid;
-    background-color: rgb(184, 184, 184);
-    border-radius: 5px;
-    box-shadow: 2px 4px 4px gray;
-    height: 3.25vw;
-    width: 4vw;
-    margin: 1.25vw 0 0 2vw;
-    font-weight: 500;
+    width: auto;
+    margin: 2vw 0 2vw 0;
+    padding: 1vw;
+    z-index: 0;
+}
+/* --- Bố trí bảng đơn vị thực tập ---*/
+.ThongTin_DVTT{
+    border: 1px solid black;
+}
+.TieuDe_TTdvtt{
+    background-image: linear-gradient(to left,rgb(68, 125, 232),rgb(68, 95, 232),rgb(68, 68, 232) );
+    color: aliceblue;
     font-size: 1.25em;
-    background-image: linear-gradient( to right, rgb(184, 184, 184), rgb(208, 208, 208),rgb(220, 220, 220),rgb(243, 243, 243));
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
 }
-.NutHuy:hover{
-    height: 3.5vw;
-    width: 4.25vw;
+.thongTinHang{
+    border: 1px solid black;
+    text-align: center;
+    padding: 1vw;
 }
-/* --- Phần tử ---*/
-
+.DanhDau{
+    width: auto;
+}
+.DiaChiDVTT{
+    width: 15vw;
+    height: 10vh;
+}
+main{
+    display: flex;
+    justify-content: center;
+}

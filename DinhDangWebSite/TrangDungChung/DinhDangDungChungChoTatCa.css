@@ -5,25 +5,33 @@
     border: 0;
 }
 
+/*Thân trang*/
+main{
+    padding-bottom: 3vw;
+}
 /*Chân trang*/
 footer{
     display: grid;
     grid-template-areas: 
     "ChanPhai ChanTrai";
     border: 1px solid rgb(157, 157, 157);
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100vw;
+    height: 12vh;
+    color: aliceblue;
+    background-image: linear-gradient(to left,rgb(68, 125, 232),rgb(68, 95, 232),rgb(68, 68, 232) );
 }
 .ChanBenPhai{
     grid: "ChanPhai";
+    width: 40vw;
 }
 .ChanBenTrai{
     grid: "ChanTrai";
     display: grid;
     grid-template-areas: 
     "ChanTrai1 ChanTrai2";
+    width: 60vw;
 }
 .ChanBenPhai,.ChanBenTrai{
     margin: 2vh 0 2vh 0;
@@ -35,3 +43,4 @@ footer{
 .ChanTrai2{
     grid: "ChanTrai2";
 }
+

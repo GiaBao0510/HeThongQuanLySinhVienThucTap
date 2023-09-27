@@ -8,18 +8,18 @@
         <!--
             CSS
         -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
+        <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/TrangChu.css">
         <link rel="stylesheet" href="../../DinhDangWebSite/QuanTriHeThong/GiaoDienQuanTri.css">
         <!--
             Java script
         -->
         <script src="../../RangBuoc/TrangDungChung/DungChung.js"></script>
+        <script src="../../RangBuoc/QuanTriHeThong/trangchu.js" async></script>
         <!--
             php
         -->
-        <?php
-            //include("../TrangDungChung/KetNoi.php");
-        ?>
     </head>
     <body>
         <header></header>
@@ -34,6 +34,7 @@
                     <p class="BoTriMuc">Giáo viên hướng dẫn</p>
                     <p class="BoTriMuc">Đơn vị thực tập</p>
                     <p class="BoTriMuc">Cán bộ hướng dẫn</p>
+                    <p class="BoTriMuc">Tài khoản</p>
                     <p class="BoTriMuc">Báo cáo</p>
                     <div class="DanhSachBaoCao">
                         <p class="BoTriMuc_ds">Báo cáo danh sách sinh viên theo đợt thực tập</p>
@@ -50,6 +51,41 @@
                     <div class="ThongTinThongKe">
                         <h1>Thống kê</h1>
                     </div>
+                    <div id="ThongTinSinhVien">
+                        <div id="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/SinhVien/ThemTaiKhoanSinhVien.php');
+                            ?>
+                            <button id="NutChuyenTrangThemMauTin"  class="NutDangNhap">Thêm tài khoản Sinh viên</button>
+                        </div>
+                        <div id="BangThemThongTin">
+                            <button id="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
+                            <?php
+                                include('../QuanTriHeThong/SinhVien/ThemTaiKhoanSinhVien.php');
+                            ?>
+                        </div>
+                    </div>
+                    <div id="ThongTinGiaoVienHuongDan"></div>
+                    <div id="ThongTinDonViThucTap">
+                        <div id="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/DonViThucTap/BangThongTinDonVi.php');
+                            ?>
+                            <button id="NutChuyenTrangThemMauTin"  class="NutDangNhap">Thêm đơn vị thực tập</button>
+                        </div>
+                        <div id="BangThemThongTin">
+                            <button id="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
+                            <?php
+                                include('../QuanTriHeThong/DonViThucTap/ThemDonViThucTap.php');
+                            ?>
+                        </div>
+                    </div>
+                    <div id="ThongTinCanBoHuongDan"></div>
+                    <div id="BaoCaoDS_dvtt"></div>
+                    <div id="BaoCaoDS_GVHD"></div>
+                    <div id="BaoCaoDS_deTai"></div>
+                    <div id="BaoCaoDiemSoThucTap"></div>
+                    <div id="BaoCaoSVThucHienLai"></div>
                 </div>
             </div>
         </main>

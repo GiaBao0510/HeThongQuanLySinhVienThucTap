@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
 
         <script src="../../RangBuoc/TrangDungChung/TrangChu.js" async></script>
+        <script src="../../RangBuoc/SinhVien/RangBuocBieuMau.js" async></script>
         <script src="../../RangBuoc/TrangDungChung/DungChung.js"></script>
         
     </head>
@@ -87,7 +88,7 @@
                             <div id="Chon_DKDVTT"><p>Đơn vị thực tập</p></div>
                         </div>
                         <div class="BieuMauDangKy_SV" id="BieuMauDangKy_SV">
-                            <form action="" method="post" id="BieuMauDangKySinhVien" autocomplete="off" enctype="application/x-www-form-urlencoded">
+                            <form action="" name="BieuMauDangKySinhVien" method="post" id="BieuMauDangKySinhVien" autocomplete="off" enctype="application/x-www-form-urlencoded" onsubmit="return BieuMauDangKy()">
                                 <table>
                                     <tr> 
                                         <td>
@@ -103,49 +104,55 @@
                                     <tr>
                                         <td>
                                             <p class="TieuDeDien">Giới tính:
-                                                <span>Nam</span><input name="gioitinh" id="gioitinh" type="radio" value="Nam" checked/><span>Nữ</span><input name="gioitinh" id="gioitinh" type="radio" value="Nu"/>
+                                                <span>Nam</span><input name="gioitinh" id="gioitinh" type="radio" value="1" checked/><span>Nữ</span><input name="gioitinh" id="gioitinh" type="radio" value="0"/>
                                             </p>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p class="TieuDeDien">Mã số sinh viên</p>
-                                            <input class="inputDangNhap" name="MSSV" id="MSSV" type="text" placeholder="Mã số sinh viên"/>
+                                            <p class="TieuDeDien">Mã số sinh viên:</p>
+                                            <input class="inputDangNhap" name="MSSV" id="MSSV" type="text" value="B" placeholder="Mã số sinh viên"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p class="TieuDeDien">Mật khẩu</p>
+                                            <p class="TieuDeDien">Mã lớp:</p>
+                                            <input class="inputDangNhap" name="maLop" id="maLop" type="text"  placeholder="Mã lớp"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="TieuDeDien">Mật khẩu:</p>
                                             <input class="inputDangNhap" type="password" name="pw_sv" id="pw_sv" placeholder="Mật khẩu"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p class="TieuDeDien">Ngày sinh</p>
+                                            <p class="TieuDeDien">Ngày sinh:</p>
                                             <input class="inputDangNhap" name="ngaySinh" id="ngaySinh" type="date" placeholder="Ngày sinh" value="Ngày sinh"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p class="TieuDeDien">Email</p>
+                                            <p class="TieuDeDien">Email:</p>
                                             <input class="inputDangNhap" name="Email_sv" id="Email_sv" type="email" placeholder="Email" />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p class="TieuDeDien">Số điện thoại</p>
+                                            <p class="TieuDeDien">Số điện thoại:</p>
                                             <input class="inputDangNhap" name="sdt_sv" id="sdt_sv" type="text" placeholder="Số điện thoại"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p class="TieuDeDien">Căn cước công dân</p>
+                                            <p class="TieuDeDien">Căn cước công dân:</p>
                                             <input class="inputDangNhap" name="cccd" id="cccd" type="text" placeholder="Căn cước công dân"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p class="TieuDeDien">Địa chỉ</p>
+                                            <p class="TieuDeDien">Địa chỉ:</p>
                                             <textarea class="TruongDiaChi" name="diaChi_sv" id="diaChi_sv"  placeholder="Địa chỉ cư trú"></textarea>
                                         </td>
                                     </tr>

@@ -1,0 +1,16 @@
+main{
+    display: flex;
+    justify-content: center;
+}
+.KhungChua{
+    border: 1px solid black;
+    height: 100%;
+    width: 50vw;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.inputDangNhap,.TieuDeDien,.NutDangky{
+    margin-left: 5vh;
+}
