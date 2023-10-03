@@ -1,132 +1,153 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Quản lý sinh viên thực tập</title>
+  <head>
+  <title>Quản lý sinh viên thực tập</title>
 
-<link rel="stylesheet" type="text/css" href="style.css">
-<style>
-.container {
-  width: 300px;
-  margin: 0 auto;
-}
+  <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+      .BieuMauCapNhat{
+        display: flex;
+        justify-content: center;
+      }
+      .KhungTongQuat{
+        width: 60%;
+      }
+      .KhungDau{
+        display: grid;
+        grid-template-areas: 
+        'Thu1 Thu2';
+        border: 1px solid black;
+      }
+      .Dau1{
+        grid: "Thu1";
+      }
+      .Dau2{
+        grid: "Thu2";
+      }
+      .KhungDuoi{
+        display: flex;
+        justify-content: center;
+        border: 1px solid black;
+      }
+    </style>
 
-.select {
-  width: 100%;
-  height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 5px;
-}
+  </head>
+  <body>
 
-.select select {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: transparent;
-}
-
-.select select option {
-  display: block;
-  padding: 5px;
-  border-bottom: 1px solid #ccc;
-}
-
-.select select option:hover {
-  background-color: #eee;
-}
-
-.select select option:selected {
-  background-color: #337ab7;
-  color: white;
-}
-
-.select .list {
-  position: absolute;
-  top: 30px;
-  left: 0;
-  width: 100%;
-  height: 0;
-  opacity: 0;
-  transition: all 0.5s ease-in-out;
-  z-index: 10;
-}
-
-.select .list li {
-  display: block;
-  padding: 5px;
-  border-bottom: 1px solid #ccc;
-}
-
-.select .list li:hover {
-  background-color: #eee;
-}
-
-.select .list li.active {
-  background-color: #337ab7;
-  color: white;
-}
-
-</style>
-
-</head>
-<body>
-
-<header>
-  <h1>Hệ thống quản lý sinh viên thực tập</h1>
-  <nav>
-    <ul>
-      <li><a href="#">Trang chủ</a></li>
-      <li><a href="#">Sinh viên</a></li>
-      <li><a href="#">Đơn vị thực tập</a></li>
-      <li><a href="#">Báo cáo</a></li>
-    </ul>
-  </nav>
-</header>
-
-<div class="container">
-  <h1>Danh sách kéo thả</h1>
-  <div class="select">
-    <select name="quan">
-      <option value="0">Chọn quận</option>
-      <option value="1">Ninh Kiều</option>
-      <option value="2">Cái Răng</option>
-      <option value="3">Bình Thủy</option>
-    </select>
-  </div>
-</div>
-
-
-
-<footer>
-  <p>Bản quyền thuộc về Trường ABC</p>
-</footer>
-<script async>
-function showList(el) {
-  el.classList.add("active");
-  el.nextElementSibling.style.height = "auto";
-  el.nextElementSibling.style.opacity = 1;
-}
-
-function hideList(el) {
-  el.classList.remove("active");
-  el.nextElementSibling.style.height = 0;
-  el.nextElementSibling.style.opacity = 0;
-}
-
-document.addEventListener("click", function(e) {
-  const select = document.querySelector(".select");
-  const list = select.nextElementSibling;
-
-  if (e.target === select) {
-    showList(select);
-  } else if (e.target === list || e.target === list.querySelector(".select")) {
-    hideList(select);
-  } else {
-    hideList(select);
-  }
-});
-
-
-</script>
-</body>
+    <header>
+    </header>
+    <main>
+      <form action="" method="post" enctype="application/x-www-form-urlencoded" class="BieuMauCapNhat">
+        <div class="KhungTongQuat">
+          <div class="KhungDau">
+            <div class="Dau1">
+              <img src="https://beebom.com/wp-content/uploads/2023/04/featured-new.jpg?w=290&h=290&crop=1&quality=75" alt="">
+            </div>
+            <div class="Dau2">
+              <table>
+                <tr>
+                  <td>
+                    <p>Họ và tên:</p>
+                  </td>
+                  <td>
+                    <input name="" type="text" value=""/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Ngày sinh:</p>
+                  </td>
+                  <td>
+                    <input name="" type="text" value=""/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Giới tính:</p>
+                  </td>
+                  <td>
+                    <input name="" type="text" value=""/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Mã số sinh viên:</p>
+                  </td>
+                  <td>
+                    <input name="" type="text" value=""/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>Mã lớp:</p>
+                  </td>
+                  <td>
+                    <input name="" type="text" value=""/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Số vai trò:</td>
+                  <td>
+                    <input name="" type="text" value=""/>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="KhungDuoi">
+            <table>
+              <tr>
+                <td>
+                  <p>Số điện thoại:</p>
+                </td>
+                <td>
+                  <input type="text" value=""/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Số căn cước:</p>
+                </td>
+                <td>
+                  <input type="text" value=""/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Email:</p>
+                </td>
+                <td>
+                  <input type="text" value=""/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Mật khẩu:</p>
+                </td>
+                <td>
+                  <input type="text" value=""/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>Địa chỉ:</p>
+                </td>
+                <td>
+                  <input type="text" value=""/>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <button type="submit">Cập nhật</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </form>
+    </main>
+    <footer>
+      <p>Bản quyền thuộc về Trường ABC</p>
+    </footer>
+  </body>
 </html>

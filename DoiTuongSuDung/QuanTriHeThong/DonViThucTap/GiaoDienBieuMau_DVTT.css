@@ -48,6 +48,22 @@
 /* --- Bố trí bảng đơn vị thực tập ---*/
 .ThongTin_DVTT{
     border: 1px solid black;
+    border-collapse:collapse;
+    width: 100%;
+    color: #333;
+    overflow: hidden;
+}
+.thongTinHang{
+    border: 1px solid rgb(116, 116, 116);
+    background-color: #fff;
+    text-align: center;
+    padding: 0.5em;
+}
+.ThongTin_DVTT .row_TTdvtt:nth-child(even) .thongTinHang{
+    background-color: #f2f2f2;
+}
+.ThongTin_DVTT .row_TTdvtt:hover .thongTinHang{
+    background-color: #ffedcc;
 }
 .TieuDe_TTdvtt{
     background-image: linear-gradient(to left,rgb(68, 125, 232),rgb(68, 95, 232),rgb(68, 68, 232) );
@@ -55,11 +71,7 @@
     font-size: 1.25em;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
-}
-.thongTinHang{
-    border: 1px solid black;
-    text-align: center;
-    padding: 1vw;
+    padding: 0.5em;
 }
 .DanhDau{
     width: auto;
@@ -71,4 +83,8 @@
 main{
     display: flex;
     justify-content: center;
+}
+.TruongDiaChi{
+    width: 15vw;
+    height: 5vw;
 }

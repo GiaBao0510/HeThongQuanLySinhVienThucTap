@@ -37,7 +37,7 @@
 
                 //Nếu dữ liệu thêm thành công thì trở về trang ban đầu
                 if($KetQuaThucThi2){
-                    header("Location: ThemDonViThucTap.html");
+                    header("Location: ../TrangChu.php?status=success");
                 }
             }
                  

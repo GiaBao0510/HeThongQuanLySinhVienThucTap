@@ -71,7 +71,7 @@
         //4.2 Lặp kiểm tra - nếu gặp ký tự chữ cái thì hủy
         $i = intval(0);
         while($i <= $length){
-            $temp = $chuoi[$i];
+            $temp = $chuoi[$i]; 
             //Kiểm tra ký tự lấy ra có phải số hay không
             if(is_numeric($temp)!=true){
                 $ketQua = $ketQua.$temp;

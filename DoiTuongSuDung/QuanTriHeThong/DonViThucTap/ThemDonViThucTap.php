@@ -17,7 +17,7 @@
         <main>
             <div class="KhungChua">
                 <h1 class="TieuDeDangKy">Đơn vị thực tập</h1>
-                <form name="FormDangKyDonViThucTap" action="ThongTinDonViThucTap.php" method="post" enctype="application/x-www-form-urlencoded" id="BieuMauDangKyDonViThucTap" class="BangChinh" onsubmit="DangKyTaiKhoanDVTT()">
+                <form name="FormDangKyDonViThucTap" action="../QuanTriHeThong/DonViThucTap/ThongTinDonViThucTap.php" method="post" enctype="application/x-www-form-urlencoded" id="BieuMauDangKyDonViThucTap" class="BangChinh" onsubmit="DangKyTaiKhoanDVTT()">
                     <!--
                         Bảng trái
                     -->

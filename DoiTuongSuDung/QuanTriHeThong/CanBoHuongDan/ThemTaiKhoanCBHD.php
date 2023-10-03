@@ -11,14 +11,14 @@
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/TrangChu.css">
         <link rel="stylesheet" href="SinhVien/GiaoDienTaoTaiKhoanSV.css">
 
-        <script src="../../../RangBuoc/SinhVien/RangBuocBieuMau.js" async></script>
+        <script src="../../../RangBuoc/CanBoHuongDan/RangBuocBieuMau.js" async></script>
     </head>
     <body>
         <head></head>
         <main>
-            <div class="KhungChua">
-                <h1 class="TieuDeDangKy">Sinh viên</h1><!--onsubmit="return BieuMauDangKy_TKSV()"-->
-                <form action="SinhVien/ThongTinSinhVien.php" class="BangChinh" method="post" name="bieuMauDangKy_SinhVien" id="BieuMauDangKySinhVien" autocomplete="off" enctype="application/x-www-form-urlencoded" onsubmit="return BieuMauDangKy_TKSV()">
+            <div class="KhungChua"> 
+                <h1 class="TieuDeDangKy">Cán bộ hướng dẫn</h1><!--onsubmit="return BieuMauDangKy_TKSV()"-->
+                <form action="CanBoHuongDan/ThongTinCBHD.php" class="BangChinh" method="post" name="bieuMauDangKy_CBHD" id="BieuMauDangKySinhVien" autocomplete="off" enctype="application/x-www-form-urlencoded" onsubmit="return BieuMauDangKy_TKCBHD()">
                     <table class="Bang1">
                         <tr>
                             <td>
@@ -29,25 +29,25 @@
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Ngày sinh:</p>
-                                <input class="LayThongTin" name="ngaySinh" id="ngaySinh" type="date" placeholder="Ngày sinh" value="Ngày sinh"/>
+                                <input class="LayThongTin" name="NgaySinh" id="NgaySinh" type="date" placeholder="Ngày sinh" value="Ngày sinh"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p class="TieuDeDien">Mã số sinh viên:</p>
-                                <input class="LayThongTin" name="MSSV" id="MSSV" type="text" placeholder="Mã số sinh viên"/>
+                                <p class="TieuDeDien">Mã số cán bộ hướng dẫn:</p>
+                                <input class="LayThongTin" name="MSCB" id="MSCB" type="text" placeholder="Mã số sinh viên"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <p class="TieuDeDien">Mã lớp:</p>
-                                <input class="LayThongTin" name="maLop" id="maLop" type="text"  placeholder="Mã lớp"/>
+                                <p class="TieuDeDien">Mã đơn vị thực tập:</p>
+                                <input class="LayThongTin" name="MaDVTT" id="MaDVTT" type="text"  placeholder="Mã lớp"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Mật khẩu:</p>
-                                <input class="LayThongTin" type="password" name="pw_sv" id="pw_sv" placeholder="Mật khẩu"/>
+                                <input class="LayThongTin" type="password" name="MatKhau" id="MatKhau" placeholder="Mật khẩu"/>
                             </td>
                         </tr>
                         <tr>
@@ -63,7 +63,7 @@
                                 <p class="TieuDeDien">
                                     <p> Giới tính:</p>
                                     <div class="ChinhKhungGioiTinh">
-                                        <span>Nam</span><input name="gioitinh" id="gioitinh" type="radio" value="M" checked/><span>Nữ</span><input name="gioitinh" id="gioitinh" type="radio" value="F"/>
+                                        <span>Nam</span><input name="GioiTinh" id="gioitinh" type="radio" value="M" checked/><span>Nữ</span><input name="GioiTinh" id="gioitinh" type="radio" value="F"/>
                                     </div>
                                 </p>
                             </td>
@@ -71,25 +71,19 @@
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Email:</p>
-                                <input class="LayThongTin" name="Email_sv" id="Email_sv" type="email" placeholder="Email" />
+                                <input class="LayThongTin" name="Email" id="Email" type="email" placeholder="Email" />
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Số điện thoại:</p>
-                                <input class="LayThongTin" name="sdt_sv" id="sdt_sv" type="text" placeholder="Số điện thoại"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p class="TieuDeDien">Căn cước công dân:</p>
-                                <input class="LayThongTin" name="cccd" id="cccd" type="text" placeholder="Căn cước công dân"/>
+                                <input class="LayThongTin" name="SDT" id="SDT" type="text" placeholder="Số điện thoại"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Địa chỉ:</p>
-                                <textarea class="DiaChiSV" name="diaChi_sv" id="diaChi_sv"  placeholder="Địa chỉ cư trú"></textarea>
+                                <textarea class="DiaChiSV" name="DiaChi" id="DiaChi"  placeholder="Địa chỉ cư trú"></textarea>
                             </td>
                         </tr>
                     </table>

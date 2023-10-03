@@ -1,0 +1,36 @@
+/* CSS */
+body {
+    min-height: 100vh;
+    margin: 0;
+}
+main {
+    justify-content: center;
+    padding: 0;
+}
+
+footer {
+    flex-shrink: 0; /* Không cho phần footer co lại khi trang không đủ chiều cao */
+    display: flex;
+    justify-content: space-between; /* Đặt nội dung footer cách xa nhau */
+    align-items: center; /* Căn giữa nội dung footer */
+}
+
+.inputDangNhap,.TieuDeDien,.NutDangky{
+    margin-left: 5vh;
+}
+.LayThongTin{
+    width: 17vw;
+}
+.NutDangky{
+    margin-left: 0;
+    margin-right: 1vw;
+}
+.KhungCapNhatTaiKhoan{
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    margin: 0 0 2vw 0;
+    padding: 3vw;
+}

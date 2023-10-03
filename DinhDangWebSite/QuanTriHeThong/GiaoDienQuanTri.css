@@ -3,7 +3,42 @@ footer{
     position: relative;
     z-index: 1;
 }
-
+main{
+    margin: 0;
+}
+.fa-pen-to-square{
+    font-size: 1.5em;
+    color: dodgerblue;
+}
+.fa-pen-to-square:hover{
+    color: darkorchid;
+}
+/* -- Bố trí biểu mẫu hiển thị -- */
+.KhungChua{
+    border: 1px solid black;
+    height: 100%;
+    width: 80%;
+    z-index: 0;
+    justify-content: center;
+    position: relative;
+    margin: 0;
+    padding: 0; 
+    margin: 0;
+}
+.BangHienThi_SV{
+    width: 100%;
+}
+.BangChinh{
+    display: grid;
+    grid-template-areas: 
+    "Bang1 Bang2";
+}
+.Bang1{
+    grid: 'Bang1';
+}
+.Bang2{
+    grid: 'Bang2';
+}
 /*  -- Bố trí thông tin -- */
 .Khung_chinh{
     z-index: 0;
@@ -23,6 +58,8 @@ footer{
 .ThanhThongTin{
     grid: "ThongTin";
     width: 78vw;
+    height: 100vh;
+    overflow: auto;
 }
 .BoTriMuc,.BoTriMuc_ds{
     text-align: center;
@@ -34,18 +71,55 @@ footer{
     font-family: Arial, Helvetica, sans-serif;
     border: 1px solid #EEEEEE;
 }
-.BoTriMuc:hover , .BoTriMuc_ds:hover{
+.BoTriMuc:hover{
     background-color: #00ADB5;
 }
-#NutChuyenTrangThemMauTin{
+.MauMucThongTinKhiChon{
+    background-color: #00b8c2;
+}
+
+.NutChuyenTrangThemMauTin{
     padding: 2vh;
     margin: 2vh 0 2vh 3vh;
 }
-
+/*Bảng cập nhật*/
+    /* --- Bảng cập nhật đơn vị thực tập --- */
+.BieuMauCapNhat{
+    display: flex;
+    justify-content: center;
+}
+.KhungThongNhat{
+    width: 100%;
+}
+.KhungDau{
+    display: grid;
+    grid-template-areas: 
+    'Thu1 Thu2';
+    border: 1px solid black;
+}
+.Dau1{
+    grid: "Thu1";
+}
+.Dau2{
+    grid: "Thu2";
+}
+.KhungDuoi{
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    width: 100%;
+}
+.TruongDiaChi{
+        width: 15vw;
+        height: 5vw;
+}
+.NutDangNhap{
+    margin-bottom: 2vh;
+}
 /*Bảng thông tin*/
-#BangThongTin{
+.BangThongTin{
     overflow: auto;
-    height: 100vh;
+    height: 100%;
 }
 .fa-backward{
     padding: 1.25vh;
@@ -60,13 +134,15 @@ footer{
     background-image: linear-gradient(to left,rgb(68, 125, 232),rgb(68, 95, 232),rgb(68, 68, 232) );
 }
 /*Bảng thêm mẫu tin*/
-#BangThemThongTin{
+.BangThemThongTin{
     display: none;
+    overflow: auto;
 }
 /*Ẩn hết các bảng trừ bảng thống kê*/
-#ThongTinSinhVien,#ThongTinGiaoVienHuongDan,#ThongTinDonViThucTap,#ThongTinCanBoHuongDan,#BaoCaoDS_dvtt,#BaoCaoDS_GVHD,#BaoCaoDS_deTai,#BaoCaoDiemSoThucTap,#BaoCaoSVThucHienLai{
-    display: ;
-}
-#ThongTinDonViThucTap{
+#ThongTinSinhVien,#ThongTinGiaoVienHuongDan,#ThongTinDonViThucTap,#ThongTinCanBoHuongDan,#BaoCaoDS_dvtt,#BaoCaoDS_GVHD,#BaoCaoDS_deTai,#BaoCaoDiemSoThucTap,#BaoCaoSVThucHienLai,#ThongTinTaiKhoan{
     display: none;
+}
+/*Nút quay về cho tất cả các trang chỉnh sửa*/
+.QuayVe{
+    display: block;
 }

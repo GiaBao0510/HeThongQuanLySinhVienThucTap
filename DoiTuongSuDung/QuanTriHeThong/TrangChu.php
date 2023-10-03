@@ -15,11 +15,11 @@
         <!--
             Java script
         -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
         <script src="../../RangBuoc/TrangDungChung/DungChung.js"></script>
         <script src="../../RangBuoc/QuanTriHeThong/trangchu.js" async></script>
-        <!--
-            php
-        -->
+        
+        
     </head>
     <body>
         <header></header>
@@ -29,60 +29,107 @@
                     ### Thanh bên trái ###
                 -->
                 <div class="ThanhQuanLy">
-                    <p class="BoTriMuc">Trang chủ</p>
-                    <p class="BoTriMuc">Sinh viên</p>
-                    <p class="BoTriMuc">Giáo viên hướng dẫn</p>
-                    <p class="BoTriMuc">Đơn vị thực tập</p>
-                    <p class="BoTriMuc">Cán bộ hướng dẫn</p>
-                    <p class="BoTriMuc">Tài khoản</p>
+                    <p class="BoTriMuc" id="ThongKe">Trang chủ</p>
+                    <p class="BoTriMuc" id="SinhVien">Sinh viên</p>
+                    <p class="BoTriMuc" id="GiaoVienHuongDan">Giáo viên hướng dẫn</p>
+                    <p class="BoTriMuc" id="DonViThucTap">Đơn vị thực tập</p>
+                    <p class="BoTriMuc" id="CanBoHuongDan">Cán bộ hướng dẫn</p>
+                    <p class="BoTriMuc" id="TaiKhoan">Tài khoản</p>
                     <p class="BoTriMuc">Báo cáo</p>
                     <div class="DanhSachBaoCao">
-                        <p class="BoTriMuc_ds">Báo cáo danh sách sinh viên theo đợt thực tập</p>
-                        <p class="BoTriMuc_ds">Báo cáo danh sách giảng viên theo đợt thực tập</p>
-                        <p class="BoTriMuc_ds">Báo cáo danh sách đề tài theo đợt thực tập</p>
-                        <p class="BoTriMuc_ds">Báo cáo điểm số theo đợt thực tập</p>
-                        <p class="BoTriMuc_ds">Báo cáo sinh viên thực hiện lại thực tập</p>
+                        <p class="BoTriMuc_ds" id="bs_dssv">Báo cáo danh sách sinh viên theo đợt thực tập</p>
+                        <p class="BoTriMuc_ds" id="bs_dsgv">Báo cáo danh sách giảng viên theo đợt thực tập</p>
+                        <p class="BoTriMuc_ds" id="bs_dsdetai">Báo cáo danh sách đề tài theo đợt thực tập</p>
+                        <p class="BoTriMuc_ds" id="bs_diemso">Báo cáo điểm số theo đợt thực tập</p>
+                        <p class="BoTriMuc_ds" id="bs_sinhvienrot">Báo cáo sinh viên thực hiện lại thực tập</p>
                     </div>
                 </div>
                 <!--
                     ### Bản tin ###
                 -->
                 <div class="ThanhThongTin">
-                    <div class="ThongTinThongKe">
+                    <div id="ThongTinThongKe">
                         <h1>Thống kê</h1>
                     </div>
+                    <!--Sinhvien-->
                     <div id="ThongTinSinhVien">
-                        <div id="BangThongTin">
+                        <div class="BangThongTin">
                             <?php
-                                include('../QuanTriHeThong/SinhVien/ThemTaiKhoanSinhVien.php');
+                                include('../QuanTriHeThong/SinhVien/BangThongTinSinhVien.php');
                             ?>
-                            <button id="NutChuyenTrangThemMauTin"  class="NutDangNhap">Thêm tài khoản Sinh viên</button>
+                            <button class="NutChuyenTrangThemMauTin NutDangNhap" >Thêm tài khoản Sinh viên</button>
                         </div>
-                        <div id="BangThemThongTin">
-                            <button id="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
+                        <div class="BangThemThongTin">
+                            <button class="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
                             <?php
                                 include('../QuanTriHeThong/SinhVien/ThemTaiKhoanSinhVien.php');
                             ?>
                         </div>
                     </div>
-                    <div id="ThongTinGiaoVienHuongDan"></div>
+                    <!--Giao vien-->
+                    <div id="ThongTinGiaoVienHuongDan">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/GiaoVienHuongDan/BangThongTinGiaoVien.php');
+                            ?>
+                            <button class="NutChuyenTrangThemMauTin NutDangNhap">Thêm Giáo viên hướng dẫn</button>
+                        </div>
+                        <div class="BangThemThongTin">
+                            <button class="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
+                            <?php
+                                include('../QuanTriHeThong/GiaoVienHuongDan/ThemTaiKhoanGVHD.php');
+                            ?>
+                        </div>
+                    </div>
+                    <!--Đơn vị thực tập-->
                     <div id="ThongTinDonViThucTap">
-                        <div id="BangThongTin">
+                        <div class="BangThongTin">
                             <?php
                                 include('../QuanTriHeThong/DonViThucTap/BangThongTinDonVi.php');
                             ?>
-                            <button id="NutChuyenTrangThemMauTin"  class="NutDangNhap">Thêm đơn vị thực tập</button>
+                            <button class="NutChuyenTrangThemMauTin NutDangNhap">Thêm đơn vị thực tập</button>
                         </div>
-                        <div id="BangThemThongTin">
-                            <button id="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
+                        <div class="BangThemThongTin">
+                            <button class="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
                             <?php
                                 include('../QuanTriHeThong/DonViThucTap/ThemDonViThucTap.php');
                             ?>
                         </div>
                     </div>
-                    <div id="ThongTinCanBoHuongDan"></div>
+                    <!--Cán bộ-->
+                    <div id="ThongTinCanBoHuongDan">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/CanBoHuongDan/BangThongTinCanBo.php');
+                            ?>
+                            <button class="NutChuyenTrangThemMauTin NutDangNhap">Thêm đơn vị thực tập</button>
+                        </div>
+                        <div class="BangThemThongTin">
+                            <button class="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
+                            <?php
+                                include('../QuanTriHeThong/CanBoHuongDan/ThemTaiKhoanCBHD.php');
+                            ?>
+                        </div>
+                    </div>
+                    <!--Tài khoản-->
+                    <div id="ThongTinTaiKhoan">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/TaiKhoan/BangThongTinTaiKhoan.php');
+                            ?>
+                            <button class="NutChuyenTrangThemMauTin NutDangNhap">Tạo tài khoản</button>
+                        </div>
+                        <div class="BangThemThongTin">
+                            <button class="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
+                            <?php
+                                include('../QuanTriHeThong/TaiKhoan/ThemTaiKhoanTK.php');
+                            ?>
+                        </div>
+                    </div>
+                    <!--Báo cáo danh sách sinh viên-->
                     <div id="BaoCaoDS_dvtt"></div>
                     <div id="BaoCaoDS_GVHD"></div>
+                    <div id="BaoCaoDS_CBHD"></div>
                     <div id="BaoCaoDS_deTai"></div>
                     <div id="BaoCaoDiemSoThucTap"></div>
                     <div id="BaoCaoSVThucHienLai"></div>

@@ -27,4 +27,3 @@
     XoaMauTin_dvtt();
     
 ?>
-<a href="../../../DoiTuongSuDung/TrangDungChung/KetNoi.php"></a>

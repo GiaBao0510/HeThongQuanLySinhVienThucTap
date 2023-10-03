@@ -12,9 +12,11 @@ main{
 /*Chân trang*/
 footer{
     display: grid;
+    margin: 0;
     grid-template-areas: 
     "ChanPhai ChanTrai";
     border: 1px solid rgb(157, 157, 157);
+    display: flex;
     left: 0;
     bottom: 0;
     width: 100vw;

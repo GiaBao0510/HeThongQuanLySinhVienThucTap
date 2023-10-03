@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="../../../DoiTuongSuDung/QuanTriHeThong/DonViThucTap/GiaoDienBieuMau_DVTT.css">
+<script src="../../../RangBuoc/QuanTriHeThong/trangchu.js"></script>
 <?php
 //1.Hiển thị thông tin bảng đơn vị thực tập
     function BangDonViThucTap(){
@@ -9,7 +10,7 @@
         $TV_bangDVTT = "SELECT * FROM donvithuctap";
         $kqtv = mysqli_query($connect,$TV_bangDVTT);
         //In bảng
-        echo"<form action='DonViThucTap/XoaMauTin.php' method='post'>";
+        echo"<form action='DonViThucTap/XoaMauTin.php' method='post' onsubmit='ThongBaoXoaThanhCong()'>";
             echo'<table class="ThongTin_DVTT">';
                 echo'<tr class="row_TTdvtt">';
                     echo'<th class="TieuDe_TTdvtt">MaDVTT</th>';
@@ -29,7 +30,7 @@
                     echo'<td class="thongTinHang">'.$row['SDT'].'</td>';
                     echo'<td class="thongTinHang">'.$row['Email'].'</td>';
                     echo'<td class="thongTinHang"> <input class="DanhDau" type="checkbox" name="checkbox[]" value="'.$row['MaDVTT'].'"> </td>';
-                    echo'<td class="thongTinHang">'."<a href='DonViThucTap/CapNhatMauTin_dvtt.php'>CapNhat</a>".'</td>';
+                    echo'<td class="thongTinHang">'."<a href='DonViThucTap/CapNhatMauTin_dvtt.php?MaDVTT=".$row['MaDVTT']."'> <i class='fa-solid fa-pen-to-square'></i> </a>".'</td>';
                 echo'</tr>';
         }
                 echo'<tr class="row_TTdvtt">';
@@ -41,17 +42,4 @@
         echo'</form>';
     }
     BangDonViThucTap();
-    //2. Thực hiện xóa mẫu tin trong bảng đơn vị thực tập
-    function XoaMauTin_dvtt(){
-        //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php
-        include ('../../../web_site/DoiTuongSuDung/TrangDungChung/KetNoi.php');
-        //Kiểm tra xem nếu mảng checkbox này không rỗng thì thực hiện công việc sau
-        if(!empty($_POST['checkbox'])){
-            $checkbox = $_POST['checkbox'];
-            foreach($checkbox as $i){
-                echo "<p>".$i."</p>";
-            }
-        }
-    }
-        XoaMauTin_dvtt();
 ?> 
