@@ -1,6 +1,7 @@
 <?php
     //Kết Nối
     include("../../TrangDungChung/KetNoi.php");
+    include("../../TrangDungChung/CacHamXuLy.php");
 
     //Chấp nhân với phương thức post
     header('Access-Control-Allow-Methods: POST');
@@ -8,9 +9,8 @@
     $ma = trim($_POST['MaDVTT']);
 
     //Thực hiện tìm kiếm có lớp nào trùng không
-    $timKiem = "SELECT * FROM donvithuctap WHERE MaDVTT = '$ma'";
-    $thucHienTimKiem= mysqli_query($connect,$timKiem);
-    $maDuocTim = strval(mysqli_fetch_array($thucHienTimKiem)['MaDVTT']);
+    $maDuocTim = infDonViThucTap($ma)['MaDVTT'];
+
     /*echo "<p>Mã Số Giáo Viên:</p>".$_POST['MSCB'];
     echo "<p>Họ Tên: </p>".$_POST['HoTen'];
     echo "<p>Giới tính: </p>".$_POST['GioiTinh'];
@@ -19,13 +19,13 @@
     echo "<p>Gmail: </p>".$_POST['Email'];
     echo "<p>Mật khẩu: </p>".$_POST['MatKhau'];
     echo "<p>Địa chỉ: </p>".$_POST['DiaChi'];
-    echo "<p>Mã đơn vị thực tập: </p>".$ma;*/
-
+    echo "<p>Mã đơn vị thực tập: </p>".$ma;
+    echo "<p>Mã đơn vị thực tập vừa tìm đươc: ".$maDuocTim."</p>";*/
 
     //Nếu tìm thấy mã lớp cần tìm thì Thực hiện Kiểm tra thêm lần nữa
     
-    if($ma === $maDuocTim){
-
+    if(!empty($maDuocTim)){
+        echo "<p>Tìm thấy mã đơn vị thực tập </p>";
         //Kiểm tra xem mã số Giáo viên có bị trùng không . nếu không trùng thì thêm dữ liệu
         $maso = trim($_POST["MSCB"]);
         $masoTrung = "SELECT * FROM canbohuongdan WHERE MSCB = '$maso' ";
@@ -33,7 +33,7 @@
         if(empty(mysqli_fetch_array($thucHienTimMaSoTrung))){
            //Lệnh dùng để xen mẫu tin
             $chenMauTin = "INSERT INTO canbohuongdan values ('".$_POST['MSCB']."','".$_POST['HoTen']."','".$_POST['NgaySinh']."','".$_POST['GioiTinh']."','".$_POST['DiaChi']."','".$_POST['SDT']."','".$_POST['Email']."','".$ma."') ";
-            $role = 1;
+            $role = 4;
             $chenMauTin_taiKhoan = "INSERT INTO taikhoan VALUES('".$_POST['MSCB']."','".$_POST['MatKhau']."','".$role."') ";
             
             //Điều kiện trước khi xen nếu toàn bộ trường được điền thì xen
@@ -52,10 +52,10 @@
             }
         }else{
             echo "<p>Mã số giáo viên hướng dẫn bị trùng. => Thêm thất bại</p>";
-        }
-        
-        header("Location: ../../QuanTriHeThong/TrangChu.php");
-        
+            
+        }   
+    }else{
+        echo "<p>Khong tìm thấy mã đơn vị thực tập </p>";
     }
-    
+    header("Location: ../../QuanTriHeThong/TrangChu.php");
 ?>

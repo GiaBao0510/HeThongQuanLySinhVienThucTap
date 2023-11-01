@@ -26,7 +26,7 @@
                     WHERE MSGV = '".mysqli_real_escape_string($connect, trim($_POST['MSGV']))."' ";
 
     $CapNhat_tk = " UPDATE taikhoan
-                    SET UserID = '".trim($_POST['MSGV'])."', MatKhau = '".trim($_POST['MatKhau'])."', UserRole = '".trim($_POST['UserRole'])."'
+                    SET UserID = '".trim($_POST['MSGV'])."', MatKhau = '".trim($_POST['MatKhau'])."', UserRole = '2'
                     WHERE  UserID = '".trim($_POST['MSGV'])."' ";
     //Thực hiện
     $thucHien1 = mysqli_query($connect,$CapNhat_sv ) or die(mysqli_connect_error());

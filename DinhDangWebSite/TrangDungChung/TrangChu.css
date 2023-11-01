@@ -18,7 +18,20 @@
     justify-content: center;
     margin-top: 3%;
 }
-
+/*  --- Trang Đăng nhập --- */
+.TieuDeDangNhap{
+    font-family: Arial;
+    margin: 2vw 0 3vw 0;
+    text-shadow: 2px 4px 4px rgb(162, 161, 161);
+}
+.fa-lock,.fa-user{
+    font-size: 1.5em;
+    cursor: pointer;
+    color: royalblue;
+}
+.fa-lock:hover,.fa-user:hover{
+    color: rgb(80, 173, 240);
+}
 /*      ---         Định dạng khung cửa thứ nhất         ---         */
 .KhungCuaThuNhat, /*Bên Đăng ký*/.KhungCuaThuHai{
     display: flex;
@@ -32,7 +45,7 @@
 .CuaSo1{
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    box-shadow: 2px 4px 4px rgb(162, 161, 161);
+    box-shadow: 1px 2px 2px rgb(162, 161, 161);
 }
 .BieuMauDangNhap{
     padding: 5vh;
@@ -107,7 +120,6 @@
     padding: 0.25em 0 0.25em 0;
 
 }
-
 #Chon_DKSV:hover,#Chon_DKDVTT:hover{
     text-decoration-line: underline;
 }

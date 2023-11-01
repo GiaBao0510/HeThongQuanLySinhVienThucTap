@@ -139,7 +139,7 @@ main{
     overflow: auto;
 }
 /*Ẩn hết các bảng trừ bảng thống kê*/
-#ThongTinSinhVien,#ThongTinGiaoVienHuongDan,#ThongTinDonViThucTap,#ThongTinCanBoHuongDan,#BaoCaoDS_dvtt,#BaoCaoDS_GVHD,#BaoCaoDS_deTai,#BaoCaoDiemSoThucTap,#BaoCaoSVThucHienLai,#ThongTinTaiKhoan{
+#ThongTinSinhVien,#ThongTinGiaoVienHuongDan,#ThongTinDonViThucTap,#ThongTinCanBoHuongDan,#BaoCaoDS_dvtt,#BaoCaoDS_GVHD,#BaoCaoDS_deTai,#BaoCaoDiemSoThucTap,#BaoCaoSVThucHienLai,#ThongTinTaiKhoan,#ThongTinDieuHuongSinhVien{
     display: none;
 }
 /*Nút quay về cho tất cả các trang chỉnh sửa*/

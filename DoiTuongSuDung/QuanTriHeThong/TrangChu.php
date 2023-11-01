@@ -35,6 +35,7 @@
                     <p class="BoTriMuc" id="DonViThucTap">Đơn vị thực tập</p>
                     <p class="BoTriMuc" id="CanBoHuongDan">Cán bộ hướng dẫn</p>
                     <p class="BoTriMuc" id="TaiKhoan">Tài khoản</p>
+                    <p class="BoTriMuc" id="DieuHuongSinhVienTT">Điều hướng sinh viên thực tập</p>
                     <p class="BoTriMuc">Báo cáo</p>
                     <div class="DanhSachBaoCao">
                         <p class="BoTriMuc_ds" id="bs_dssv">Báo cáo danh sách sinh viên theo đợt thực tập</p>
@@ -123,6 +124,14 @@
                             <button class="NutChuyenTrangBangTin"><i class="fa-solid fa-backward"></i></button>
                             <?php
                                 include('../QuanTriHeThong/TaiKhoan/ThemTaiKhoanTK.php');
+                            ?>
+                        </div>
+                    </div>
+                    <!--Điều hướng sinh viên-->
+                    <div id="ThongTinDieuHuongSinhVien">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/DieuHuongSinhVienChoGiaoVien/SoLuongSinhVienDuocGiangVienHuongDan.php');
                             ?>
                         </div>
                     </div>

@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+    /*  --- Thân trang  --- */
+main{
+    display: flex;
+    justify-content: center;
+}
+.KhungChot{
+    display: grid;
+    grid-template-areas: 
+    'Khung1 Khung1 Khung2 ';
+    padding: 0;
+    z-index: 0;
+    border: 1px rgb(195, 195, 195) solid;
+    width: 90vw;
+    height: 100vh;
+}
+td{
+    padding: 5px;
+    border-top: 1px solid rgb(203, 203, 203);
+}
+.CotTieuDe{
+    border-top:0;
+}
+.BieuMauHoSo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.BangHoSo{
+    border-collapse: collapse;
+    width: 95%;
+}
+.KhungCaNhan{
+    grid: 'Khung1';
+    overflow: auto;
+}
+.KhungChonChucNang{
+    grid: 'Khung2';
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.BangChucNang{
+    padding: 3vw;
+    height: 70vh;
+    margin-left: 2vw;
+}
+.tieuDeThongTin,.TieuDeHoSo{
+    margin-top: 1vh;
+    background-color: rgb(222, 225, 226);
+    font-size: 1.25em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.TieuDeHoSo{
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    background-color: #fff;
+    font-size: 1.5em;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+.OChucNang{
+    display: block;
+    border: 1px solid black;
+    width: 15vw;
+    height: 10vw;
+    margin: 0 3vw 2vw 0;
+    text-align: center;
+}
+.NutDangNhap{
+    text-decoration: none;
+    margin-bottom: 2vw;
+}
+    /*  --- Chân trang  --- */
+footer {
+    margin: 0;
+    flex-shrink: 0; /* Không cho phần footer co lại khi trang không đủ chiều cao */
+    display: flex;
+    justify-content: space-between; /* Đặt nội dung footer cách xa nhau */
+    align-items: center; /* Căn giữa nội dung footer */
+    padding: 0;
+    width: 100vw;
+    z-index: 1;
+}
+
+/*Trang chỉnh sửa thông tin cá nhân*/
+.ThongTinChinhSua{
+    font-size: 1em;
+    font-family: 'Times New Roman', Times, serif;
+}

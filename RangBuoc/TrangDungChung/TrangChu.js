@@ -70,4 +70,5 @@ window.addEventListener("load",()=>{
         khung1.style.display = "flex";
         khung2.style.display = "none";
     });
-})
+});
+

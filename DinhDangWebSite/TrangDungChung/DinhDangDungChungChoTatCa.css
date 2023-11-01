@@ -4,6 +4,63 @@
     padding: 0;
     border: 0;
 }
+/*  --- Đầu trang  --- */
+header{
+    z-index: 1;
+}
+.DauTrang{
+    display: grid;
+    grid-template-areas: 
+    'Logo NutChucNang';
+    margin-bottom: 3vh;
+    background-image: url( ../../Image/AnhDauTrang.jpg);
+    width: 100vw;
+    height: 15vh;
+}
+.logo{
+    grid: 'Logo';
+}
+.AnhLogo{
+    cursor: pointer;
+    margin: 0;
+    height: 18vh;
+    width: 40vh;
+    padding: 0;
+    margin-left: 5vw;
+}
+.CacNut{
+    display: flex;
+    grid: 'NutChucNang';
+    justify-content: flex-end;
+    align-items: center;
+}
+.NutThoat,.NutTrangChu{
+    margin: 0 2vh 0 0;
+    display: block;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 3px;
+    font-family: Arial;
+    background-color: rgb(164, 212, 247);
+    color: rgb(38, 38, 246);
+    cursor: pointer;
+    box-shadow: 2px 3px 3px rgb(51, 99, 133);
+}
+.NutThoat:hover,.NutTrangChu:hover{
+    color: rgb(85, 4, 206);
+}
+.fa-house,.fa-door-open{
+    font-size: 1.25em;
+    margin-right: 1vh;
+    text-shadow: 2px 3px 3px rgb(141, 205, 250);
+}
+.fa-house{
+    color: blue;
+}
+.fa-door-open{
+    color: red;
+}
 
 /*Thân trang*/
 main{

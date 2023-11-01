@@ -1,0 +1,175 @@
+    /* --- Bảng --- */
+    table{
+        border-collapse: collapse;
+    }
+    table tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+    table tr:hover{
+        background-color: #ffedcc;
+    }
+/* --- Trang giấy giới thiệu cá nhân --- */
+.KhungGiayGioiThieu{
+    display: flex;
+    position: relative;
+    justify-items: center;
+    justify-content: center;
+
+}
+.KhungGiayGioiThieuTongQuat{
+    display: block;
+    border: 1px solid black;
+    font-family: Arial;
+    width: 75%;
+    padding: 1vw;
+    padding-bottom: 4vw;
+}
+.DeMucGT{
+    font-weight: 550;
+    font-size: 1em;
+}
+.KhungDauDe{
+    margin: 3vw 0 3vw 0;
+    font-size: 0.85em;
+    display: grid;
+    grid-template-areas: 'DauDeTrai DauDePhai';
+}
+.ThongTinDauDeTrai{
+    grid: 'DauDeTrai';
+}
+.ThongTinDauDePhai{
+    grid: 'DauDePhai';
+}
+.NgayThangLapPhieuGT{
+    font-size: 1.5em;
+    margin-top: 2vw;
+}
+.ThongTinDauDeTrai,.ThongTinDauDePhai{
+    text-align: center;
+    font-size: 0.75em;
+}
+.TieuDeGT{
+    text-align: center;
+    margin: 2vh 0 2vh 0;
+    font-size: 1.35em;
+}
+.ChanThongTinGioiThieu{
+    margin:3vw 0 3vw 0;
+    display: grid;
+    grid-template-areas: 'chan1 chan2';
+    text-align: center;
+}
+.ThanThongTinGioiThieu p{
+    margin-top: 2vw;
+}
+.ThongTinCamOn_GGT{
+    text-align: left;
+}
+.ChanThongTin1{
+    grid: 'chan1';
+}
+.ChanThongTin2{
+    grid: 'chan2';
+}
+/*Trang chon đơn vị thực tập*/
+.BangChonDVTT{
+    border: 1px rgb(153, 153, 153) solid;
+    border-radius: 5px;
+}
+.TieuDeBangChonDVTT{
+    margin: 0;
+    font-size: 1.25em;
+    font-family: Arial;
+    padding: 2vh 0 2vh 0;
+    color: antiquewhite;
+    background-image: linear-gradient(to left,rgb(68, 125, 232),rgb(68, 95, 232),rgb(68, 68, 232) );
+}
+.CotChonDVTT{
+    display: flex;
+    justify-content: center;
+}
+.nutChonDVTT{
+    width: 18px;
+    border-radius: 10px;
+}
+.HangCuoiChonDVTT,.HangCuoiChonDVTT:hover{
+    background-color: #fff;
+}
+.NutChuyenTrangCV{
+    background-color: blue;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.25em;
+    font-family: Arial;
+    border-radius: 5px;
+    box-shadow: 2px 4px 4px rgb(162, 161, 161), 2px 4px 4px rgb(162, 161, 161);
+    padding: 1vw;
+}
+.NutChuyenTrangCV:hover{
+    background-color: rgb(4, 71, 253);
+}
+/*  Trang chuẩn bị nộp phiếu tiếp nhận cho giáo viên hướng dẫn  */
+.Main_ChuanBiNopPhieu{
+    display: flex;
+    justify-content: center;
+}
+.TongQuanPhieuNopThucTap{
+    width: 70vw;
+    border: 1px black solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.TieuDePhieuTiepNhanSinhVienThucTap{
+    margin: 2vw 0 2vw 0;
+}
+.TieuDeNoiDung{
+    height: 5vw;
+    margin-bottom: 3vw;   
+}
+.BangThongTin{
+    margin-top: 3vw;
+    margin-bottom: 2vw;
+    font-size: 1.05em;
+}
+.KhungNoiDungCongViec,.BangThongTin{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 90%;
+}
+.BangNoiDungCongViec{
+    border: 1px rgb(153, 153, 153) solid;
+    margin-bottom: 4vw;
+}
+.TruongXetDuyetSinhVien{
+    display: flex;
+}
+.NutDuyetSV,.NutKhongDuyetSV{
+    text-decoration: none;
+    font-size: 1.25em;
+    font-family: Arial;
+    font-weight: 550;
+    border-radius: 5px;
+    display: block;
+    margin: 0 0 2vw 2vw;
+    padding: 1vh;
+    cursor: pointer;
+    color: #fff;
+    box-shadow: 2px 4px 4px rgb(162, 161, 161), 2px 4px 4px rgb(162, 161, 161);
+}
+.NutDuyetSV{
+    border: 1px solid rgb(0, 69, 2);
+    background-image: linear-gradient(to left,rgb(5, 172, 33),rgb(14, 199, 45),rgb(5, 172, 33));
+}
+.NutDuyetSV:hover{
+    background-image: linear-gradient(to left,rgb(0, 124, 21),rgb(13, 157, 37),rgb(1, 100, 18));
+}
+.NutKhongDuyetSV{
+    border: 1px solid rgb(86, 1, 1);
+    background-image: linear-gradient(to left,rgb(199, 1, 1),rgb(198, 7, 7),rgb(168, 3, 3));
+}
+.NutKhongDuyetSV:hover{
+    background-image: linear-gradient(to left,rgb(225, 10, 10),rgb(238, 0, 0),rgb(221, 2, 2));
+}

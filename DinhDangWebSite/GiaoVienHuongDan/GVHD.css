@@ -1,0 +1,52 @@
+/*Xem danh sách sinh viên được giao cho giáo viên hướng dẫn*/
+.banhDanhSachSinhVien th, .banhDanhSachSinhVien td{
+    padding: 1.25vw 1vh 1.25vw 1vh;
+    border: solid 1px rgb(164, 163, 163);
+}
+.banhDanhSachSinhVien tr:nth-child(odd){
+    background-color: rgb(246, 250, 188);
+}
+.banhDanhSachSinhVien tr:hover{
+    background-color: rgb(187, 176, 250);
+}
+.banhDanhSachSinhVien{
+    background-color: #fff;
+    border: solid 1px rgb(164, 163, 163);
+    border-radius: 5px;
+    text-align: center;
+    border-collapse: collapse;
+}
+.TruongTieuDeSinhVienDuocNhan{
+    font-family: Arial;
+    color: #eee;
+    background-image: linear-gradient(to right,#0a3ece,#0c5dcf,#0063aa,#004fbd);
+}
+.NutXemGiayGioiThieu,.NutXemThongTinTiepNhanThucTap{
+    display: block;
+    border: solid 1px black;
+    cursor: pointer;
+    padding: 1vh;
+    color: #eee;
+    background-color: #0039D7;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.NutXemGiayGioiThieu:hover,.NutXemThongTinTiepNhanThucTap:hover{
+    background-color: #007dd7;
+    transition: 0.25s;
+}
+.fa-circle-xmark,.fa-circle-check{
+    background-color: #dfdede;
+    font-size: 2em;
+    border-radius: 100%;
+    text-shadow: 1px 2px 2px rgb(187, 187, 187);
+    
+}
+.fa-circle-check{
+    color: rgb(0, 212, 0);
+}
+.fa-circle-xmark{
+    color: rgb(225, 6, 6);
+}
+
+

@@ -1,0 +1,100 @@
+
+/*Bảng Chuẩn bị cập nhật sinh viên*/
+.BangThongTinCuaGiangVien,.BangThongTinSinhVienChuanBiThem{
+    margin-top: 3vw;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    width: 50vw;
+    font-family: arial;
+}
+.BangThongTinCuaGiangVien td{
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+.BangThongTinCuaGiangVien tr:nth-child(odd),.BangThongTinSinhVienChuanBiThem tr:nth-child(odd){
+    background-color: #e7e7e7;
+}
+.KhungChuaCoSinhVienHuongDan {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    margin-bottom: 12vw;
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+    text-align: center;
+}
+.fa-circle-xmark{
+    display: block;
+    color: #eee;
+    font-size: 2em;
+    background-color:  rgb(225, 1, 1);
+    border-radius: 100%;
+    box-shadow: 1px 3px 3px rgb(137, 137, 137);
+    cursor: pointer;
+}
+.fa-circle-xmark:hover{
+    color: red;
+    background-color:  #eee;
+}
+.NutTat{
+    display: flex;
+    justify-content: flex-end;
+}
+.KhungChuyenSinhVienChoGiangVien{
+    display: none;
+    z-index: 2;
+    position: fixed;
+    background-color: hsl(60, 67%, 94%);
+    padding: 2vw;
+    border: 1px rgb(118, 118, 118) solid;
+    border-radius: 5px;
+}
+.BangThongTinSinhVienChuanBiThem{
+    margin-top: 1vw;
+    height: 40vh;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px rgb(137, 137, 137);
+    background-color: #fff;
+}
+.BangThongTinSinhVienChuanBiThem tr,.BangThongTinSinhVienChuanBiThem td{
+    border: 1px solid rgb(93, 93, 93);
+    padding: 10px;
+}
+.BangThongTinSinhVienChuanBiThem th{
+    background-color: #4d71d3;
+    color: #eee;
+    padding: 10px;
+}
+.CotTieuDeThemSinhVienChoGV{
+    padding: 1vh 0 1vh;
+}
+.NutChuyenSinhVienChoGiangVien,.NutXoaSinhVienTuGiangVien{
+    color: #fff;
+    background-image: linear-gradient(to right, rgb(33, 187, 33), rgb(0, 204, 0));
+    border: 1px solid rgb(0, 96, 2);
+    font-size: 1.05em;
+    padding: 1vh;
+    border-radius: 5px;
+    box-shadow: 1px 3px 3px rgb(137, 137, 137);
+    cursor: pointer;
+}
+.NutChuyenSinhVienChoGiangVien:hover{
+    border: 1px solid black;
+    background-image: linear-gradient(to right, rgb(0, 96, 2), rgb(0, 81, 1));
+}
+.NutXoaSinhVienTuGiangVien{
+    background-image: linear-gradient(to right,rgb(220, 9, 9),rgb(234, 0, 0));
+}
+.NutXoaSinhVienTuGiangVien:hover{
+    background-image: linear-gradient(to right,rgb(199, 0, 0),rgb(175, 0, 0));
+}
+.TieuDeThongTinSinhVienDuocGiaoVienNhan,.cotTieuDeSinhVinhDuocGiaoVienHuongDan{
+    padding: 1vw 0 1vw;
+    background-color: #4d71d3;
+    color: #e7e7e7;
+}
+.cotTieuDeSinhVinhDuocGiaoVienHuongDan{
+    border: 1px solid rgb(64, 64, 64);
+}

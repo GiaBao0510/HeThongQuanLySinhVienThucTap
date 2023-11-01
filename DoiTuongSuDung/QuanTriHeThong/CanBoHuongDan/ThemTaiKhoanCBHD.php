@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thêm sinh viên</title>
+        <title>Thêm tài khoản cán bộ</title>
         
         <!--Tự viết -->
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
@@ -14,7 +14,7 @@
         <script src="../../../RangBuoc/CanBoHuongDan/RangBuocBieuMau.js" async></script>
     </head>
     <body>
-        <head></head>
+        <header></header>
         <main>
             <div class="KhungChua"> 
                 <h1 class="TieuDeDangKy">Cán bộ hướng dẫn</h1><!--onsubmit="return BieuMauDangKy_TKSV()"-->

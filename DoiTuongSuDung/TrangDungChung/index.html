@@ -8,14 +8,26 @@
 
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/TrangChu.css">
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
         <script src="../../RangBuoc/TrangDungChung/TrangChu.js" async></script>
         <script src="../../RangBuoc/SinhVien/RangBuocBieuMau.js" async></script>
+        <script src="../../RangBuoc/TrangDungChung/index.js" async></script>
         <script src="../../RangBuoc/TrangDungChung/DungChung.js"></script>
         
     </head>
     <body>
-        <head></head>
+        <header>
+            <div class="DauTrang">
+                <div class="logo">
+                    <img src="../../Image/logo2.png" class="AnhLogo"/>
+                </div>
+                <div class="CacNut">
+                    <a href="index.html" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                </div>
+            </div>
+        </header>
         <main >
             <div class="KhungChinh">
                 <!--
@@ -23,29 +35,30 @@
                 -->
                 <div class="KhungCuaThuNhat" id="KhungCuaThuNhat">
                     <div class="CuaSo1">
-                        <form name="BieuMauDangNhap" class="BieuMauDangNhap" action="" autocomplete="off" method="post" enctype="application/x-www-form-urlencoded">
+                        <form name="FromDangNhap" class="BieuMauDangNhap" action="KiemTraDangNhap.php" autocomplete="off" method="post" enctype="application/x-www-form-urlencoded" onsubmit="return KiemTraDangNhap()">
                             <table>
                                 <tr>
                                     <td colspan="2">
-                                        <h1>Đăng Nhập</h1>
+                                        <h1 class="TieuDeDangNhap">Đăng Nhập</h1>
                                     </td>
                                 </tr>
                                 <!--Hàng tài khoản-->
                                 <tr>
                                     <td>
-                                        <p>Mã số đăng nhập</p> 
+                                        <label for="IDDangNhap"><i class="fa-solid fa-user"></i></label>
                                     </td>
                                     <td>
-                                        <input name="NhapMaDangNhap" type="text" size="30" maxlength="8" title="Nhập mã đăng nhập" placeholder="Mã đăng nhập"/>
+                                        <input name="MaDangNhap" id="IDDangNhap" class="NhapMaDangNhap" type="text" size="30" maxlength="8" title="Nhập mã đăng nhập" placeholder="Mã đăng nhập"/>
                                     </td>
                                 </tr>
                                 <!--Hàng mật khẩu-->
                                 <tr>
                                     <td>
-                                        <p>Mật khẩu</p> 
+                                        <label for="IDMatKhauDangNhap"><i class="fa-solid fa-lock"></i></label>
                                     </td>
                                     <td>
-                                        <input name="NhapMatKhauDangNhap" type="password" size="30" title="Nhập mật khẩu đăng nhập" placeholder="Mật khẩu"/>
+                                        <input name="MatKhauDangNhap" id="IDMatKhauDangNhap" class="NhapMatKhauDangNhap" type="password" size="30" title="Nhập mật khẩu đăng nhập" placeholder="Mật khẩu"/>
+                                        <input type="hidden" name="status" id="status"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -241,5 +254,12 @@
             </div>
         </footer>
         <script src="../../RangBuoc/DonViThucTap/linhHoat_DVTT.js" async></script>
+        <!--Hiển thị thông báo khi không thấy tài khoản-->
+        <script>
+            var status = "<?php echo $KhongThay; ?>";
+            if(status == "KhongThayTaiKhoan"){
+                alert('Tài khoản không tồn tại');
+            }
+        </script>
     </body>
 </html>

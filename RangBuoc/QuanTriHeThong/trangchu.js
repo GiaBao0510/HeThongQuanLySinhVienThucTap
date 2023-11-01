@@ -30,13 +30,14 @@ window.addEventListener('load', ()=>{
         nutCanBo = document.getElementById('CanBoHuongDan'),
         nutDonViThucTap= document.getElementById('DonViThucTap'),
         nutTaiKhoan = document.getElementById('TaiKhoan'),
+        nutDieuHuongSinhVien = document.getElementById('DieuHuongSinhVienTT'),
     //Lấy ID các bảng thông tin    
         nutdssv = document.getElementById('bs_dssv'),
         nutdsgv = document.getElementById('bs_dsgv'),
         nutdscbhd = document.getElementById('bs_dscbhd'),
         nutdiemso = document.getElementById('bs_diemso'),
         nutsinhvienrot = document.getElementById('bs_sinhvienrot'),
-        nutdsdetai = document.getElementById('bs_dsdetai');
+        nutdsdetai = document.getElementById('bs_dsdetai'),
     //Lấy ID thông tin bảng
         bangThongKe = document.getElementById('ThongTinThongKe'),
         bangSinhVien = document.getElementById('ThongTinSinhVien'),
@@ -49,8 +50,8 @@ window.addEventListener('load', ()=>{
         bangDSGV = document.getElementById('BaoCaoDS_GVHD'),
         bangDSCBHD = document.getElementById('BaoCaoDS_CBHD'),
         bangDiemSO = document.getElementById('BaoCaoDiemSoThucTap'),
-        bangSinhVienRot = document.getElementById('BaoCaoSVThucHienLai');
-
+        bangSinhVienRot = document.getElementById('BaoCaoSVThucHienLai'),
+        bangThongTinDieuHuognSinhVien = document.getElementById('ThongTinDieuHuongSinhVien');
 
     //Thực hiện bấm nút rồi hiển thị thông tin
     
@@ -62,7 +63,7 @@ window.addEventListener('load', ()=>{
         bangSinhVien.style.display = bangGiaoVien.style.display = bangCanBo.style.display = 
         bangDVTT.style.display = bangDSSV.style.display = bangTaiKhoan.style.display =
         bangDSGV.style.display = bangDSCBHD.style.display = bangDiemSO.style.display = 
-        bangDSDeTai.style.display = bangSinhVienRot.style.display = 'none';
+        bangDSDeTai.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#ThongKe').addClass('MauMucThongTinKhiChon');
@@ -77,7 +78,8 @@ window.addEventListener('load', ()=>{
         $('#bs_dscbhd').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
-        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon');
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon');
     });
 
     //2.Sinh viên
@@ -88,7 +90,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangGiaoVien.style.display = bangCanBo.style.display = 
         bangDVTT.style.display = bangDSSV.style.display = bangTaiKhoan.style.display =
         bangDSGV.style.display = bangDSCBHD.style.display = bangDiemSO.style.display = 
-        bangDSDeTai.style.display = bangSinhVienRot.style.display = 'none';
+        bangDSDeTai.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#SinhVien').addClass('MauMucThongTinKhiChon');
@@ -104,6 +106,7 @@ window.addEventListener('load', ()=>{
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon');
     });
 
     //3.Giáo viên
@@ -114,7 +117,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangCanBo.style.display = 
         bangDVTT.style.display = bangDSSV.style.display = bangTaiKhoan.style.display =
         bangDSGV.style.display = bangDSCBHD.style.display = bangDiemSO.style.display = 
-        bangDSDeTai.style.display = bangTaiKhoan.style.display = bangSinhVienRot.style.display = 'none';
+        bangDSDeTai.style.display = bangTaiKhoan.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
          //Tô màu
          $('#GiaoVienHuongDan').addClass('MauMucThongTinKhiChon');
@@ -129,7 +132,8 @@ window.addEventListener('load', ()=>{
          $('#bs_dscbhd').removeClass('MauMucThongTinKhiChon'); 
          $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
          $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
-         $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+         $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon');
+         $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon'); 
     });
 
     //4.Cán bộ hướng dẫn
@@ -140,7 +144,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangDVTT.style.display = bangDSSV.style.display = bangTaiKhoan.style.display =
         bangDSGV.style.display = bangDSCBHD.style.display = bangDiemSO.style.display = 
-        bangDSDeTai.style.display = bangSinhVienRot.style.display = 'none';
+        bangDSDeTai.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#CanBoHuongDan').addClass('MauMucThongTinKhiChon');
@@ -156,6 +160,7 @@ window.addEventListener('load', ()=>{
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon');
     });
 
     //5. Đơn vị thực tập
@@ -166,7 +171,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangCanBo.style.display = bangDSSV.style.display = bangTaiKhoan.style.display =
         bangDSGV.style.display = bangDSCBHD.style.display = bangDiemSO.style.display = 
-        bangDSDeTai.style.display = bangSinhVienRot.style.display = 'none';
+        bangDSDeTai.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#DonViThucTap').addClass('MauMucThongTinKhiChon');
@@ -181,7 +186,8 @@ window.addEventListener('load', ()=>{
         $('#bs_dscbhd').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
-        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon');
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon'); 
     });
 
     //6.Tài khoản
@@ -192,7 +198,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangDSDeTai.style.display = bangCanBo.style.display = bangDSSV.style.display =
         bangDSGV.style.display = bangDSCBHD.style.display = bangDiemSO.style.display = 
-        bangDVTT.style.display = bangSinhVienRot.style.display = 'none';
+        bangDVTT.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#TaiKhoan').addClass('MauMucThongTinKhiChon');
@@ -208,6 +214,7 @@ window.addEventListener('load', ()=>{
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon');
     });
 
     //7. Danh sách sinh viên
@@ -218,7 +225,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangDSDeTai.style.display = bangCanBo.style.display =  bangTaiKhoan.style.display =
         bangDSGV.style.display = bangDSCBHD.style.display = bangDiemSO.style.display = 
-        bangDVTT.style.display = bangSinhVienRot.style.display = 'none';
+        bangDVTT.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#bs_dssv').addClass('MauMucThongTinKhiChon');
@@ -234,6 +241,7 @@ window.addEventListener('load', ()=>{
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon');
     });
 
     //8. Danh sách giảng viên
@@ -244,7 +252,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangDSDeTai.style.display = bangCanBo.style.display =  bangTaiKhoan.style.display =
         bangDSSV.style.display = bangDSCBHD.style.display = bangDiemSO.style.display = 
-        bangDVTT.style.display = bangSinhVienRot.style.display = 'none';
+        bangDVTT.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
         //Tô màu
         $('#bs_dsgv').addClass('MauMucThongTinKhiChon');
         //Không màu
@@ -259,6 +267,34 @@ window.addEventListener('load', ()=>{
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon');
+    });
+
+    //13.Bảng Điều hướng sinh viên đến cho giảng viên nhận hướng dẫn
+    nutDieuHuongSinhVien.addEventListener('click',function(){
+        //Hiện
+        bangThongTinDieuHuognSinhVien.style.display = "block";
+        //Đóng
+        bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
+        bangSinhVienRot.style.display = bangCanBo.style.display =  bangTaiKhoan.style.display =
+        bangDSSV.style.display = bangDSGV.style.display = bangDSCBHD.style.display = 
+        bangDVTT.style.display = bangDiemSO.style.display = bangDSDeTai.style.display = 'none';
+
+        //Tô màu
+        $('#DieuHuongSinhVien').addClass('MauMucThongTinKhiChon');
+        //Không màu
+        $('#ThongKe').removeClass('MauMucThongTinKhiChon'); 
+        $('#SinhVien').removeClass('MauMucThongTinKhiChon'); 
+        $('#GiaoVienHuongDan').removeClass('MauMucThongTinKhiChon'); 
+        $('#CanBoHuongDan').removeClass('MauMucThongTinKhiChon'); 
+        $('#DonViThucTap').removeClass('MauMucThongTinKhiChon'); 
+        $('#TaiKhoan').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_dssv').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_dsgv').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_dscbhd').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon');
     });
 
     //9. Danh sách cán bộ
@@ -269,7 +305,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangDSDeTai.style.display = bangCanBo.style.display =  bangTaiKhoan.style.display =
         bangDSSV.style.display = bangDSGV.style.display = bangDiemSO.style.display = 
-        bangDVTT.style.display = bangSinhVienRot.style.display = 'none';
+        bangDVTT.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
         //Tô màu
         $('#bs_dscbhd').addClass('MauMucThongTinKhiChon');
         //Không màu
@@ -284,7 +320,9 @@ window.addEventListener('load', ()=>{
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon');
     });
+    
 
     //10. danh sách bảng điểm số
     nutdiemso.addEventListener('click',function(){
@@ -294,7 +332,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangDSDeTai.style.display = bangCanBo.style.display =  bangTaiKhoan.style.display =
         bangDSSV.style.display = bangDSGV.style.display = bangDSCBHD.style.display = 
-        bangDVTT.style.display = bangSinhVienRot.style.display = 'none';
+        bangDVTT.style.display = bangSinhVienRot.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#bs_diemso').addClass('MauMucThongTinKhiChon');
@@ -309,7 +347,8 @@ window.addEventListener('load', ()=>{
         $('#bs_dsgv').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_dscbhd').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
-        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon');
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon'); 
     });
 
     //11. Bảng sinh viên rớt
@@ -320,7 +359,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangDSDeTai.style.display = bangCanBo.style.display =  bangTaiKhoan.style.display =
         bangDSSV.style.display = bangDSGV.style.display = bangDSCBHD.style.display = 
-        bangDVTT.style.display = bangDiemSO.style.display = 'none';
+        bangDVTT.style.display = bangDiemSO.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#bs_sinhvienrot').addClass('MauMucThongTinKhiChon');
@@ -335,7 +374,8 @@ window.addEventListener('load', ()=>{
         $('#bs_dsgv').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_dscbhd').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
-        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon'); 
+        $('#bs_dsdetai').removeClass('MauMucThongTinKhiChon');
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon'); 
     });
 
     //12.Bảng báo cáo đề tài
@@ -346,7 +386,7 @@ window.addEventListener('load', ()=>{
         bangThongKe.style.display = bangSinhVien.style.display = bangGiaoVien.style.display = 
         bangSinhVienRot.style.display = bangCanBo.style.display =  bangTaiKhoan.style.display =
         bangDSSV.style.display = bangDSGV.style.display = bangDSCBHD.style.display = 
-        bangDVTT.style.display = bangDiemSO.style.display = 'none';
+        bangDVTT.style.display = bangDiemSO.style.display = bangThongTinDieuHuognSinhVien.style.display = 'none';
 
         //Tô màu
         $('#bs_dsdetai').addClass('MauMucThongTinKhiChon');
@@ -362,7 +402,12 @@ window.addEventListener('load', ()=>{
         $('#bs_dscbhd').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_diemso').removeClass('MauMucThongTinKhiChon'); 
         $('#bs_sinhvienrot').removeClass('MauMucThongTinKhiChon'); 
+        $('#DieuHuongSinhVien').removeClass('MauMucThongTinKhiChon');
     });
+
+    
+
+    
 });
 
 //Thông Báo xóa thành công cho các mẫu tin vừa xóa

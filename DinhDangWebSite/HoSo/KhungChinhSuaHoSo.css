@@ -1,0 +1,57 @@
+/* -- Bang hien thi khung chinh sua --- */
+.KhungHoSoChinh{
+    border: 1px rgb(175, 175, 175) solid;
+    width: 75vw;
+    border-radius: 5px;
+    box-shadow: 1px 3px 3px rgb(137, 137, 137);
+}
+.HoSo{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.15em;
+    display: grid;
+    grid-template-areas: 
+    'BenTrai BenPhai';
+}
+.ThongTin_trai{
+    color: aliceblue;
+    grid: 'BenTrai';
+    z-index: 1;
+    height: 100%;
+    background-image: linear-gradient(to left, rgb(43, 43, 251), rgb(43, 109, 251), rgb(43, 102, 251), rgb(43, 150, 251));
+    box-shadow: 1px 3px 3px rgb(137, 137, 137);
+}
+.ThongTin_phai{
+    grid: 'BenPhai';
+    z-index: 0;
+    background-color: rgb(254, 254, 248);
+    text-align: center;
+}
+.CotBenTrai{
+    border: 0;
+}
+#TrinhDoHocVan{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.ThongTinINPUT{
+    width: 80%;
+}
+.OLayThongTinPhai{
+    outline: none;
+    border: 2px solid rgb(119, 118, 118);
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 5px;
+    box-shadow: 1px 3px 3px rgb(137, 137, 137);
+    height: 12%;
+}
+.TieuDeChinhSua{
+    font-size: 1.25em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    margin:2vh 0 4vh 0;
+    background: -webkit-linear-gradient(right,red,blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
