@@ -16,34 +16,45 @@
             //Thêm phần hàm xử lý
             include('../../TrangDungChung/CacHamXuLy.php');
 
-            //Câu lệnh lấy mã định danh cuối cùng trong bảng
-            $TruyXuatMaDinhDanh = "SELECT MaDVTT FROM donvithuctap ORDER BY MaDVTT DESC LIMIT 1;";
-            $KetQuaThucThi1 = mysqli_query($connect,$TruyXuatMaDinhDanh);
-            $MaDinhDanhCuoiBang = mysqli_fetch_array($KetQuaThucThi1);
-            $new_id = IncreaseIDIndex($MaDinhDanhCuoiBang['MaDVTT']);
 
-            //Câu lệnh thêm đơn vị thực tập
-            $sql = "INSERT INTO donvithuctap VALUES('".$new_id." ',' ".$_POST['tenDonViThucTap']." ','".$_POST['diaChi_dvtt']."','".$_POST['sdt_dvtt']."','".$_POST['Email_DVTT']."') ";
-            
-            //Câu lệnh thêm tài khoản cho đơn vị thực tập
-            $userRole = '3';
-            $Account = "INSERT INTO taikhoan VALUES('".$new_id."','".$_POST['pw_dvtt']."','".$userRole."') ";
+            if(empty($_POST['tenDonViThucTap']) || empty($_POST['diaChi_dvtt']) ||
+            empty($_POST['sdt_dvtt']) || empty($_POST['Email_DVTT']) ||
+            empty($_POST['pw_dvtt']) ){
+                echo '<script>
+                        alert("Thêm thất bại vì một số trường bị bỏ trống hoặc không hợp lệ");
+                        history.back();
+                    </script>';
+            }else{
+                //Câu lệnh lấy mã định danh cuối cùng trong bảng
+                $TruyXuatMaDinhDanh = "SELECT MaDVTT FROM donvithuctap ORDER BY MaDVTT DESC LIMIT 1;";
+                $KetQuaThucThi1 = mysqli_query($connect,$TruyXuatMaDinhDanh);
+                $MaDinhDanhCuoiBang = mysqli_fetch_array($KetQuaThucThi1);
+                $new_id = IncreaseIDIndex($MaDinhDanhCuoiBang['MaDVTT']);
 
-            //Điều kiện trước khi thêm mẫu tin vào bảng đơn vị thực tập và bảng tài khoản
-            if(!empty($_POST['tenDonViThucTap']) and !empty($_POST['diaChi_dvtt']) and !empty($_POST['sdt_dvtt']) and !empty($_POST['Email_DVTT'])){
-                //Thực hiện thêm
-                $KetQuaThucThi2 = mysqli_query($connect,$sql) or die(mysqli_connect_error());
-                $KetQuaThucThi3 = mysqli_query($connect,$Account) or die(mysqli_connect_error());
+                //Câu lệnh thêm đơn vị thực tập
+                $sql = "INSERT INTO donvithuctap VALUES('".$new_id." ',' ".$_POST['tenDonViThucTap']." ','".$_POST['diaChi_dvtt']."','".$_POST['sdt_dvtt']."','".$_POST['Email_DVTT']."') ";
+                
+                //Câu lệnh thêm tài khoản cho đơn vị thực tập
+                $userRole = '3';
+                $Account = "INSERT INTO taikhoan VALUES('".$new_id."','".$_POST['pw_dvtt']."','".$userRole."') ";
 
-                //Nếu dữ liệu thêm thành công thì trở về trang ban đầu
-                if($KetQuaThucThi2){
-                    header("Location: ../TrangChu.php?status=success");
+                //Điều kiện trước khi thêm mẫu tin vào bảng đơn vị thực tập và bảng tài khoản
+                if(!empty($_POST['tenDonViThucTap']) and !empty($_POST['diaChi_dvtt']) and !empty($_POST['sdt_dvtt']) and !empty($_POST['Email_DVTT'])){
+                    //Thực hiện thêm
+                    $KetQuaThucThi2 = mysqli_query($connect,$sql) or die(mysqli_connect_error());
+                    $KetQuaThucThi3 = mysqli_query($connect,$Account) or die(mysqli_connect_error());
+
+                    echo "<script>
+                            alert('Thêm tài khoản thành công');
+                            history.back();
+                            
+                        </script>";
                 }
             }
-                 
             //Đóng
             mysqli_close($connect);
         ?>
 
     </body>
 </html>
+

@@ -157,22 +157,26 @@
                         <tr>
                             <td class="CotTieuDe">
                                 <a class="OChucNang" href="XemDanhSachSinhVienHuognDan.php?MSGV=<?php echo $maSo;?>">
-                                    <div></div>
-                                    <p>Danh sách sinh viên</p>
+                                    <div>
+                                        <img class="AnhChucNang" src="../../Image/GiaoVien/Student list lo 0.png" alt="anh">
+                                    </div>
+                                    <p>Danh sách <br> sinh viên</p>
                                 </a>
                             </td>
                             <td class="CotTieuDe">
                                 <a class="OChucNang">
                                     <div></div>
-                                    <p>Phê duyệt sinh viên thực tập</p>
+                                    <p>Xem đề tài sinh viên thực tập</p>
                                 </a>
                             </td>
                         </tr>
                         <tr>
                             <td class="CotTieuDe">
-                                <a class="OChucNang">
-                                    <div></div>
-                                    <p>Chấm điểm thực tập</p>
+                                <a class="OChucNang" href="ThucHienChamDiem/DanhSachSinhVienHuongDan.php?MSGV=<?php echo $maSo;?>">
+                                    <div>
+                                        <img class="AnhChucNang" src="../../Image/GiaoVien/Student grading 1.png" alt="anh">
+                                    </div>
+                                    <p>Chấm điểm <br> thực tập</p>
                                 </a>
                             </td>
                             <td class="CotTieuDe">

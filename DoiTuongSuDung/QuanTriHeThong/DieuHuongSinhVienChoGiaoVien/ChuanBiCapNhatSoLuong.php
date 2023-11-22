@@ -12,16 +12,22 @@
         <link rel="stylesheet" href="../../../DoiTuongSuDung/QuanTriHeThong/GiaoVienHuongDan/GiaoDienTaoTaiKhoanGVHD.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienQuanTri.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/DieuHuongSinhVienThucTap/DieuHuongSinhVien.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
         <!--JS-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
         <script src="../../../RangBuoc/QuanTriHeThong/DieuHuongSinhVienThucTap.js"></script>
+        <script src="../../../RangBuoc/QuanTriHeThong/trangchu.js" async></script>
+        <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script defer src="../../../RangBuoc/DieuHuongSinhVienTHucTap/CauHinhBangDieuHuong.js"></script>
         <?php
             include ('../../TrangDungChung/KetNoi.php');
             include ('../../TrangDungChung/CacHamXuLy.php');
 
             //Lấy mã giảng viên hướng dẫn
             $mgvhd = trim($_GET['MSGV']);
-            echo "<p>".$mgvhd."</p>";
             $GiangVienHD = infGiangVienHuongDan($mgvhd );
         ?>
     </head>
@@ -85,9 +91,9 @@
                                 while($row = mysqli_fetch_array($SVDuocNhanHuongDan)){
                                     echo'<tr>
                                             <td class=" cotThemSinhVienChoGV">'.$row['MSSV'].'</td>
-                                            <td class=" cotThemSinhVienChoGV">'.infSinhVien($row['MSSV'])['HoTen'].'</td>
-                                            <td class=" cotThemSinhVienChoGV">'.infSinhVien($row['MSSV'])['MaLop'].'</td>
-                                            <td class=" cotThemSinhVienChoGV">'.NganhHocCuaSinhVien(infSinhVien($row['MSSV'])['MaLop'])['TenNganh'].'</td>
+                                            <td class=" cotThemSinhVienChoGV">'.mssv_ThongTinSinhVien($row['MSSV'])['HoTen'].'</td>
+                                            <td class=" cotThemSinhVienChoGV">'.mssv_ThongTinSinhVien($row['MSSV'])['MaLop'].'</td>
+                                            <td class=" cotThemSinhVienChoGV">'.NganhHocCuaSinhVien(mssv_ThongTinSinhVien($row['MSSV'])['MaLop'])['TenNganh'].'</td>
                                             <td class=" cotThemSinhVienChoGV">
                                                 <form method="post"> 
                                                     <button name="ThucHienXoaSinhVienKhoiGVHD" value="'.$row['MSSV'].'" type="submit" class="NutXoaSinhVienTuGiangVien">X</button>
@@ -105,56 +111,80 @@
                 </table>
             </div>
             <!--Bảng sinh viên chưa nhận hướng dẫn-->
-            <div class="KhungChuyenSinhVienChoGiangVien">
-                <div class="NutTat"><i class="fa-regular fa-circle-xmark"></i></div>
-                <table class="BangThongTinSinhVienChuanBiThem">
-                    <tr>
-                        <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Mã số sinh viên</th>
-                        <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Họ tên</th>
-                        <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Lớp</th>
-                        <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Ngành</th>
-                        <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Chỉ định</th>
-                    </tr>
-                    <?php
-                        $SVChuaNhanHuongDan = SinhVienChuaDuocGVNhanHuongDan();
-                        while($row = mysqli_fetch_array($SVChuaNhanHuongDan)){
-                            echo'<tr>
-                                    <td class=" cotThemSinhVienChoGV">'.$row['MSSV'].'</td>
-                                    <td class=" cotThemSinhVienChoGV">'.infSinhVien($row['MSSV'])['HoTen'].'</td>
-                                    <td class=" cotThemSinhVienChoGV">'.infSinhVien($row['MSSV'])['MaLop'].'</td>
-                                    <td class=" cotThemSinhVienChoGV">'.NganhHocCuaSinhVien(infSinhVien($row['MSSV'])['MaLop'])['TenNganh'].'</td>
-                                    <td class=" cotThemSinhVienChoGV">
-                                        <form method="post"> 
-                                            <button name="ThucHienGhiNhanSinhVien" value="'.$row['MSSV'].'" type="submit" class="NutChuyenSinhVienChoGiangVien">Add </button>
-                                        </form>
-                                    </td>
-                                </tr>';
-                        }
-                    ?> 
-                    <!--Thực hiện ghi nhận sinh viên cho giáo viên hướng dẫn-->
-                    <?php
-                        //Lệnh sql để ghi nhận
-                        if(array_key_exists('ThucHienGhiNhanSinhVien',$_POST)){
-                            //echo "<p> Mã số giảng viên: ".$mgvhd." Mã số sinh viên: ".$_POST['ThucHienGhiNhanSinhVien']."</p>";
-                            $maSoSinhVien = trim($_POST['ThucHienGhiNhanSinhVien']);
-                            $LenhGhiNhan = "UPDATE phieutiepnhansinhvienthuctapthucte SET MSGV = '$mgvhd' WHERE MSSV = '$maSoSinhVien'";
-                            $ThucHien = TruyVan($LenhGhiNhan);
-                            setcookie('reload','1',time()+1);
-                        }
-                        //Lệnh xác nhận xóa sinh viên khỏi giáo viên hướng dẫn
-                        if(array_key_exists('ThucHienXoaSinhVienKhoiGVHD',$_POST)){
-                            //echo "<p> Mã số giảng viên: ".$mgvhd." Mã số sinh viên: ".$_POST['ThucHienGhiNhanSinhVien']."</p>";
-                            $maSoSinhVien = trim($_POST['ThucHienXoaSinhVienKhoiGVHD']);
-                            $LenhGhiNhan = "UPDATE phieutiepnhansinhvienthuctapthucte SET MSGV = NULL WHERE MSSV = '$maSoSinhVien'";
-                            $ThucHien = TruyVan($LenhGhiNhan);
-                            setcookie('reload','1',time()+1);
-                        }
-                        else{
-                            echo"<p>Không thấy</p>";
-                        }
-                    ?>
-                </table><a href="../"></a>
-            </div>
+            <?php
+            $SVChuaNhanHuongDan = SinhVienChuaDuocGVNhanHuongDan();
+            if(SoLuong_SinhVienChuaDuocGVNhanHuongDan() > 0 ){
+            ?>
+                <div class="KhungChuyenSinhVienChoGiangVien">
+                    <div class="NutTat"><i class="fa-regular fa-circle-xmark"></i></div>
+                    <div class="KhungChuaSinhVienDeChoGiaoVien">
+                        <table id="CanChinhBangChonSinhVienChoGiangVien" class="BangThongTinSinhVienChuanBiThem">
+                            <thead>
+                                <tr>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Mã số sinh viên</th>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Họ tên</th>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Lớp</th>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Ngành</th>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Chỉ định</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                
+                                while($row = mysqli_fetch_array($SVChuaNhanHuongDan)){
+                                    echo'<tr>
+                                            <td class=" cotThemSinhVienChoGV">'.$row['MSSV'].'</td>
+                                            <td class=" cotThemSinhVienChoGV">'.infSinhVien($row['MSSV'])['HoTen'].'</td>
+                                            <td class=" cotThemSinhVienChoGV">'.infSinhVien($row['MSSV'])['MaLop'].'</td>
+                                            <td class=" cotThemSinhVienChoGV">'.NganhHocCuaSinhVien(infSinhVien($row['MSSV'])['MaLop'])['TenNganh'].'</td>
+                                            <td class=" cotThemSinhVienChoGV">
+                                                <form method="post"> 
+                                                    <button name="ThucHienGhiNhanSinhVien" value="'.$row['MSSV'].'" type="submit" class="NutChuyenSinhVienChoGiangVien" onclick="TaiLaiTrang()">Add </button>
+                                                </form>
+                                            </td>
+                                        </tr>';
+                                }
+                            ?> 
+                            <!--Thực hiện ghi nhận sinh viên cho giáo viên hướng dẫn-->
+                            <?php
+                                //Lệnh sql để ghi nhận
+                                if(array_key_exists('ThucHienGhiNhanSinhVien',$_POST)){
+                                    //echo "<p> Mã số giảng viên: ".$mgvhd." Mã số sinh viên: ".$_POST['ThucHienGhiNhanSinhVien']."</p>";
+                                    $maSoSinhVien = trim($_POST['ThucHienGhiNhanSinhVien']);
+                                    $LenhGhiNhan = "UPDATE phieutiepnhansinhvienthuctapthucte SET MSGV = '$mgvhd' WHERE MSSV = '$maSoSinhVien'";
+                                    $ThucHien = TruyVan($LenhGhiNhan);
+                                    //setcookie('reload','1',time()+1);
+                                }
+                                //Lệnh xác nhận xóa sinh viên khỏi giáo viên hướng dẫn
+                                if(array_key_exists('ThucHienXoaSinhVienKhoiGVHD',$_POST)){
+                                    //echo "<p> Mã số giảng viên: ".$mgvhd." Mã số sinh viên: ".$_POST['ThucHienGhiNhanSinhVien']."</p>";
+                                    $maSoSinhVien = trim($_POST['ThucHienXoaSinhVienKhoiGVHD']);
+                                    $LenhGhiNhan = "UPDATE phieutiepnhansinhvienthuctapthucte SET MSGV = NULL WHERE MSSV = '$maSoSinhVien'";
+                                    $ThucHien = TruyVan($LenhGhiNhan);
+                                    //setcookie('reload','1',time()+1);
+                                }
+                            ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Mã số sinh viên</th>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Họ tên</th>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Lớp</th>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Ngành</th>
+                                    <th class="CotTieuDeThemSinhVienChoGV cotThemSinhVienChoGV">Chỉ định</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            <?php
+            }else{
+                echo '<div class="KhungChuyenSinhVienChoGiangVien KhungKhongCoSinhVien">
+                        <div class="NutTat KhungTrenNutTat"><i class="fa-regular fa-circle-xmark"></i></div>
+                        <p class="THongBaoSinhVienDaDuocHuongDan">Hiện tất cả sinh viên <br> điều có giáo viên hướng dẫn</p>
+                    </div>';
+            }
+            ?>
         </main>
         <footer>
             <div class="ChanBenPhai">

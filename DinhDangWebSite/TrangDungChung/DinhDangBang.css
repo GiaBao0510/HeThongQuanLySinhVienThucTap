@@ -1,0 +1,18 @@
+.ThanTrang1{
+    text-align: center;
+    background-color: blanchedalmond;
+}
+
+.KhungBangChung{
+    border: 1px rgb(97, 87, 87) solid;
+    border-radius: 8px;
+    box-shadow: 2px 4px 4px gray;
+}
+.TieuDeBang th{
+    height: auto;
+    font-size: 1.15em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #eee;
+    text-align: center;
+    background-image: linear-gradient(to right, #3488dd,#0374e5);
+}

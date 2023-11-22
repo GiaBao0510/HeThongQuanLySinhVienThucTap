@@ -19,7 +19,18 @@
         <script src="../../../RangBuoc/DonViThucTap/linhHoat_DVTT.js" async></script>
         <script src="../../../RangBuoc/CanBoHuongDan/RangBuocBieuMau.js" async></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" async></script>
-    </head>
+        <!--
+            PHP
+        -->
+        <?php
+            include('../../TrangDungChung/CacHamXuLy.php');
+            include('../../TrangDungChung/KetNoi.php');
+            $mdvtt = trim($_GET['MaDVTT']);
+            $role = mysqli_fetch_array(infTaiKhoan($mdvtt))['UserRole'];
+            $mscb = trim($_GET['MSCB']);
+            $ThongTinCanBo = infCanBoHuongDan($mscb);
+        ?>
+</head>
     <body>
         <header>
             <div class="DauTrang">
@@ -28,28 +39,17 @@
                 </div>
                 <div class="CacNut">
                     <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <a href="../TrangChuDVTT.php?ID=<?php echo $_GET['MaDVTT']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
         <main>
-            <!--
-                lấy Mã số đơn vị thực tập
-            -->
-            <?php
-                include('../../TrangDungChung/CacHamXuLy.php');
-                include('../../TrangDungChung/KetNoi.php');
-                $mdvtt = trim($_GET['MaDVTT']);
-                $role = mysqli_fetch_array(infTaiKhoan($mdvtt))['UserRole'];
-                $mscb = trim($_GET['MSCB']);
-                $ThongTinCanBo = infCanBoHuongDan($mscb);
-            ?>
             <div class="KhungHoSoCanBo">
                 <div class="AnhCanBo">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3MJicYeZVBKWnndKPljOQ4Uqr8EbXmgsgkQ&usqp=CAU" alt="">
                 </div>
                 <div class="BangThongTin">
-                    <form name="BieuMauCapNhatCanBo" action="ThucHienCapNhatCanBo.php" method="post" enctype="application/x-www-form-urlencoded" onsubmit="return BieuMauCapNhat_TKCBHD()">
+                    <form name="BieuMauCapNhatCanBo" action="ThucHienCapNhatCanBo.php?MSCB=<?php echo $mscb;?>" method="post" enctype="application/x-www-form-urlencoded" onsubmit="return BieuMauCapNhat_TKCBHD()">
                         <table>
                             <tr>
                                 <td>

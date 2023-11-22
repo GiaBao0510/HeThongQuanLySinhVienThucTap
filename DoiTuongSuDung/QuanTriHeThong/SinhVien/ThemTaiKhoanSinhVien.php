@@ -41,7 +41,15 @@
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Mã lớp:</p>
-                                <input class="LayThongTin" name="maLop" id="maLop" type="text"  placeholder="Mã lớp"/>
+                                <select name="maLop" class="LayThongTin">
+                                    <?php
+                                        $All_lop = ds_LopHoc();
+                                        while($row = mysqli_fetch_array($All_lop)){
+                                            echo '<option value='.$row['MaLop'].'>'.$row['MaLop'].'</option>';
+                                        }
+                                    ?>
+                                    
+                                </select>
                             </td>
                         </tr>
                         <tr>

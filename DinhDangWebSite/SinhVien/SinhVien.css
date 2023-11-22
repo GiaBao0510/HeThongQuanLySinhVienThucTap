@@ -142,6 +142,7 @@
 .BangNoiDungCongViec{
     border: 1px rgb(153, 153, 153) solid;
     margin-bottom: 4vw;
+    width: 63vw;
 }
 .TruongXetDuyetSinhVien{
     display: flex;
@@ -172,4 +173,41 @@
 }
 .NutKhongDuyetSV:hover{
     background-image: linear-gradient(to left,rgb(225, 10, 10),rgb(238, 0, 0),rgb(221, 2, 2));
+}
+/*Trang chuẩn bị nộp fiel báo cáo*/
+.BangNopFileBaoCao{
+    font-size: 1.15em;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 3vw;
+    width: 70vw;
+}
+.NutNopFile{
+    cursor: pointer;
+    color: #eee;
+    background-color: rgb(244, 41, 23);
+    width: 100%;
+    font-size: 2em;
+    padding: 0.5vw 0 0.5vw 0;
+    margin: 0.5em 0 0.5em 0;
+    border-radius: 5px;
+}
+.NutNopFile:hover{
+    background-color: red;
+}
+.tieuNopBaoCao{
+    font-size: 2em;
+    font-weight: 650;
+    color: #eee;
+    background-color: rgb(51, 51, 51);
+    margin: 0;
+    padding: 3vh;
+    text-align: center;
+}
+tr .CotThongTinNopFile{
+    padding: 1vw 0 1vw 0;
+}
+#oNopBaoCao{
+    margin-top: 2vw;
+    width: 68vw;
+    height: 10vh;
 }

@@ -105,6 +105,7 @@ table tr:nth-child(odd){
     font-size: 1.05em;
     font-family: Arial;
     text-align: center;
+    
 }
 .TieuDeBangDanhSachSV{
     margin: 0;
@@ -135,10 +136,68 @@ table tr:nth-child(odd){
 .fa-user-pen:hover,.NutGui:hover{
     background-color: rgb(40, 69, 212);
 }
+.NutXemChiTietPGV {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 18px;
+}
+
+.NutXemChiTietPGV:focus {
+    box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.NutXemChiTietPGV:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.NutXemChiTietPGV:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+}
 /*Trang danh sách cán bộ*/
 .BangDanhSachCanBo{
     width: 92vw;
 }
+.TieuDeDanhSach{
+    color: #1b1a1a; 
+    font-family: 'Raleway',sans-serif; 
+    font-size: 1.75em; 
+    font-weight: 800; 
+    line-height: 72px; 
+    margin: 2vw 0 2vw 0; 
+    text-align: center; 
+    text-transform: uppercase;
+}
+.TieuDeBangDanhSachCB th,.TieuDeBangDanhSachCBHD th{
+    background-color: #1b1a1a;
+    color: #eee;
+}   
 /*Trang cập nhật nhân viên*/
 .KhungHoSoCanBo{
     display: grid;
@@ -221,4 +280,14 @@ table tr:nth-child(odd){
 }
 .Bang1 th,.Bang2 th{
     border: none;
+}
+/*Bảng chuyển sinh viên cho cán bộ hướng dẫn khác*/
+.KhungDieuPhoiSinhVien{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3vw;
+}
+.MauTinSV td{
+    padding: 1.5vw 1vw;
 }

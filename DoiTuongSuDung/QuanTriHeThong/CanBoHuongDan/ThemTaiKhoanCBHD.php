@@ -10,7 +10,11 @@
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/TrangChu.css">
         <link rel="stylesheet" href="SinhVien/GiaoDienTaoTaiKhoanSV.css">
-
+        <style>
+            #MSCB{
+                color: aliceblue;
+            }
+        </style>
         <script src="../../../RangBuoc/CanBoHuongDan/RangBuocBieuMau.js" async></script>
     </head>
     <body>
@@ -35,7 +39,7 @@
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Mã số cán bộ hướng dẫn:</p>
-                                <input class="LayThongTin" name="MSCB" id="MSCB" type="text" placeholder="Mã số sinh viên"/>
+                                <input class="LayThongTin" name="MSCB" id="MSCB" type="text" placeholder="Mã số sinh viên" disabled value="<?php echo IncreaseIDIndex(LayMaCuoi_CanBoHuongDan()) ;?>">
                             </td>
                         </tr>
                         <tr>

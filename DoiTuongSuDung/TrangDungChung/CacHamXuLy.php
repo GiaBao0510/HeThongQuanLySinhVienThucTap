@@ -125,12 +125,11 @@
 
     /*2.Giảng viên hướng dẫn */
     function infGiangVienHuongDan($Ma){
-        global$connect;
         $layThongTin = "SELECT * 
         FROM giangvienhuongdan gv INNER JOIN taikhoan tk ON gv.MSGV =tk.UserID
                                 INNER JOIN khoa ON gv.MaKhoa = khoa.MaKhoa
         WHERE gv.MSGV= '$Ma' AND tk.UserRole='2'";
-        $ThucHanh = mysqli_query($connect,$layThongTin ) or die(mysqli_connect_error());
+        $ThucHanh = TruyVan($layThongTin);
         $ketQua = mysqli_fetch_array($ThucHanh);
         return $ketQua;
     }
@@ -211,7 +210,7 @@
         $sql ="SELECT * 
             FROM phieutiepnhansinhvienthuctapthucte
             WHERE MSSV = '$mssv'";
-        $Chay = mysqli_query($connect,$sql) or die(mysqli_connect_error());
+        $Chay = TruyVan($sql);
         $ketQua = mysqli_fetch_array($Chay);
         return $ketQua;
     }
@@ -348,11 +347,12 @@
         }else{
             //Lấy ID công việc ở dòng cuối
             $TruyVanID_CVcuoi = "SELECT * FROM congviec
-                        ORDER BY  IDCongViec DESC
-                        LIMIT 1";
+                                ORDER BY thuTu DESC LIMIT 1";
+
             $IDCV_cuoi = mysqli_fetch_array(TruyVan($TruyVanID_CVcuoi));
             $IDnew = IncreaseIDIndex($IDCV_cuoi['IDCongViec']);
-            $themCongViec = "INSERT INTO congviec VALUES('$IDnew','$moTaCongViec','$gioLamViec','$buoiLamViec')";
+            $thuTuMoi = intval($IDCV_cuoi['thuTu'] + 1);
+            $themCongViec = "INSERT INTO congviec VALUES('$IDnew','$moTaCongViec','$gioLamViec','$buoiLamViec','$thuTuMoi')";
             $truyvan2 = TruyVan($themCongViec);
         }
     }
@@ -474,9 +474,9 @@
         //Có thì trả về 1
         if(!empty( mysqli_fetch_array($Chay)['MSCB'] )){  //Ngược lại trả về 0
             return 1;
-        }else{
-            return 0;
         }
+        return 0;
+        
     }
 
     /*26.Hàm kiểm tra xem phiếu theo giao việc có mã số giảng viên hay không */
@@ -594,6 +594,613 @@
             FROM chitietphieudanhgiavaphieutheodoi
             WHERE MSPTDSV = '$msptdtt' AND IDCongViec = '$IDcongViec'";
         $truyvan = TruyVan($sql);
-        return  mysqli_fetch_array($truyvan)['NhanXet'];
+        return  mysqli_fetch_array($truyvan);
+    }
+
+    /*38. Lấy thông tin về niên khóa dựa trên thời điểm bắt đầu */
+    function infNienKhoa_NamBatDau($nam){
+        $sql = "SELECT * FROM nienkhoa
+                    WHERE TDBatDau LIKE '$nam'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan);
+    }
+
+    /*39. HIển thị toàn bộ thông tin nội dung đánh giá  */
+    function All_InfNoiDungDanhGia(){
+        $sql = "SELECT * FROM noidungdanhgia";
+        $truyvan = TruyVan($sql);
+        return  $truyvan;
+    }
+
+    /*40 Lấy phiếu đánh giá báo cáo kết quả thực tập thông qua mã số sinh viên và mã số cán bộ*/
+    function mscb_mssv_PhieuDanhGiaKetQuaThucTap($mssv,$mscb){
+        $sql ="SELECT * 
+            FROM phieudanhgiaketquathuctap 
+            WHERE MSCB = '$mscb' AND MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan);
+    }
+
+    /*41. Lấy thông tin chi tiết đánh giá kết qur thực tập thông qua ID và mã phiếu đánh giá*/
+    function MSPDGKQTT_ID_chiTietPhieuDanhGiaKetQua($mspdgkqtt,$ID){
+        $sql = "SELECT * 
+                FROM chitietphieudanhgiaketquathuctap
+                WHERE MSPDGKQTT = '$mspdgkqtt' AND ID = '$ID'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan);
+    }
+    
+    /*42. Lấy thông tin phiếu đánh giá kết quả thực tập thông qua mã*/
+    function infPhieuDanhGiaKetQuaThucTap($mspdgkqtt){
+        $sql = "SELECT * 
+                FROM phieudanhgiaketquathuctap
+                WHERE MSPDGKQTT = '$mspdgkqtt'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan);
+    }
+
+    /*43. Lấy thông tin cụ thể về chi tiết mức độ chương trình đào tạo thông qua mã phiếu đánh giá kết quả*/
+    function MSPDGKQTT_MucDoChuongTrinhDaoTao($mspdkqtt){
+        $sql= "SELECT * 
+                FROM chitietmucdochuongtrinhdaotao ct 
+                INNER JOIN mucdochuongtrinhdaotao  md ON ct.IDMucDoCT = md.IDMucDoCT
+                WHERE ct.MSPDGKQTT = '$mspdkqtt'";
+        $truyvan = TruyVan($sql);
+        return  $truyvan;
+    }
+
+    /*44. Hàm kiểm tra tệp tin có tồn tại hay chưa dựa trên đường dẫn*/
+    function KiemTraFileTonTai($path){
+        $path = trim($path); 
+        if(file_exists($path)){
+            return 1;
+        }
+        return 0;
+    }
+
+    /*47. Kiểm tra đuôi file có hợp lệ không*/
+    function KiemTraDuoiFileHopLe($file){
+        if($file != "doc" && $file != "docx" && $file != "otd" ){
+            return 1;
+        }
+        return 0;
+    }
+
+    /*50. Lấy tổng điểm phiếu đánh giá kết quả thực tập thông qua MSPDGKQTT trong bảng chi tiết phiếu đánh giá kết quả thực tập*/
+    function DanhGiaKetQuaThucTap($mspdgkqtt){
+        $sql = "SELECT ROUND(SUM(Diem),3) TongDiem 
+                FROM chitietphieudanhgiaketquathuctap
+                WHERE MSPDGKQTT = '$mspdgkqtt'";
+        $truyvan = TruyVan($sql);
+        return mysqli_fetch_array($truyvan)['TongDiem'];
+    }
+
+    /*51. Kiểm tra trong bảng chi tiết phiếu đánh giá kết quả có MSPDGKQTT hay chưa*/
+    function KTmspdgkqtt_ChiTietPhieuDanhGiaKetQuaTT($mspdgkqtt){
+        $sql = "SELECT COUNT(*)Dem 
+                from chitietphieudanhgiaketquathuctap
+                WHERE MSPDGKQTT = '$mspdgkqtt'";
+        $truyvan = TruyVan($sql);
+        return mysqli_fetch_array($truyvan)['Dem'];
+    }
+
+    /*52. Kiểm tra xem sinh viên đã có phiếu đánh giá kết quả thực tập hay chưa thông qua mssv*/
+    function SinhVienCo_PhieuDanhGiaKetQuaTT($mssv){
+        $sql = "SELECT COUNT(*)Dem 
+                from phieudanhgiaketquathuctap
+                WHERE MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        return mysqli_fetch_array($truyvan)['Dem'];
+    }
+
+    /*53 Lấy phiếu đánh giá báo cáo kết quả thực tập thông qua mã số sinh viên*/
+    function mssv_PhieuDanhGiaKetQuaThucTap($mssv){
+        $sql ="SELECT * 
+            FROM phieudanhgiaketquathuctap 
+            WHERE MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan);
+    }
+
+    /*54. Kiểm tra sinh viên có được giáo viên chấp nhận cho thực tập hay chưa*/
+    function checkSinhVienDaDuoc_GiangVienNhanThucTap($mssv){
+        $sql ="SELECT COUNT(td.MSGV) dem
+            FROM phieutheodoisinhvienthuctap td
+            INNER JOIN phieugiaoviecsinhvienthuctap gv ON gv.MSGV = td.MSGV
+            WHERE gv.MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        $dem = mysqli_fetch_array($truyvan)['dem'];
+        if($dem < 1){
+            return 0;
+        }
+        return  1;
+    }
+
+    /*55. Kiểm tra sinh viên có được cán bộ chấm điểm thực tập hay chưa*/
+    function checkSinhVienDaDuoc_CanBoChamDiem($mssv){
+        $sql ="SELECT COUNT(ct.Diem) DemSoDiem
+        FROM phieudanhgiaketquathuctap dg 
+        INNER JOIN chitietphieudanhgiaketquathuctap ct ON ct.MSPDGKQTT = dg.MSPDGKQTT
+        INNER JOIN sinhvien sv ON sv.MSSV = dg.MSSV
+        WHERE sv.MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        $dem = mysqli_fetch_array($truyvan)['DemSoDiem'];
+        if($dem < 10){
+            return 0;
+        }
+        return  1;
+    }
+
+
+    /*57. Kiểm tra sinh viên đã nộp báo cáo hay chưa*/
+    /*58. Lấy thông tin phiếu theo dõi và phiếu giao việc dựa trên mã sinh viên*/
+    function MSGV_PhieuGiaoViec($msgv){
+        $sql = "SELECT *
+                FROM phieutheodoisinhvienthuctap td 
+                WHERE td.MSGV = '$msgv'";
+        $truyvan = TruyVan($sql);
+        return  $truyvan;
+    }
+
+    /*59. Lấy thông tin tất cả nội dung báo cáo*/
+    function All_InfNoiDungBaoCao(){
+        $sql = "SELECT * FROM noidungbaocao";
+        $truyvan = TruyVan($sql);
+        return  $truyvan;
+    }
+
+    /*60. Kiểm tra sinh viên có trong phiếu đánh giá báo cáo hay chưa*/
+    function mssv_CheckPhieuDanhGiaBaoCao($mssv){
+        $sql = "SELECT COUNT(*) dem
+        FROM phieudanhgiabaocaoketqua
+        WHERE MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*61. Hàm tính tổng điểm của sinh viên khi được cán bộ hướng dẫn chấm*/
+    function TongDiem_PhieuDanhGiaKetQua($mssv){
+        if(checkSinhVienDaDuoc_CanBoChamDiem($mssv) == 0){
+            return -1;
+        }else{
+            $sql ="SELECT ROUND(SUM(ct.Diem),3) TongSoDiem
+                FROM phieudanhgiaketquathuctap dg 
+                    INNER JOIN chitietphieudanhgiaketquathuctap ct 
+                ON ct.MSPDGKQTT = dg.MSPDGKQTT
+                    INNER JOIN sinhvien sv 
+                ON sv.MSSV = dg.MSSV
+                WHERE sv.MSSV = '$mssv'";
+            $truyvan = TruyVan($sql);
+            return  mysqli_fetch_array($truyvan)['TongSoDiem'];
+        }
+    }
+
+    /*62.Lấy Phiếu đánh giá báo cáo dựa trên MSSV*/
+    function mssv_PhieuDanhGiaBaoKetQua($mssv){
+        $sql = "SELECT * FROM phieudanhgiabaocaoketqua
+                WHERE MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan);
+    }
+
+    /*63. Lấy điểm số phiếu đánh giá kết qẩu dựa trên MSSV*/
+    function LayDiemSoDanhGiaKetQua_mssv($mssv){
+        $sql = "SELECT *
+                FROM phieudanhgiaketquathuctap dg 
+                INNER JOIN chitietphieudanhgiaketquathuctap ct
+                ON dg.MSPDGKQTT = ct.MSPDGKQTT
+                WHERE dg.MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        return  $truyvan;
+    }
+
+    /*62. Lấy điểm số kết quả thực tập cụ thể dựa trên mã phiếu và ID nội dung*/
+    function LayMotDiem_PhieuDAnhGiaKetQua($mspdkqtt,$ID){
+        $sql = "SELECT *
+                FROM phieudanhgiaketquathuctap dg 
+                INNER JOIN chitietphieudanhgiaketquathuctap ct
+                ON dg.MSPDGKQTT = ct.MSPDGKQTT
+                WHERE dg.MSPDGKQTT = '$mspdkqtt' AND ct.ID = '$ID'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['Diem'];
+    }
+    
+    //63. Kiểm tra xem sinh viên đã được giáo viên đánh giá báo cáo hay chưa
+    function checkSinhVienDaDuoc_GiangVienChamDiem($mssv){
+        $sql = "SELECT COUNT(*) dem 
+                FROM phieudanhgiabaocaoketqua p 
+                INNER JOIN chitietdanhgiabaocao ct ON ct.MSPDGBCKQTT = p.MSPDGBCKQTT
+                INNER JOIN sinhvien sv ON sv.MSSV = p.MSSV
+                WHERE sv.MSSV = '$mssv'";
+        $truyVan = mysqli_fetch_array(TruyVan($sql))['dem'];
+        if($truyVan < 10){
+            return 0;
+        }
+        return 1;
+    }
+
+    /*62. Lấy điểm số kết quả đánh giá báo cáo thực tập cụ thể dựa trên mã phiếu và ID nội dung*/
+    function LayMotDiem_PhieuDAnhGiaBaoCaoKetQua($MSPDGBCKQTT,$ID){
+        $sql = "SELECT *
+            FROM phieudanhgiabaocaoketqua dg 
+            INNER JOIN chitietdanhgiabaocao ct
+            ON dg.MSPDGBCKQTT = ct.MSPDGBCKQTT
+            WHERE dg.MSPDGBCKQTT = '$MSPDGBCKQTT' AND ct.IDndbc = '$ID'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['DiemSo'];
+    }
+
+    /*63. Hàm lấy sô lượng sinh viên*/
+    function SoLuongSinhVien(){
+        $sql = "SELECT COUNT(*) dem FROM sinhvien sv 
+                INNER JOIN phieutiepnhansinhvienthuctapthucte p 
+                ON sv.MSSV = p.MSSV
+                WHERE p.STT = (SELECT STT
+                            FROM dotthuctap
+                            WHERE year(ngayBatDau) = YEAR(CURRENT_DATE()) )";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*64. Hàm lấy sô lượng sinh viên*/
+    function SoLuongGiangVien(){
+        $sql = "SELECT COUNT(*) dem FROM giangvienhuongdan";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*65. Hàm lấy sô lượng sinh viên*/
+    function SoLuongDonViThucTap(){
+        $sql = "SELECT COUNT(*) dem FROM donvithuctap";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*65. Hàm lấy sô lượng sinh viên*/
+    function SoLuongCanBoHuongDan(){
+        $sql = "SELECT COUNT(*) dem FROM canbohuongdan";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*66. Kiểm tra xem sinh viên có được đơn vị thực tập giao việc hay chưa*/
+    function KiemTraDaGiaoViecChoSinhVienChua($mssv){
+        $sql = "SELECT COUNT(*) dem 
+            FROM chitietphieudanhgiavaphieutheodoi ct 
+            INNER JOIN phieutiepnhansinhvienthuctapthucte p ON ct.MSPXNTT = p.MSPXNTT
+            INNER JOIN sinhvien sv ON sv.MSSV = p.MSSV
+            WHERE sv.MSSV = '$mssv'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    //67. Lấy hết thông tin cán bộ
+    function All_canBo(){
+        $sql = "SELECT * FROM canbohuongdan";
+        $truyvan = TruyVan($sql);
+        return  $truyvan;
+    }
+
+    /*69. Liệt kê sinh viên hướng dẫn dựa trên mã cán bộ trong phiếu giao việc*/
+    function LietKeSinhVien_CanBoHuognDan($mscb){
+        $sql = "SELECT *
+                FROM phieugiaoviecsinhvienthuctap
+                WHERE MSCB = '$mscb'";
+        $truyvan = TruyVan($sql);
+        return  $truyvan;
+    }
+
+    /*70. Kiểm tra xem cán bộ hướng dẫn đã có mặt trong phiếu đánh giá kết quả hay chưa*/
+    function KT_CanBoDaChamDiemChoSinhVien($mscb){
+        $sql = "SELECT COUNT(*) dem
+        FROM phieudanhgiaketquathuctap
+        WHERE MSCB = '$mscb'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*71. Hàm lấy sô lượng sinh viên*/
+    function SoLuongLopHoc(){
+        $sql = "SELECT COUNT(*) dem FROM lop";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*72. Hàm lấy sô lượng Tài khoản*/
+    function SoLuongTaiKhoan(){
+        $sql = "SELECT COUNT(*) dem FROM taikhoan";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*73. Lây dah sách tài khoản*/
+    function DS_TaiKhoan(){
+        $sql = "SELECT * FROM taikhoan";
+        $truyvan = TruyVan($sql);
+        return $truyvan;
+    }
+
+    /*74. Lây dah sách sinh viên*/
+    function DS_SinhVien(){
+        $sql = "SELECT * FROM sinhvien sv 
+                INNER JOIN phieutiepnhansinhvienthuctapthucte p 
+                ON sv.MSSV = p.MSSV
+                WHERE p.STT = (SELECT STT
+                                FROM dotthuctap
+                                WHERE year(ngayBatDau) = YEAR(CURRENT_DATE()) )";
+        $truyvan = TruyVan($sql);
+        return $truyvan;
+    }
+
+    /*75. Lấy số lượng sinh viên tại đơn vị thực tập*/
+    function SoLuongSinhVien_DonViThucTap($madvtt){
+        $sql = "SELECT COUNT(*) dem
+            FROM phieutheodoisinhvienthuctap td 
+            INNER JOIN canbohuongdan cb ON td.MSCB = cb.MSCB
+            INNER JOIN donvithuctap dv ON dv.MaDVTT = cb.MaDVTT
+            WHERE dv.MaDVTT ='$madvtt'";
+        $truyvan = TruyVan($sql);
+        return mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*76. Kiểm tra xem cán bộ tại đơn vị thực tập này có từng chấm điểm cho sinh viên hay chưa*/
+    function KiemTraCanBoTaiDonViThucTapDaChamDiemHayChua($maDVTT){
+        $sql = "SELECT COUNT(*) dem
+            FROM phieudanhgiaketquathuctap p 
+            INNER JOIN canbohuongdan cb ON p.MSCB = cb.MSCB
+            INNER JOIN donvithuctap dv ON dv.MaDVTT = cb.MaDVTT
+            WHERE dv.MaDVTT ='$maDVTT'";
+        $truyvan = TruyVan($sql);
+        return mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*77. Kiểm tra xem cán bộ hướng dẫn đã có mặt trong phiếu đánh giá kết quả hay chưa*/
+    function KT_GiangVienDaChamDiemChoSinhVien($msgv){
+        $sql = "SELECT COUNT(*) dem
+                    FROM phieudanhgiabaocaoketqua
+                    WHERE MSGV = '$msgv'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*77. Kiểm tra xem giảng viên hướng dẫn có mặt trong phiếu giao việc và theo doi hay chua*/
+    function MSGV_PhieuGiaoViecVaPhieuTheoDoi($msgv){
+        $sql = "SELECT COUNT(*) dem
+            FROM phieugiaoviecsinhvienthuctap gv 
+            INNER JOIN phieutheodoisinhvienthuctap td ON gv.MSGV = td.MSGV
+            WHERE gv.MSGV = '$msgv'";
+        $truyvan = TruyVan($sql);
+        return  mysqli_fetch_array($truyvan)['dem'];
+    }
+
+    /*78. Kiểm tra xem sinh viên đã đăng ký đơn vị thực tập hay chưa*/
+    function KiemTraSinhVien_DangKyThucTapHayChua($mssv){
+        $sql = "SELECT COUNT(*) dem
+                FROM phieutiepnhansinhvienthuctapthucte
+                WHERE MSSV = '$mssv'";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['dem'];
+    }
+
+    /*79. Lấy thông tin sinh viên dựa trên mã số*/
+    function mssv_ThongTinSinhVien($mssv){
+        $sql = "SELECT * 
+                FROM sinhvien 
+                WHERE MSSV = '$mssv'";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien);
+    }
+
+    /*80. Lấy tổng điểm số kết quả thực tập của một sinh viên*/
+    function MSSV_TongKetQuaThucTapThucTe($mssv){
+        $sql = "SELECT ROUND(diem,3) AS diemso
+                FROM(
+                    SELECT SUM(Diem) diem
+                    FROM phieudanhgiaketquathuctap pkq 
+                    INNER JOIN
+                    chitietphieudanhgiaketquathuctap ct ON ct.MSPDGKQTT = pkq.MSPDGKQTT
+                    WHERE pkq.MSSV = '$mssv'
+                ) AS t";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['diemso'];
+    }
+
+    /*80. Lấy tổng điểm số kết quả báo cáo thực tập của một sinh viên*/
+    function MSSV_TongBaoCaoKetQuaThucTapThucTe($mssv){
+        $sql = "SELECT ROUND(diem,3) diemso
+                FROM (
+                    SELECT SUM(DiemSo) diem
+                    FROM phieudanhgiabaocaoketqua pbc 
+                    INNER JOIN
+                    chitietdanhgiabaocao ct ON ct.MSPDGBCKQTT = pbc.MSPDGBCKQTT
+                    WHERE pbc.MSSV = '$mssv'
+                ) AS t";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['diemso'];
+    }
+
+    /*81. Lấy mã số các bộ thực tập cuối cùng*/
+    function LayMaCuoi_CanBoHuongDan(){
+        $sql = "SELECT * FROM canbohuongdan
+            ORDER BY MSCB DESC LIMIT 1";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['MSCB'];
+    }
+
+    /*82. Lấy mã số các bộ thực tập cuối cùng*/
+    function LayMaCuoi_DonViThuvTap(){
+        $sql = "SELECT * FROM donvithuctap
+                ORDER BY MaDVTT DESC LIMIT 1";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['MaDVTT'];
+    }
+
+    /*83. Đếm số lượng sinh viên chưa được giáo viên hướng dẫn chấp nhạn thực tập*/
+    function SoLuong_SinhVienChuaDuocGVNhanHuongDan(){
+        $sql = "SELECT COUNT(*) dem
+                FROM phieutiepnhansinhvienthuctapthucte
+                WHERE MSGV IS NULL";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['dem'];    
+    }
+
+    /*84. Lấy danh sách lớp học*/
+    function ds_LopHoc(){
+        $sql = "SELECT * FROM lop";
+        $thucHien = TruyVan($sql);
+        return $thucHien;    
+    }
+
+    /*85. Kiểm tra sinh viên có được cán bộ hướng dẫn nhận xét đánh giá hay chưa*/
+    function KiemTraSV_DaDuocCanBoNhanXetDanhGia($mssv){
+        $sql = "SELECT COUNT(*) dem
+                FROM chitietphieudanhgiavaphieutheodoi ct
+                INNER JOIN phieutiepnhansinhvienthuctapthucte p ON ct.MSPXNTT = p.MSPXNTT
+                INNER JOIN sinhvien sv ON sv.MSSV = p.MSSV
+                WHERE sv.MSSV = '$mssv' AND ct.NhanXet IS NOT NULL";
+        $thucHien = TruyVan($sql);
+        if(mysqli_fetch_array($thucHien)['dem'] == 8){
+            return 1;
+        } 
+        return 0;
+    }
+
+    /*86. Lấy mẫu tin của bảng chi tiết phiếu đánh giá và theo dõi dựa trên mã số phiếu theo dõi và tuần thực tập*/
+    function LayMauTin_ChiTietPhieuDanhGiaVaTheoDoi($msptd,$tuan){
+        $sql = "SELECT *
+                FROM chitietphieudanhgiavaphieutheodoi
+                WHERE MSPTDSV = '$msptd' AND tuan= '$tuan'";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien);  
+    }
+
+    /*87. Lấy số luongj sinh viên được nhận vào đơn vị thực tập*/
+    function SinhVienTai_DonViThucTap($maDVTT){
+        $sql = "SELECT *
+                FROM phieutiepnhansinhvienthuctapthucte
+                WHERE MaDVTT = '$maDVTT' AND MSCB IS NOT NULL";
+        $thucHien = TruyVan($sql);
+        return $thucHien; 
+    }
+
+    /*88. Lấy số đợt thực tập theo năm*/
+    function STT_TheoNamHienTai(){
+        $sql = "SELECT STT
+                FROM dotthuctap 
+                WHERE year(ngayBatDau) = YEAR(CURRENT_DATE() )";
+        return mysqli_fetch_array(TruyVan($sql))['STT'];
+    }
+
+    /*89. Lấy danh sách phiếu tiếp nhận sinh viên thực tập theo đợt thực tập*/
+    function ds_PhieuTiepNhanSinhVien(){
+        $sql = "SELECT * 
+        FROM phieutiepnhansinhvienthuctapthucte
+        WHERE STT = ".STT_TheoNamHienTai()." ";
+        $thucHien = TruyVan($sql);
+        return $thucHien;
+    }
+
+    /*90.MSCB _ thông tin cán bộ*/
+    function getCanBoHuongDan($mscb){
+        $sql = " SELECT * FROM canbohuongdan 
+        WHERE MSCB = '$mscb' ";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien);
+    }
+
+    /*91 .MSSV _ thông tin sinh viên*/
+    function getSinhVien($mssv){
+        $sql = " SELECT * FROM sinhvien 
+        WHERE MSSV = '$mssv' ";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien);
+    }
+
+    /*92. Lấy danh sách phiếu theo dõi sinh viên thực tập theo đợt thực tập*/
+    function ds_PhieuTheoDoiSinhVien(){
+        $sql = "SELECT * 
+        FROM phieutheodoisinhvienthuctap
+        WHERE STT = ".STT_TheoNamHienTai()." ";
+        $thucHien = TruyVan($sql);
+        return $thucHien;
+    }
+
+    /*92. Lấy danh sách phiếu theo dõi sinh viên thực tập theo đợt thực tập*/
+    function ds_PhieuGiaoViecSinhVien(){
+        $sql = "SELECT * 
+        FROM phieugiaoviecsinhvienthuctap
+        WHERE STT = ".STT_TheoNamHienTai()." ";
+        $thucHien = TruyVan($sql);
+        return $thucHien;
+    }
+
+    /*93. Lấy danh sách phiếu đánh giá kết quả thực tập dựa trên đợt thực tập*/
+    function ds_PhieuDanhGiaKetQua(){
+        $sql = "SELECT dg.MSPDGKQTT, dg.MSSV, dg.MSCB, dg.NhanXet, dg.DongGop
+            FROM phieutiepnhansinhvienthuctapthucte tn 
+            INNER JOIN phieudanhgiaketquathuctap dg ON tn.MSSV = dg.MSSV
+            WHERE dg.STT = (SELECT STT
+                            FROM dotthuctap 
+                            WHERE year(ngayBatDau) = YEAR(CURRENT_DATE()))";
+        $thucHien = TruyVan($sql);
+        return $thucHien;
+    }
+
+    /*94. Lấy danh sách phiếu đánh giá báo cáo kết quả thực tập dựa trên đợt thực tập*/
+    function ds_PhieuDanhGiaBaoCaoKetQua(){
+        $sql = "SELECT bc.MSPDGBCKQTT, bc.MSSV, bc.MSGV , bc.DiemTru
+                FROM phieudanhgiabaocaoketqua bc INNER JOIN phieutiepnhansinhvienthuctapthucte p ON p.MSSV = bc.MSSV
+                WHERE p.STT = (SELECT STT
+                                FROM dotthuctap 
+                                WHERE year(ngayBatDau) = YEAR(CURRENT_DATE()))";
+        $thucHien = TruyVan($sql);
+        return $thucHien;
+    }
+
+    /*95. Kiểm tra số điệm thoại trong đơn vị thực tập có bị tringf hay không*/
+    function KiemTraTrungSDT_DVTT($sdt){
+        $sql = "SELECT COUNT(*) dem 
+                FROM donvithuctap
+                WHERE SDT = '$sdt'";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['dem'];
+    }
+
+    /*95. Kiểm tra email trong đơn vị thực tập có bị tringf hay không*/
+    function KiemTraTrungEmail_DVTT($email){
+        $sql = "SELECT COUNT(*) dem 
+                FROM donvithuctap
+                WHERE Email = '$email'";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['dem'];
+    }
+
+    /*96. Lấy danh sách đơn vị thực tập chưa phê duyệt*/
+    function DSdvtt_ChuaDuyet(){
+        $sql = "SELECT dv.MaDVTT, dv.TenDVTT, dv.DiaChi, dv.SDT, dv.Email ,tk.MatKhau 
+                FROM taikhoan tk 
+                INNER JOIN donvithuctap dv ON dv.MaDVTT = tk.UserID
+                WHERE tk.UserRole = '5'";
+        $thucHien = TruyVan($sql);
+        return $thucHien;
+    }
+
+    /*97. Đếm có bao nhiêu đơn vị thực tập chưa phê duyệt*/
+    function DemDVTT_ChuaDuyet(){
+        $sql = "SELECT COUNT(*) dem
+                FROM taikhoan tk 
+                INNER JOIN donvithuctap dv ON dv.MaDVTT = tk.UserID
+                WHERE tk.UserRole = '5'";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['dem'];
+    }
+
+    /*99. Kiểm tra xem mật khẩu có hợp lệ hay không*/
+    function KiemTraTaiKhoanDangNhap($taiKhoan,$pw){
+        $sql = "SELECT COUNT(*) dem 
+                FROM taikhoan
+                WHERE UserID = '$taiKhoan' AND MatKhau = '$pw'";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien)['dem'];
     }
 ?>

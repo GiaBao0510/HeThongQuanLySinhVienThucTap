@@ -16,3 +16,8 @@ var ThongBaoGuiCV = localStorage.getItem('GuiCV')||0;
 var ThongBaoXetDuyetCV = localStorage.getItem('XetDuyetCV')||0;
 
 //2.1 Tạo hàm hiển thị thông báo nếu có sinh viên mới
+
+
+
+//3.Cấu hình bảng
+

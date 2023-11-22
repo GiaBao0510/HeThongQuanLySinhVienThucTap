@@ -13,6 +13,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/TrangChuCaNhan.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/CanBoHuongDan/CBHD.css">
+        <style>
+            body{
+                background-color: lightsteelblue;
+            }
+            .BangChinhThongTinPhieuTheoDoi{
+                background-color: #fff;
+            }
+        </style>
         <!--JS-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
         <!--PHP-->
@@ -94,8 +102,8 @@
                                 $NhanXetCoSan = "";
                                 while($row = mysqli_fetch_array($TTchiTietPhieuDanhGiaVaTheoDoi)){
                                     //Kiểm tra xem nhận xết có rồng không nếu rồng thì đặt là ô khoảng trắng
-                                    $NhanXetCoSan = LayNhanXetTuBangChiTietDanhGiaVaTheoDoi($row['IDCongViec'],$msptdsv);
-                                    if(empty($NhanXetCoSan)){
+                                    $NhanXetCoSan = strval(LayNhanXetTuBangChiTietDanhGiaVaTheoDoi($row['IDCongViec'],$msptdsv)['NhanXet']);
+                                    if(strlen($NhanXetCoSan) <1){
                                         $NhanXetCoSan = "";
                                     }
                                     echo '<tr>
@@ -103,7 +111,7 @@
                                             <td>'.infCongViec($row['IDCongViec'])['NoiDung'].'</td>
                                             <td class="CotGhiNhanXet">
                                                 <input type="hidden" name="IDcongViec[]" value='.$row['IDCongViec'].'>
-                                                <textarea  name="NhanXet[]" type="text" class="OghiNhanXet" placeholder="Đánh giá tiến độ công việc" value='.$NhanXetCoSan.'></textarea>
+                                                <textarea  name="NhanXet[]" type="text" class="OghiNhanXet" placeholder="Đánh giá tiến độ công việc">'.$NhanXetCoSan.'</textarea>
                                             </td>
                                             <td>'.infCongViec($row['IDCongViec'])['BuoiLamViec'].'</td>
                                         </tr>';
@@ -111,6 +119,7 @@
                             ?>
                             <tr>
                                 <td colspan="5">
+                                    <input type="hidden" name="MSSV" value='<?php echo $mssv; ?>'>
                                     <button type="submit" class="NutCapNhat">Cập nhật</button>
                                 </td>
                             </tr>

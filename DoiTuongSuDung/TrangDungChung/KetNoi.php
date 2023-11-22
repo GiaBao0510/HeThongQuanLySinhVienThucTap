@@ -7,4 +7,5 @@
 
     //Kết nối đến cơ sở dữ liệu 
     $db = mysqli_select_db($connect, 'quanlysinhvienthuctap');
+
 ?>

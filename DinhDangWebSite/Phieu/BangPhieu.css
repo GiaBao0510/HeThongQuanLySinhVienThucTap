@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+
+}
+.BangPhieu{
+    text-align: center;
+    font-size: 1.5em;
+}
+.BangLietKe{
+    font-family:SpaceGrotesk-Light;
+	color:#eee;
+    font-weight: 550;
+	line-height: 1.2;
+    font-weight: 500;
+    font-size: 3em;
+    text-align: left;
+    margin: 1vw 0 2vw 0;
+    padding: 2vw;
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    box-shadow: 2px 4px 4px rgb(36, 33, 33);
+}
+.TieuDeBangPhieu th{
+    background-color: rgb(36, 33, 33);
+    color: #eee;
+    border: #eee 1px solid;
+}
+.ThongSoNULL{
+    color: rgb(31, 163, 252);
+    font-weight: 550;
+}

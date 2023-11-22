@@ -1,53 +1,96 @@
-<link rel="stylesheet" href="../../../DoiTuongSuDung/QuanTriHeThong/GiaoVienHuongDan/GiaoDienTaoTaiKhoanGVHD.css">
-<script src="../../../RangBuoc/QuanTriHeThong/trangchu.js"></script>
-<?php
-    //1. Hiển thị bảng thông tin
-    function BangThongTinGiaoVien(){
-        //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php
-        include ('../../../web_site/DoiTuongSuDung/TrangDungChung/KetNoi.php');
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        //Câu lệnh truy vấn và thực hiện
-        $truyVan = "SELECT * FROM giangvienhuongdan";
-        $thucHien = mysqli_query($connect,$truyVan);
+        <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/DinhDangBang.css">
+        <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/TrangChuCaNhan.css">
+        <link rel="stylesheet" href="../../../DinhDangWebSite/DonViThucTap/DVTT.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+        <link rel="stylesheet" href="../../../DinhDangWebSite/TaiKhoan/TaiKhoan.css">
+        <style>
+            #TieuDeBang th{
+                text-align: center;
+                color: #eee;
+                background-color: #1d1d1e;
+                border: 1px solid #EEEEEE;
+            }
+        </style>
+        <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script defer src="../../../RangBuoc/GiaoVienHuongDan/CauHinhBangGV.js"></script>
+        
+    </head>
+    <body class="ThanTrang"> 
+    <table id="CanChinhBangGV" class="table table-striped KhungBangChung">
+            <thead>
+                <tr id="TieuDeBang">
+                    <th>MSGV</th>
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Địa chỉ</th>
+                    <th>SĐT</th>
+                    <th>Email</th>
+                    <th>CCCD</th>
+                    <th>Mã khoa</th>
+                    <th>Delete</th>
+                    <th>Uptdae</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    $dsGV = DS_GiangVienHuongDan();
+                    
+                    while($row = mysqli_fetch_array($dsGV)){
+                        echo '<tr>';
+                        echo    "<td>".$row['MSGV']."</td>";
+                        echo    "<td>".$row['HoTen']."</td>";
+                        echo    "<td>".$row['NgaySinh']."</td>";
+                        echo    "<td>".$row['GioiTinh']."</td>";
+                        echo    "<td>".$row['DiaChi']."</td>";
+                        echo    "<td>".$row['SDT']."</td>";
+                        echo    "<td>".$row['Email']."</td>";
+                        echo    "<td>".$row['CCCD']."</td>";
+                        echo    "<td>".$row['MaKhoa']."</td>";
+                ?>
+                        <td>
+                            <button type="button"  onclick='ThongBaoXacNhanXoaGV(<?php echo json_encode($row["MSGV"]);?>)'>
+                                <i class='fa-solid fa-xmark'></i>
+                            </button>
+                        </td>
+                <?php        
+                        echo    '<td>
+                                    <a href="GiaoVienHuongDan/CapNhatMauTin_gvhd.php?MSGV='.$row['MSGV'].'"><i class="fa-solid fa-pen-to-square"></i></a>
+                                </td>';
+                        echo '</tr>';
+                    }
+                ?>
+            </tbody>
+            <tfoot>
+                <tr id="TieuDeBang">
+                    <th>MSGV</th>
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới tính</th>
+                    <th>Địa chỉ</th>
+                    <th>SĐT</th>
+                    <th>Email</th>
+                    <th>CCCD</th>
+                    <th>Mã khoa</th>
+                    <th>Delete</th>
+                    <th>Uptdae</th>
+                </tr>
+            </tfoot>
+        </table>
+    </body> 
+</html> 
 
-        //IN bảng
-        echo"<form action='GiaoVienHuongDan/XoaMauTinGV.php' method='post' class='BangHienThi_SV' onsubmit='ThongBaoXoaThanhCong()'>";
-            echo'<table class="ThongTin_DVTT">';
-                echo'<tr class="row_TTdvtt">';
-                    echo'<th class="TieuDe_TTdvtt">MSGV</th>';
-                    echo'<th class="TieuDe_TTdvtt hoten">Họ Tên</th>';
-                    echo'<th class="TieuDe_TTdvtt ngaysinh">Ngày sinh</th>';
-                    echo'<th class="TieuDe_TTdvtt">Giới tính</th>';
-                    echo'<th class="TieuDe_TTdvtt diachi">Địa chỉ</th>';
-                    echo'<th class="TieuDe_TTdvtt">Số điện thoại</th>';
-                    echo'<th class="TieuDe_TTdvtt">Email</th>';
-                    echo'<th class="TieuDe_TTdvtt">Số căn cước</th>';
-                    echo'<th class="TieuDe_TTdvtt">Mã khoa</th>';
-                    echo'<th class="TieuDe_TTdvtt">Delete</th>';
-                    echo'<th class="TieuDe_TTdvtt">Edit</th>';
-                echo'</tr>';
-        //Vòng lặp
-        while($row = mysqli_fetch_array($thucHien)){
-                echo'<tr class="row_TTdvtt">';
-                    echo'<td class="thongTinHang">'.$row['MSGV'].'</td>';
-                    echo'<td class="thongTinHang hoten">'.$row['HoTen'].'</td>';
-                    echo'<td class="thongTinHang ngaysinh">'.$row['NgaySinh'].'</td>';
-                    echo'<td class="thongTinHang">'.$row['GioiTinh'].'</td>';
-                    echo'<td class="thongTinHang DicChiDVTT diachi">'.$row['DiaChi'].'</td>';
-                    echo'<td class="thongTinHang">'.$row['SDT'].'</td>';
-                    echo'<td class="thongTinHang">'.$row['Email'].'</td>';
-                    echo'<td class="thongTinHang">'.$row['CCCD'].'</td>';
-                    echo'<td class="thongTinHang">'.$row['MaKhoa'].'</td>';
-                    echo'<td class="thongTinHang"> <input class="DanhDau" type="checkbox" name="checkbox[]" value="'.$row['MSGV'].'"> </td>';
-                    echo'<td class="thongTinHang">'."<a href='GiaoVienHuongDan/CapNhatMauTin_gvhd.php?MSGV=".$row['MSGV']."'> <i class='fa-solid fa-pen-to-square'></i> </a>".'</td>';
-                echo'</tr>';
-        }
-                echo'<tr class="thongTinHang">';
-                    echo'<td colspan="11"><input type="submit" value="Delete" id="delete" name="delete"/></td>';
-                echo'</tr>';
+    
 
-            echo'</table>';    
-        echo'</form>';
-    }
-    BangThongTinGiaoVien();
-?> 
+

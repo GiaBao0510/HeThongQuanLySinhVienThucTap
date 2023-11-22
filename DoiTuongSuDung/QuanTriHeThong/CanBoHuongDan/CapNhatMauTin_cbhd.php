@@ -9,15 +9,25 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
         <link rel="stylesheet" href="../../../DoiTuongSuDung/QuanTriHeThong/GiaoVienHuongDan/GiaoDienTaoTaiKhoanGVHD.css">
-        <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienQuanTri.css">
+        <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienCapNhat.css">
     </head>
     <body>
-        <head></head>
+        <head>
+            <div class="DauTrang">
+                <div class="logo">
+                    <img src="../../../Image/logo2.png" class="AnhLogo"/>
+                </div>
+                <div class="CacNut">
+                    <a href="../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
+                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                </div>
+            </div>
+       </head>
         <main>
             <?php 
                 //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php
                 include ('../../TrangDungChung/KetNoi.php');
-
+                
                 $maSo = trim($_GET['MSCB']);
                 //Tìm kiếm thông tin của mã đơn vị thực tập vừa được tìm
                 $LenhTimThongTin = "SELECT * 
@@ -27,22 +37,22 @@
 
                 //In thông tin tìm được
                 $row = mysqli_fetch_array($truyVan) or die(mysqli_connect_error());
+            ?>
                 
-                echo'
                 <form action="../../QuanTriHeThong/CanBoHuongDan/ThucHienCapNhat_cb.php" method="post" enctype="application/x-www-form-urlencoded" class="BieuMauCapNhat">
-                    <div class="KhungTongQuat">
-                    <div class="KhungDau">
-                        <div class="Dau1">
-                            <img src="https://beebom.com/wp-content/uploads/2023/04/featured-new.jpg?w=290&h=290&crop=1&quality=75" alt="">
+                    <div class="KhungHienThiChinh">
+                    <div class="KhungHienThiDau">
+                        <div class="DauThu1">
+                            <img src="../../../Image/QuanTriHeThong/employee.png" class="AnhDaiDien" alt="">
                         </div>
-                        <div class="Dau2">
+                        <div class="DauThu2">
                             <table>
                                 <tr>
                                 <td>
                                     <p>Họ và tên:</p>
                                 </td>
                                 <td>
-                                    <input name="HoTen" type="text" value="'.$row['HoTen'].'"/>
+                                    <input name="HoTen" type="text" value="<?php echo $row['HoTen'];?>">
                                 </td>
                                 </tr>
                                 <tr>
@@ -50,7 +60,7 @@
                                     <p>Ngày sinh:</p>
                                 </td>
                                 <td>
-                                    <input name="NgaySinh" type="date" value="'.$row['NgaySinh'].'"/>
+                                    <input name="NgaySinh" type="date" value="<?php echo $row['NgaySinh'];?>">
                                 </td>
                                 </tr>
                                 <tr>
@@ -58,7 +68,7 @@
                                     <p>Giới tính:</p>
                                 </td>
                                 <td>
-                                    <input name="GioiTinh" type="text" value="'.$row['GioiTinh'].'"/>
+                                    <input name="GioiTinh" type="text" value="<?php echo $row['GioiTinh'];?>">
                                 </td>
                                 </tr>
                                 <tr>
@@ -66,7 +76,7 @@
                                     <p>Mã số cán bộ hướng dẫn:</p>
                                 </td>
                                 <td>
-                                    <input name="MSCB" type="text" value="'.$row['MSCB'].'"/>
+                                    <input name="MSCB" type="text" value="<?php echo $row['MSCB'];?>">
                                 </td>
                                 </tr>
                                 <tr>
@@ -74,26 +84,26 @@
                                     <p>Mã đơn vị thực tập:</p>
                                 </td>
                                 <td>
-                                    <input name="MaDVTT" type="text" value="'.$row['MaDVTT'].'"/>
+                                    <input name="MaDVTT" type="text" value="<?php echo $row['MaDVTT'];?>">
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Số vai trò:</td>
                                 <td>
-                                    <input name="UserRole" type="text" value="'.$row['UserRole'].'"/>
+                                    <input name="UserRole" type="text" value="<?php echo $row['UserRole'];?>">
                                 </td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-                    <div class="KhungDuoi">
+                    <div class="KhungHienThiDuoi">
                         <table>
                         <tr>
                             <td>
                                 <p>Số điện thoại:</p>
                             </td>
                             <td>
-                                <input name="SDT" type="text" value="'.$row['SDT'].'"/>
+                                <input name="SDT" type="text" value="<?php echo $row['SDT'];?>"/>
                             </td>
                         </tr>
                         <tr>
@@ -101,7 +111,7 @@
                                 <p>Email:</p>
                             </td>
                             <td>
-                                <input name="Email"  type="text" value="'.$row['Email'].'"/>
+                                <input name="Email"  type="text" value="<?php echo $row['Email'];?>">
                             </td>
                         </tr>
                         <tr>
@@ -109,7 +119,7 @@
                                 <p>Mật khẩu:</p>
                             </td>
                             <td>
-                                <input name="MatKhau"  type="text" value="'.$row['MatKhau'].'"/>
+                                <input name="MatKhau"  type="text" value="<?php echo $row['MatKhau'];?>">
                             </td>
                         </tr>
                         <tr>
@@ -117,7 +127,7 @@
                                 <p>Địa chỉ:</p>
                             </td>
                             <td>
-                                <textarea class="TruongDiaChi" name="DiaChi">'.$row['DiaChi'].' </textarea>
+                                <textarea class="TruongDiaChi" name="DiaChi"><?php echo $row['DiaChi'];?> </textarea>
                             </td>
                         </tr>
                         <tr>
@@ -129,8 +139,6 @@
                     </div>
                     </div>
                 </form>
-                ';
-            ?>
         </main> 
         <footer>
         <div class="ChanBenPhai">

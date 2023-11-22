@@ -33,7 +33,7 @@
         if(empty(mysqli_fetch_array($thucHienTimMaSoTrung))){
            //Lệnh dùng để xen mẫu tin
             $chenMauTin = "INSERT INTO giangvienhuongdan values ('".$_POST['MSGV']."','".$_POST['HoTen']."','".$_POST['ngaySinh']."','".$_POST['gioitinh']."','".$_POST['diaChi_gv']."','".$_POST['sdt_gv']."','".$_POST['Email_gvhd']."','".$_POST['cccd']."','".$ma."') ";
-            $role = 1;
+            $role = 2;
             $chenMauTin_taiKhoan = "INSERT INTO taikhoan VALUES('".$_POST['MSGV']."','".$_POST['pw_gvhd']."','".$role."') ";
             
             //Điều kiện trước khi xen nếu toàn bộ trường được điền thì xen
@@ -45,16 +45,24 @@
                 $chuyen2 = mysqli_query($connect,$chenMauTin_taiKhoan) or die(mysqli_connect_error());
                 
                 //Thông báo thành công
-                echo "<p>Thêm thành công</p>";
+                echo "<script>
+                        alert('Thêm thành công');
+                        history.back();
+                    </script>";
             }else{
                 // Thông báo thất bại
-                echo "<p>Do một số trường không điển đầy đủ. => Thêm thất bại</p>";
+                echo "<script>
+                        alert('Do một số trường không điển đầy đủ. => Thêm thất bại');
+                        history.back();
+                    </script>";
             }
         }else{
-            echo "<p>Mã số giáo viên hướng dẫn bị trùng. => Thêm thất bại</p>";
+            echo "<script>
+                        alert('Mã số giáo viên hướng dẫn bị trùng. => Thêm thất bại');
+                        history.back();
+                    </script>";
         }
         
-        header("Location: ../../QuanTriHeThong/TrangChu.php");
         
     }
 

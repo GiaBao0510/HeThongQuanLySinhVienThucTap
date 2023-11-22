@@ -43,11 +43,13 @@ td{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    overflow: auto;
 }
 .BangChucNang{
     padding: 3vw;
     height: 70vh;
     margin-left: 2vw;
+    margin-top: 3vw;
 }
 .tieuDeThongTin,.TieuDeHoSo{
     margin-top: 1vh;
@@ -65,12 +67,29 @@ td{
     text-align: center;
 }
 .OChucNang{
+    background-color:#e8eef1 ;
+    z-index: 1;
     display: block;
-    border: 1px solid black;
-    width: 15vw;
-    height: 10vw;
     margin: 0 3vw 2vw 0;
     text-align: center;
+    padding: 2vw;
+    font-size: 1.25em;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: rgb(36, 36, 203);
+    border: 1px rgb(154, 153, 153) solid;
+    border-radius: 5px;
+    box-shadow: 1px 3px 3px gray;
+}
+.OChucNang:hover{
+    color: rgb(125, 26, 187);
+    background-color: bisque;
+}
+.AnhChucNang{
+    z-index: 0;
+    width: 20vh;
+    height: 18vh;
+    margin-bottom: 1vw;
 }
 .NutDangNhap{
     text-decoration: none;

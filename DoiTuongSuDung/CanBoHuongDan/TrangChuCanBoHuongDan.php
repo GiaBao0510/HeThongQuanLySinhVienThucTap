@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/TrangChuCaNhan.css">
+        
         <!--JS-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
 
@@ -146,21 +147,17 @@
                         <tr>
                             <td class="CotTieuDe">
                                 <a class="OChucNang" href="DanhSachSinhVienHuongDan/XemDanhSachSinhVien.php?MSCB=<?php echo $maSo;?>">
-                                    <div></div>
+                                    <div>
+                                        <img src="../../Image/DonViThucTap/student.png" class="AnhChucNang" alt="">
+                                    </div>
                                     <p>Xem danh sách sinh viên hướng dẫn</p>
                                 </a>
                             </td>
                             <td class="CotTieuDe">
-                                <a class="OChucNang">
-                                    <div></div>
-                                    <p>Đánh giá tiến độ sinh viên</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="CotTieuDe" colspan="2">
-                                <a class="OChucNang">
-                                    <div></div>
+                                <a class="OChucNang" href="DanhSachChamDiemSinhVien/DanhSachSinhVien.php?MSCB=<?php echo $maSo;?>">
+                                    <div>
+                                        <img src="../../Image/CanBoHuongDan/exam.png" class="AnhChucNang" alt="">
+                                    </div>
                                     <p>Chấm điểm thực tập</p>
                                 </a>
                             </td>

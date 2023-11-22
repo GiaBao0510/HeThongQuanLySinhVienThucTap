@@ -125,21 +125,27 @@
                             </td>
                             <td class="CotTieuDe">
                                 <a class="OChucNang" href="DuyetSinhVienThucTap/DS_choPheDuyet.php?ID=<?php echo $_GET['ID']; ?>">
-                                    <div></div>
-                                    <p>Phê duyệt sinh viện thực tập tại cơ sở</p>
+                                    <div>
+                                        <img src="../../Image/DonViThucTap/verified.png" class="AnhChucNang" alt="">
+                                    </div>
+                                    <p>Phê duyệt sinh viên <br> thực tập tại cơ sở</p>
                                 </a>
                             </td>
                         </tr>
                         <tr>
                             <td class="CotTieuDe">
                                 <a class="OChucNang" href="QuanLyCanBoHuongDan/DanhSachCanBoHuongDan.php?MDVTT=<?php echo $maSo;?>">
-                                    <div></div>
+                                    <div>
+                                        <img src="../../Image/DonViThucTap/employee.png" class="AnhChucNang" alt="">
+                                    </div>
                                     <p>Quản lý cán bộ hướng dẫn</p>
                                 </a>
                             </td>
                             <td class="CotTieuDe">
                                 <a class="OChucNang" href="QuanLySinhVien/XemDanhSachSinhVien.php?MDVTT=<?php echo $maSo;?>">
-                                    <div></div>
+                                    <div>
+                                        <img src="../../Image/DonViThucTap/student.png" class="AnhChucNang" alt="">
+                                    </div>
                                     <p>Quản lý sinh viên thực tập</p>
                                 </a>
                             </td>

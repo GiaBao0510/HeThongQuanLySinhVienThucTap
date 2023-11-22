@@ -17,6 +17,21 @@
             .TruongXetDuyetSinhVien{
                 display: none;
             }
+            .TruongThongBaoXetDuyet,.TruongThongBaoDaNopPhieu{
+                display: none;
+                background-color: aquamarine;
+                text-align: center;
+                margin-bottom: 3vw;
+                padding: 2vw;
+                font-style: italic;
+                font-size: 1.5em;
+                font-weight: 550;
+                color: #034200;
+            }
+            .TruongThongBaoDaNopPhieu{
+                background-color: cornflowerblue;
+                color: #0007dd;
+            }
         </style>
         <!--JS-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
@@ -29,11 +44,14 @@
             $maSo = trim($_GET['ID']);
             $role = intval($_GET['Role']);
             $MaSoGiaoVien = "";
+            $KiemTraXetDuyet = intval(KiemTraMSGV_PhieuTheoDoiDuaTrenSV($maSo) + KiemTraMSGV_PhieuGiaoViecDuaTrenSV($maSo));
+            $KiemTraDK1 = mssv_PhieuTiepNhanSinhVien(trim($maSo));
+
             //Nếu là giáo viên thì không hiển thị nút nộp && Hiển thị nút xét duyệt hoặc nút hủy
             //Hoặc nếu giáo viên đã chấp nhận cho thực tập thì cũng không hiện phần này
             if($role == 2){
                 if(KiemTraMSGV_PhieuTheoDoiDuaTrenSV($maSo)+KiemTraMSGV_PhieuGiaoViecDuaTrenSV($maSo) < 2){
-                    $MaSoGiaoVien = $role;  //Gán lấy mã số
+                    $MaSoGiaoVien = $_GET['MSGV'];  //Gán lấy mã số
                     echo "<style>
                             .TruongNopPhieuGioiThieu{
                                 display: none;
@@ -57,17 +75,38 @@
                             display: none;
                         }
                     </style>";
+            }//Nếu là sinh viên mà giáo viên phê duyệt cho thực tập thì thông báo cho sinh viên
+            else if($role == 1 AND $KiemTraXetDuyet == 2){
+                echo "<style>
+                        .TruongThongBaoXetDuyet{
+                            display: block;
+                        }
+                        .TruongNopPhieuGioiThieu,.TruongThongBaoDaNopPhieu{
+                            display: none;
+                        }
+
+                    </style>";
+            }//Nếu sinh viên đã nộp giấy tiếp nhận rồi thì không cần nộp nữa
+            elseif(SoLuongPhieuTieGiaoViec_SV_GV($maSo,$KiemTraDK1['MSGV']) > 0){
+                echo "<style>
+                        .TruongNopPhieuGioiThieu{
+                            display: none;
+                        }
+                        .TruongThongBaoDaNopPhieu{
+                            display: block;
+                        }
+                    </style>";
             }
             
             //------- ĐK trở về trang trước ---------
 
             //1.Kiểm tra sinh viên có được đơn vị thực tập nào chấp nhận không. Nếu có thì được vào.
             //1.1Ngược lại thông báo không thành công và trở ra ngoài
-            $KiemTraDK1 = mssv_PhieuTiepNhanSinhVien(trim($maSo));
+            
             
             //>>>Lấy thông tin
             $ThongTinDonViThucTap = infDonViThucTap($KiemTraDK1['MaDVTT']);
-            $ThongTinCanBoHuongDan = infCanBoHuongDan(($KiemTraDK1['MSCB']));
+            $ThongTinCanBoHuongDan = getCanBoHuongDan(($KiemTraDK1['MSCB']));
             $ThongTinSinhVien = infSinhVien($maSo);
  
             //Kiểm tra nếu là giáo viên vào xem mà sinh viên chưa được đơn vị thực tập chấp nhận thì cũng thoát ra
@@ -77,7 +116,7 @@
                         history.back();
                     </script>';
             }
-            //Kiểm tra nếu sinh viên chưa được đơn vị thực tập cahaaps nhậ thì hiển thị thông báo sao
+            //Kiểm tra nếu sinh viên chưa được đơn vị thực tập cập nhật thì hiển thị thông báo sao
             else if(empty($KiemTraDK1['MSCB'])){
                 echo'<script>
                         alert("Bạn vui lòng đăng ký thực tập tại đơn vị thực tập trước chờ đến khi đơn vị thực tập chấp nhận thì mới được sử dụng chức năng này.");
@@ -133,7 +172,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2"> 
                             <p>Cơ quan có điều kiện cho SV thực tập gồm: 
                                 <?php
                                     //Lấy cơ sở vật chất thực tập
@@ -175,7 +214,7 @@
                             <tr class="TieuDeNoiDung">
                                 <th >Tuần</th>
                                 <th >Nội dung công việc – bắt buộc phải có <h3>Lưu ý: Công việc được thực hiện trong 8 tuần</h3></th>
-                                <th >Dự kiến số ngày SV sẽ có mặt tại nơi thực tập Tối thiểu 24 giờ/ 1 tuần</th>
+                                <th >Dự kiến số ngày SV sẽ có mặt tại nơi thực tập <br> Tối thiểu 24 giờ/ 1 tuần</th>
                             </tr>
                             <?php
                                 $LayNoiDungCV = "SELECT *
@@ -205,6 +244,12 @@
                         <div class="TruongXetDuyetSinhVien">
                             <a class="NutDuyetSV" href="../../GiaoVienHuongDan/ThucHienXemXet/ThucHienDuyet.php?MSSV=<?php echo $maSo;?>&MSGV=<?php echo $MaSoGiaoVien;?>">Duyệt</a>
                             <a class="NutKhongDuyetSV" href="../../GiaoVienHuongDan/ThucHienXemXet/ThucHIenKhongPheDuyet.php?MSSV=<?php echo $maSo;?>&MSGV=<?php echo $MaSoGiaoVien;?>">Không phê duyệt</a>
+                        </div>
+                        <div class="TruongThongBaoXetDuyet">
+                            <p>Giáo viên đã duyệt</p>
+                        </div>
+                        <div class="TruongThongBaoDaNopPhieu">
+                            <p>Đã nộp phiếu tiếp nhận thực tập</p>
                         </div>
                     </form>
                 </div>

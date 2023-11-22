@@ -43,7 +43,10 @@
     width: auto;
     margin: 2vw 0 2vw 0;
     padding: 1vw;
-    z-index: 0;
+    z-index: 2;
+}
+.CanChinhhang th{
+    background-color: aqua;
 }
 /* --- Bố trí bảng đơn vị thực tập ---*/
 .ThongTin_DVTT{

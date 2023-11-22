@@ -4,15 +4,26 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thông tin Đơn vị thực tập</title>
+        <title>Thông tin giảng viên thực tập</title>
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/TrangChu.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
         <link rel="stylesheet" href="../../../DoiTuongSuDung/QuanTriHeThong/GiaoVienHuongDan/GiaoDienTaoTaiKhoanGVHD.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienQuanTri.css">
+        <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienCapNhat.css">
     </head>
     <body>
-        <head></head>
+        <head>
+            <div class="DauTrang">
+                <div class="logo">
+                    <img src="../../../Image/logo2.png" class="AnhLogo"/>
+                </div>
+                <div class="CacNut">
+                    <a href="../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
+                    <a href="../TrangChu.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                </div>
+            </div>
+        </head>
         <main>
             <?php 
                 //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php
@@ -28,117 +39,116 @@
                 //In thông tin tìm được
                 $row = mysqli_fetch_array($truyVan) or die(mysqli_connect_error());
                 
-                echo'
+            ?>
                 <form action="../../QuanTriHeThong/GiaoVienHuongDan/ThucHienCapNhat_gv.php" method="post" enctype="application/x-www-form-urlencoded" class="BieuMauCapNhat">
-                    <div class="KhungTongQuat">
-                    <div class="KhungDau">
-                        <div class="Dau1">
-                            <img src="https://beebom.com/wp-content/uploads/2023/04/featured-new.jpg?w=290&h=290&crop=1&quality=75" alt="">
+                    <div class="KhungHienThiChinh">
+                        <div class="KhungHienThiDau">
+                            <div class="DauThu1">
+                                <img src="../../../Image/QuanTriHeThong/teacher.png" class="AnhDaiDien" alt="">
+                            </div>
+                            <div class="DauThu2">
+                                <table>
+                                    <tr>
+                                    <td>
+                                        <p>Họ và tên:</p>
+                                    </td>
+                                    <td>
+                                        <input name="HoTen" type="text" value="<?php echo $row['HoTen'];?>">
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td>
+                                        <p>Ngày sinh:</p>
+                                    </td>
+                                    <td>
+                                        <input name="NgaySinh" type="date" value="<?php echo $row['NgaySinh'];?>">
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td>
+                                        <p>Giới tính:</p>
+                                    </td>
+                                    <td>
+                                        <input name="GioiTinh" type="text" value="<?php echo $row['GioiTinh'];?>">
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td>
+                                        <p>Mã số giáo viên hướng dẫn:</p>
+                                    </td>
+                                    <td>
+                                        <input name="MSGV" type="text" value="<?php echo $row['MSGV'];?>">
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td>
+                                        <p>Mã lớp:</p>
+                                    </td>
+                                    <td>
+                                        <input name="MaKhoa" type="text" value="<?php echo $row['MaKhoa'];?>">
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td>Số vai trò:</td>
+                                    <td>
+                                        <input name="UserRole" type="text" value="<?php echo $row['UserRole'];?>">
+                                    </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                        <div class="Dau2">
+                        <div class="KhungHienThiDuoi">
                             <table>
-                                <tr>
+                            <tr>
                                 <td>
-                                    <p>Họ và tên:</p>
+                                    <p>Số điện thoại:</p>
                                 </td>
                                 <td>
-                                    <input name="HoTen" type="text" value="'.$row['HoTen'].'"/>
+                                    <input name="SDT" type="text" value="<?php echo $row['SDT'];?>"/>
                                 </td>
-                                </tr>
-                                <tr>
+                            </tr>
+                            <tr>
                                 <td>
-                                    <p>Ngày sinh:</p>
-                                </td>
-                                <td>
-                                    <input name="NgaySinh" type="date" value="'.$row['NgaySinh'].'"/>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>
-                                    <p>Giới tính:</p>
+                                    <p>Số căn cước:</p>
                                 </td>
                                 <td>
-                                    <input name="GioiTinh" type="text" value="'.$row['GioiTinh'].'"/>
+                                    <input name="CCCD"  type="text" value="<?php echo $row['CCCD'];?>"/>
                                 </td>
-                                </tr>
-                                <tr>
+                            </tr>
+                            <tr>
                                 <td>
-                                    <p>Mã số giáo viên hướng dẫn:</p>
-                                </td>
-                                <td>
-                                    <input name="MSGV" type="text" value="'.$row['MSGV'].'"/>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td>
-                                    <p>Mã lớp:</p>
+                                    <p>Email:</p>
                                 </td>
                                 <td>
-                                    <input name="MaKhoa" type="text" value="'.$row['MaKhoa'].'"/>
+                                    <input name="Email"  type="text" value="<?php echo $row['Email'];?>">
                                 </td>
-                                </tr>
-                                <tr>
-                                <td>Số vai trò:</td>
+                            </tr>
+                            <tr>
                                 <td>
-                                    <input name="UserRole" type="text" value="'.$row['UserRole'].'"/>
+                                    <p>Mật khẩu:</p>
                                 </td>
-                                </tr>
+                                <td>
+                                    <input name="MatKhau"  type="text" value="<?php echo$row['MatKhau'];?>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Địa chỉ:</p>
+                                </td>
+                                <td>
+                                    <textarea class="TruongDiaChi" name="DiaChi"><?php echo $row['DiaChi'];?> </textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <button type="submit" class="NutDangNhap">Cập nhật</button>
+                                </td>
+                            </tr>
                             </table>
                         </div>
                     </div>
-                    <div class="KhungDuoi">
-                        <table>
-                        <tr>
-                            <td>
-                                <p>Số điện thoại:</p>
-                            </td>
-                            <td>
-                                <input name="SDT" type="text" value="'.$row['SDT'].'"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Số căn cước:</p>
-                            </td>
-                            <td>
-                                <input name="CCCD"  type="text" value="'.$row['CCCD'].'"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Email:</p>
-                            </td>
-                            <td>
-                                <input name="Email"  type="text" value="'.$row['Email'].'"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Mật khẩu:</p>
-                            </td>
-                            <td>
-                                <input name="MatKhau"  type="text" value="'.$row['MatKhau'].'"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p>Địa chỉ:</p>
-                            </td>
-                            <td>
-                                <textarea class="TruongDiaChi" name="DiaChi">'.$row['DiaChi'].' </textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <button type="submit" class="NutDangNhap">Cập nhật</button>
-                            </td>
-                        </tr>
-                        </table>
-                    </div>
-                    </div>
                 </form>
-                ';
-            ?>
+
         </main> 
         <footer>
         <div class="ChanBenPhai">

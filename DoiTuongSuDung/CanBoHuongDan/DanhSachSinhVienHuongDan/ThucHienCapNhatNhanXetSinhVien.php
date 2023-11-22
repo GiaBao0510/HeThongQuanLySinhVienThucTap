@@ -2,14 +2,15 @@
     include('../../TrangDungChung/KetNoi.php');
     include('../../TrangDungChung/CacHamXuLy.php');
 
-    $mscb = trim($_GET['MSCB']);
-    $msptdtt = ($_GET['MSPTDSV']);
-    echo $mscb;
-    echo $msptdtt;
+    $mssv = $_POST['MSSV'];
+    $msptntt = mssv_PhieuTiepNhanSinhVien($mssv)['MSPXNTT'];
+    // echo $mssv;
+    // echo $msptntt;
 
     $NhanXet = $_POST['NhanXet'];
     $ID_CongViec = $_POST['IDcongViec'];
     $i=0;
+    $tuan = intval(1);
     while($i < count($NhanXet)){
         //Nếu độ dài chuỗi > 0 thì cập nhật
         if(strlen($NhanXet[$i]) > 0){
@@ -17,10 +18,11 @@
             echo "<p>".$NhanXet[$i]."</p>";*/
             $LenhThemNhanXet = "UPDATE chitietphieudanhgiavaphieutheodoi 
                                 SET NhanXet = '$NhanXet[$i]' 
-                                WHERE IDCongViec = '$ID_CongViec[$i]' AND MSPTDSV = '$msptdtt'";
+                                WHERE tuan = '$tuan' AND MSPXNTT = '$msptntt'";
             $truyvan = TruyVan($LenhThemNhanXet);
         }
         $i++;
+        $tuan++;
     }
     echo"<script>
             alert('Cập nhật thành công');

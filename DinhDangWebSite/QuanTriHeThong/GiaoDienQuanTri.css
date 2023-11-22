@@ -1,4 +1,7 @@
 /* -- Chung -- */
+body{
+    font-size: 1.5em;
+}
 footer{
     position: relative;
     z-index: 1;
@@ -41,6 +44,7 @@ main{
 }
 /*  -- Bố trí thông tin -- */
 .Khung_chinh{
+    width: 100vw;
     z-index: 0;
     display: grid;
     grid-template-areas: 
@@ -48,16 +52,17 @@ main{
 }
 .ThanhQuanLy{
     grid: "QuanLy";
-    z-index: 0;
+    z-index: 2;
     border: 1px solid;
     height: 100vh;
     background-color: #222831;
     color: #EEEEEE;
     overflow: auto;
+    width: 20vw;
 }
 .ThanhThongTin{
     grid: "ThongTin";
-    width: 78vw;
+    width: 80vw;
     height: 100vh;
     overflow: auto;
 }
@@ -70,6 +75,7 @@ main{
     font-weight: 500;
     font-family: Arial, Helvetica, sans-serif;
     border: 1px solid #EEEEEE;
+    margin: 0;
 }
 .BoTriMuc:hover{
     background-color: #00ADB5;
@@ -120,6 +126,7 @@ main{
 .BangThongTin{
     overflow: auto;
     height: 100%;
+    padding: 2vw;
 }
 .fa-backward{
     padding: 1.25vh;
@@ -139,10 +146,90 @@ main{
     overflow: auto;
 }
 /*Ẩn hết các bảng trừ bảng thống kê*/
-#ThongTinSinhVien,#ThongTinGiaoVienHuongDan,#ThongTinDonViThucTap,#ThongTinCanBoHuongDan,#BaoCaoDS_dvtt,#BaoCaoDS_GVHD,#BaoCaoDS_deTai,#BaoCaoDiemSoThucTap,#BaoCaoSVThucHienLai,#ThongTinTaiKhoan,#ThongTinDieuHuongSinhVien{
+.ThongTinSinhVien,
+.ThongTinGiaoVienHuongDan,
+.ThongTinDonViThucTap,
+.ThongTinCanBoHuongDan,
+.BaoCaoDS_dvtt,
+.BaoCaoDS_GVHD,
+.BaoCaoDS_deTai,
+.BaoCaoDiemSoThucTap,
+.BaoCaoSVThucHienLai,
+.ThongTinTaiKhoan,
+.ThongTinDieuHuongSinhVien,
+.BangDiemSoSinhVien,
+.DanhSachPhieu,
+.DanhSachDong,
+.ThongTinPhieuTiepNhan,
+.ThongTinPhieuTheoDoi,
+.ThongTinPhieuGiaoViec,
+.ThongTinPhieuDanhGiaKetQua,
+.ThongTinPhieuDanhGiaBaoCaoKetQua,
+.DSchoPheDuyetDonViThucTap{
     display: none;
 }
 /*Nút quay về cho tất cả các trang chỉnh sửa*/
-.QuayVe{
+.QuayVe,.HienThiKhung{
     display: block;
+}
+.TatKhung{
+    display: none;
+}
+.BangNhoXemThongKe{
+    display: flex;
+    font-size: 1.25em;
+    font-weight: 550;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #eee;
+}
+ .Dong{
+    display: flex;
+}
+/*Thống kê*/
+.ChiTietThongKe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(243, 235, 226);
+    height: 100%;
+}
+.ThongKeSoLuongChung{
+    
+    width: 15vw;
+    height: auto;
+    padding: 1vw 2vw;
+    margin-right: 2vmax;
+    margin-top: 2vmax;
+    box-shadow: 2px 4px 4px gray;
+
+}
+
+.DocMau1{
+    background-image: linear-gradient(to right, #e95e54 0%, #f57a6f 0%, #f16b5c 21%, #fc6b5b 52%, #cf556c 78%, #b12a5b 100%);
+}
+.DocMau2{
+    background-image: linear-gradient(120deg, #2ff377 0%, #1793d1 100%);
+}
+.DocMau3{
+    background-image: linear-gradient(to right, #40a3f9 0%, #00c4de 100%);
+}
+.DocMau4{
+    background-image: linear-gradient(to top, #22b6b6 0%, #330867 100%);
+} 
+.DocMau5{
+    background-image: linear-gradient(120deg, #ffce2c 0%, #f68566 100%);
+} 
+.DocMau6{
+    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+}
+.DocMau7{
+    background-image: linear-gradient(to top, #7f7f7f 0%, #55555a 100%);
+}
+.DocMau8{
+    background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);
+}
+
+.fa-caret-up,.fa-caret-down{
+    font-size: 2em;
+    margin-right: 1vh;
 }

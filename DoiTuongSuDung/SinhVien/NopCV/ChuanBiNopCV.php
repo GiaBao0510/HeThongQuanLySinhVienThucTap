@@ -13,6 +13,26 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/TrangChuCaNhan.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/SinhVien/SinhVien.css">
+        <style>
+            tr th{
+                border: 1px solid snow;
+            }
+            tr td{
+                border: 1px solid gray;
+            }
+            .nutChonDVTT{
+                width: 2vw;
+                height: 2vw;
+            } 
+            .nutChonDVTT:hover{
+                color: aqua;
+                background-color: blueviolet;
+                border: 2px solid blueviolet;
+                width: 2.5vw;
+                height: 2.5vw;
+                transition: 0.25s;
+            }
+        </style>
         <!--JS-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
         <script src="../../../RangBuoc/SinhVien/NopCV/KiemTraNopCV.js"></script>
@@ -40,25 +60,35 @@
                     echo'<form action="ThucHienNopCV.php" method="post" class="BangChonDVTT" name="BangChon_DVTT" enctype="application/x-www-form-urlencoded"  onsubmit="return BieuMauKiemTraChonDVTT()">';
                     echo'  <table>';
                     echo '      <tr>';
-                            echo '<th colspan="3" class="TieuDeBangChonDVTT">Chọn đơn vị thực tập</th>';
-                        echo '  </tr>';
+                    echo '              <th colspan="3" class="TieuDeBangChonDVTT">Chọn đơn vị thực tập</th>';
+                    echo '      </tr>';
+                    echo '      <tr>';
+                    echo '              <th colspan="" class="TieuDeBangChonDVTT">Tên đơn vị thực tập</th>';
+                    echo '              <th colspan="" class="TieuDeBangChonDVTT">Địa đơn vị thực tập</th>';
+                    echo '              <th colspan="" class="TieuDeBangChonDVTT">Chọn</th>';
+                    echo '       </tr>';
+
                     $DS_DVTT = DS_donViThucTap();
 
                     while($row = mysqli_fetch_array($DS_DVTT)){
                         echo '<tr>';
                             echo    '<td> 
-                                        <input type="hidden" name="MaSSV" value="'.$MaSSV.'" />'.$row['TenDVTT'].
+                                        <input type="hidden" name="MaSSV" value="'.$MaSSV.'" />'.
+                                        $row['TenDVTT'].
+                                    '</td>';
+                            echo    '<td> 
+                                        '.$row['DiaChi'].
                                     '</td>';
                             echo    '<td class="CotChonDVTT"> <input type="radio" name="MaDVTT" class="nutChonDVTT" value="'.$row['MaDVTT'].'" /></td>';
                         echo '</tr>';
                     }
                     echo '<tr class="HangCuoiChonDVTT"> 
-                            <td>
+                            <td colspan="2">
                                 <div>
                                     <a href="../NopCV/GiayGioiThieu.php?ID='.$MaSSV.'" class="NutChuyenTrangCV"> Xem Giấy giới thiệu </a> 
                                 </div>
                             </td> 
-                            <td>
+                            <td colspan="1">
                                 <div>
                                     <button type="submit" class="NutDangNhap">Nộp giấy giới thiệu</button> 
                                 </div>

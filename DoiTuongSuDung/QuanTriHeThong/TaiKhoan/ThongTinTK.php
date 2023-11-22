@@ -1,6 +1,7 @@
 <?php
     //Kết Nối
     include("../../TrangDungChung/KetNoi.php");
+    include('../../TrangDungChung/CacHamXuLy.php');
 
     //Chấp nhân với phương thức post
     header('Access-Control-Allow-Methods: POST');
@@ -12,7 +13,7 @@
 
     //Thực hiện thêm 1 tài khoản
     $addUser = "INSERT INTO taikhoan VALUES('".$_POST['UserID']." ',' ".$_POST['MatKhau']." ',' ".$_POST['UserRole']." ')";
-    $chay = mysqli_query($connect,$addUser) or die(mysqli_connect_error());
+    $chay = TruyVan($addUser);
 
     //Đóng
     mysqli_close($connect);

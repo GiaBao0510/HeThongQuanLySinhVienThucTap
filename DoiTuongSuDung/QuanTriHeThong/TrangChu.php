@@ -12,17 +12,74 @@
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/TrangChu.css">
         <link rel="stylesheet" href="../../DinhDangWebSite/QuanTriHeThong/GiaoDienQuanTri.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <!--
             Java script
         -->
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
         <script src="../../RangBuoc/TrangDungChung/DungChung.js"></script>
         <script src="../../RangBuoc/QuanTriHeThong/trangchu.js" async></script>
-        
+        <script src="../../RangBuoc/QuanTriHeThong/ChuyenQuaLai.js" async></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <!--
+            PHP
+        -->
+        <?php
+            include('../TrangDungChung/KetNoi.php');
+            include('../TrangDungChung/CacHamXuLy.php');
+
+            session_start();
+            if(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+                include('../TrangDungChung/DangNhapThatBai.php');
+            }
+            //Kiểm tra năm bắt đầu thực tập có nhỏ hơn năm hiện tại hay không
+            //Nếu nhỏ hơn thì tạo đợt thực tập mới
+            $DotThucTapGanDay = "SELECT * ,year(ngayBatDau) nam 
+                                FROM dotthuctap 
+                                ORDER BY STT DESC LIMIT 1";
+            $nam = mysqli_fetch_array(TruyVan($DotThucTapGanDay))['nam'];
+            $STT = mysqli_fetch_array(TruyVan($DotThucTapGanDay))['STT'];
+            $ngayBatDau = mysqli_fetch_array(TruyVan($DotThucTapGanDay))['ngayBatDau'];
+            $ngayKetThuc = mysqli_fetch_array(TruyVan($DotThucTapGanDay))['ngayKetThuc'];
+
+            //Niên khóa
+            $nienKhoaGanDay = "SELECT * FROM nienkhoa ORDER BY MaKH DESC LIMIT 1";
+            $soNienKhoa = mysqli_fetch_array(TruyVan($nienKhoaGanDay))['MaKH'];
+            $soNienKhoa = IncreaseIDIndex($soNienKhoa); //Mã niên khóa mới
+            $namBatDau = mysqli_fetch_array(TruyVan($nienKhoaGanDay))['TDBatDau'];
+            $namKetThuc = mysqli_fetch_array(TruyVan($nienKhoaGanDay))['TDKetThuc'];
+            //echo $nam;
+            if($nam < date('Y')){
+                $chenNienKhoa = "INSERT INTO nienkhoa VALUES('".$soNienKhoa."','".($namBatDau+1)."','".($namKetThuc+1)."')";
+                $chenDotThucTap = "INSERT INTO `dotthuctap` (`STT`, `ngayBatDau`, `ngayKetThuc`, `MaKH`) VALUES
+                    (".($STT+1).", '".date('Y')."-05-15', '".date('Y')."-07-08', '".$soNienKhoa."')";
+                TruyVan($chenNienKhoa);
+                TruyVan($chenDotThucTap);
+            }
+            
+        ?>
         
     </head>
     <body>
-        <header></header>
+        <header>
+            <div class="DauTrang">
+                <div class="logo">
+                    <img src="../../../Image/logo2.png" class="AnhLogo"/>
+                </div>
+                <div class="CacNut">
+                <a href="../TrangDungChung/ThucHienDangXuat.php" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
+                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                </div>
+            </div>
+        </header>
         <main>
             <div class="Khung_chinh">
                 <!--
@@ -36,24 +93,82 @@
                     <p class="BoTriMuc" id="CanBoHuongDan">Cán bộ hướng dẫn</p>
                     <p class="BoTriMuc" id="TaiKhoan">Tài khoản</p>
                     <p class="BoTriMuc" id="DieuHuongSinhVienTT">Điều hướng sinh viên thực tập</p>
-                    <p class="BoTriMuc">Báo cáo</p>
-                    <div class="DanhSachBaoCao">
-                        <p class="BoTriMuc_ds" id="bs_dssv">Báo cáo danh sách sinh viên theo đợt thực tập</p>
-                        <p class="BoTriMuc_ds" id="bs_dsgv">Báo cáo danh sách giảng viên theo đợt thực tập</p>
-                        <p class="BoTriMuc_ds" id="bs_dsdetai">Báo cáo danh sách đề tài theo đợt thực tập</p>
-                        <p class="BoTriMuc_ds" id="bs_diemso">Báo cáo điểm số theo đợt thực tập</p>
-                        <p class="BoTriMuc_ds" id="bs_sinhvienrot">Báo cáo sinh viên thực hiện lại thực tập</p>
+                    <p class="BoTriMuc" id="DuyetDonViThucTap">Duyệt tài khoản đơn vị thực tập</p>
+                    <p class="BoTriMuc" id="BangDiemSo">Bảng điểm số sinh viên</p>
+                    <p class ="BoTriMuc DanhSachMo"><i class="fa-solid fa-caret-up"></i> Phiếu</p>
+                    <p class ="BoTriMuc DanhSachDong"><i class="fa-sharp fa-solid fa-caret-down"></i> Phiếu</p>
+                    <div class="DanhSachPhieu">
+                        <p class="BoTriMuc" id="PXNSVTT">Phiếu tiếp nhận sinh viên thực tập</p>
+                        <p class="BoTriMuc" id="PTDSVTT">Phiếu theo dõi sinh viên thực tập</p>
+                        <p class="BoTriMuc" id="PGVSVTT">Phiếu giao việc sinh viên thực tập</p>
+                        <p class="BoTriMuc" id="PDGKQTT">Phiếu giao đánh giá kết quả thực tập</p>
+                        <p class="BoTriMuc" id="PDGBCKQTT">Phiếu giao đánh giá báo cáo kết quả thực tập</p>
                     </div>
+                    <!-- <p class="BoTriMuc" id="PtiepNhanSinhVienThucTap"> Phiếu tiếp nhận sinh viên thực tập</p> -->
                 </div>
                 <!--
                     ### Bản tin ###
                 -->
                 <div class="ThanhThongTin">
-                    <div id="ThongTinThongKe">
-                        <h1>Thống kê</h1>
+                <h1>Thống kê đợt thực tập <?php echo ngayThangNam_VN($ngayBatDau);?> - <?php echo ngayThangNam_VN($ngayKetThuc);?></h1>
+                    <div class="ThongTinThongKe">
+                        <div class="ChiTietThongKe">
+                            
+                            <div class="BangNhoXemThongKe">
+                                <div class="ThongKeSoLuongChung DocMau1">
+                                    <p>
+                                        Số lượng sinh viên:
+                                        <?php echo SoLuongSinhVien() ;?>
+                                    </p>
+                                </div>
+                                <div class="ThongKeSoLuongChung DocMau2">
+                                    <p>
+                                        Số lượng giảng viên hướng dẫn:
+                                        <?php echo SoLuongGiangVien() ;?>
+                                    </p>
+                                </div>
+                                <div class="ThongKeSoLuongChung DocMau3">
+                                    <p>
+                                        Số lượng lớp học:
+                                        <?php echo SoLuongLopHoc() ;?>
+                                    </p>
+                                </div>
+                                <div class="ThongKeSoLuongChung DocMau4">
+                                    <p>
+                                        Số lượng đơn vị thực tập:
+                                        <?php echo SoLuongDonViThucTap() ;?>
+                                    </p>
+                                </div>
+                            </div> 
+                            <div class="BangNhoXemThongKe">
+                                <div class="ThongKeSoLuongChung DocMau5">
+                                    <p>
+                                        Số lượng cán bộ hướng dẫn:
+                                        <?php echo SoLuongCanBoHuongDan() ;?>
+                                    </p>
+                                </div>
+                                <div class="ThongKeSoLuongChung DocMau6">
+                                    <p>
+                                        Số lượng tài khoản:
+                                        <?php echo SoLuongTaiKhoan() ;?>
+                                    </p>
+                                </div>
+                                <div class="ThongKeSoLuongChung DocMau8">
+                                    <p>
+                                        Số lượng sinh viên đậu trong kỳ thực tập 2023:
+                                    </p>
+                                </div>
+                                <div class="ThongKeSoLuongChung DocMau7">
+                                    <p>
+                                        Số lượng sinh viên rớt:
+                                    </p>
+                                </div>
+                            </div> 
+                        </div>
+                        
                     </div>
                     <!--Sinhvien-->
-                    <div id="ThongTinSinhVien">
+                    <div class="ThongTinSinhVien">
                         <div class="BangThongTin">
                             <?php
                                 include('../QuanTriHeThong/SinhVien/BangThongTinSinhVien.php');
@@ -68,7 +183,7 @@
                         </div>
                     </div>
                     <!--Giao vien-->
-                    <div id="ThongTinGiaoVienHuongDan">
+                    <div class="ThongTinGiaoVienHuongDan">
                         <div class="BangThongTin">
                             <?php
                                 include('../QuanTriHeThong/GiaoVienHuongDan/BangThongTinGiaoVien.php');
@@ -83,7 +198,7 @@
                         </div>
                     </div>
                     <!--Đơn vị thực tập-->
-                    <div id="ThongTinDonViThucTap">
+                    <div class="ThongTinDonViThucTap">
                         <div class="BangThongTin">
                             <?php
                                 include('../QuanTriHeThong/DonViThucTap/BangThongTinDonVi.php');
@@ -98,10 +213,11 @@
                         </div>
                     </div>
                     <!--Cán bộ-->
-                    <div id="ThongTinCanBoHuongDan">
+                    <div class="ThongTinCanBoHuongDan">
+                       
                         <div class="BangThongTin">
                             <?php
-                                include('../QuanTriHeThong/CanBoHuongDan/BangThongTinCanBo.php');
+                                include('../QuanTriHeThong/CanBoHuongDan/LietKeCanBo.php');
                             ?>
                             <button class="NutChuyenTrangThemMauTin NutDangNhap">Thêm đơn vị thực tập</button>
                         </div>
@@ -113,10 +229,10 @@
                         </div>
                     </div>
                     <!--Tài khoản-->
-                    <div id="ThongTinTaiKhoan">
+                    <div class="ThongTinTaiKhoan">
                         <div class="BangThongTin">
                             <?php
-                                include('../QuanTriHeThong/TaiKhoan/BangThongTinTaiKhoan.php');
+                                include('../QuanTriHeThong/TaiKhoan/LietKeTaiKhoan.php');
                             ?>
                             <button class="NutChuyenTrangThemMauTin NutDangNhap">Tạo tài khoản</button>
                         </div>
@@ -128,20 +244,77 @@
                         </div>
                     </div>
                     <!--Điều hướng sinh viên-->
-                    <div id="ThongTinDieuHuongSinhVien">
+                    <div class="ThongTinDieuHuongSinhVien">
                         <div class="BangThongTin">
                             <?php
                                 include('../QuanTriHeThong/DieuHuongSinhVienChoGiaoVien/SoLuongSinhVienDuocGiangVienHuongDan.php');
                             ?>
                         </div>
                     </div>
+                    <!--Bảng điểm sinh viên-->
+                    <div class="BangDiemSoSinhVien">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/BangDiemSinhVienTheoDotThucTap/BangDiemSinhVien.php');
+                            ?>
+                        </div>
+                    </div>
+
+                    <!--Duyệt tài khoản đơn vị thực tập-->
+                    <div class="DSchoPheDuyetDonViThucTap">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/PheDuyetTaiKhoanDonViThucTap/DSdvtt_choDuyet.php');
+                            ?>
+                        </div>
+                    </div>
+
+                    <!--Các phiếu xác nhận thực tập-->
+                    <div class="ThongTinPhieuTiepNhan">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/PhieuTiepNhanThucTap/DSphieuTiepNhan.php');
+                            ?>
+                        </div>
+                    </div>
+
+                    <!--Các phiếu theo dõi thực tập-->
+                    <div class="ThongTinPhieuTheoDoi">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/PhieuTiepNhanThucTap/DSphieuTheoDoi.php');
+                            ?>
+                        </div>
+                    </div>
+
+                    <!--Các phiếu giao việc thực tập-->
+                    <div class="ThongTinPhieuGiaoViec">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/PhieuTiepNhanThucTap/DSphieuGiaoViec.php');
+                            ?>
+                        </div>
+                    </div>
+
+                    <!--Các phiếu đánh giá kết quả  thực tập-->
+                    <div class="ThongTinPhieuDanhGiaKetQua">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/PhieuTiepNhanThucTap/DSphieuKetQuaTT.php');
+                            ?>
+                        </div>
+                    </div>
+
+                    <!-- phiếu đánh giá báo cáo kết quả  thực tậpp-->
+                    <div class="ThongTinPhieuDanhGiaBaoCaoKetQua">
+                        <div class="BangThongTin">
+                            <?php
+                                include('../QuanTriHeThong/PhieuTiepNhanThucTap/DSphieuDanhGiaBaoCaoKetQuaTT.php');
+                            ?>
+                        </div>
+                    </div>
                     <!--Báo cáo danh sách sinh viên-->
-                    <div id="BaoCaoDS_dvtt"></div>
-                    <div id="BaoCaoDS_GVHD"></div>
-                    <div id="BaoCaoDS_CBHD"></div>
-                    <div id="BaoCaoDS_deTai"></div>
-                    <div id="BaoCaoDiemSoThucTap"></div>
-                    <div id="BaoCaoSVThucHienLai"></div>
+                    
                 </div>
             </div>
         </main>
@@ -165,3 +338,4 @@
         </footer>
     </body>
 </html>
+<a href="../../DoiTuongSuDung/DonViThucTap/QuanLyCanBoHuongDan/ThucHienXoaCanBo.php"></a>

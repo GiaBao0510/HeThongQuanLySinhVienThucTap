@@ -9,10 +9,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
         <link rel="stylesheet" href="../../../DoiTuongSuDung/QuanTriHeThong/DonViThucTap/GiaoDienBieuMau_DVTT.css">
-        <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienQuanTri.css">
+        <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienCapNhat.css">
     </head>
     <body>
-        <head></head>
+        <head>
+            <div class="DauTrang">
+                <div class="logo">
+                    <img src="../../../Image/logo2.png" class="AnhLogo"/>
+                </div>
+                <div class="CacNut">
+                    <a href="../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
+                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                </div>
+            </div>
+        </head>
         <main>
             <?php 
                 //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php
@@ -30,12 +40,12 @@
                 
                 echo'
                 <form action="../../QuanTriHeThong/SinhVien/ThucHienCapNhat_sv.php" method="post" enctype="application/x-www-form-urlencoded" class="BieuMauCapNhat">
-                    <div class="KhungTongQuat">
-                    <div class="KhungDau">
-                        <div class="Dau1">
-                            <img src="https://beebom.com/wp-content/uploads/2023/04/featured-new.jpg?w=290&h=290&crop=1&quality=75" alt="">
+                    <div class="KhungHienThiChinh">
+                    <div class="KhungHienThiDau">
+                        <div class="DauThu1">
+                        <img src="../../../Image/QuanTriHeThong/graduate.png" class="AnhDaiDien" alt="">
                         </div>
-                        <div class="Dau2">
+                        <div class="DauThu2">
                             <table>
                                 <tr>
                                 <td>
@@ -86,7 +96,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="KhungDuoi">
+                    <div class="KhungHienThiDuoi">
                         <table>
                         <tr>
                             <td>

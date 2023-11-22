@@ -36,6 +36,8 @@ function BieuMauGiaoViec(){
         }
     }
 
+    
+
     //Nếu các ràng buộc được đáp ứng thì mới thêm dữ liệu vào CSDL
     if(true){
         alert("Cập nhật thành công.");

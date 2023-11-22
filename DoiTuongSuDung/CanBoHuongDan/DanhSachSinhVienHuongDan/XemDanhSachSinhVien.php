@@ -13,8 +13,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/TrangChuCaNhan.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/CanBoHuongDan/CBHD.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
         <!--JS-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
+        <script defer src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script defer src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script defer src="../../../RangBuoc/CanBoHuongDan/CauHinhBangCanBo.js"></script>
         <!--PHP-->
         <?php
             include('../../TrangDungChung/KetNoi.php');
@@ -37,35 +42,58 @@
         </header>
         <main>
             <div class="DinhDangViTriBang">
-                <table class="BangNhanXetSinhVien">
-                    <tr class="DongTieuDe">
-                        <th>Mã số sinh viên</th>
-                        <th>Họ tên</th>
-                        <th>Giới tính</th>
-                        <th>Ngày sinh</th>
-                        <th>Khoa</th>
-                        <th>Ngành</th>
-                        <th>Nhận xét</th>
-                    </tr>
-                    <?php
-                        while($row = mysqli_fetch_array($ThongTinPhieuTheoDoi)){
-                            $ThongTinSV = infSinhVien($row['MSSV']);
-                            $MaNganh = trim(NganhHocCuaSinhVien(trim($ThongTinSV['MaLop']))['MaNganh']);
-                            $TenNganh = trim(NganhHocCuaSinhVien(trim($ThongTinSV['MaLop']))['TenNganh']);
-                            $TenKhoa = NganhThuocKhoa($MaNganh)['tenKhoa'];
-                            echo '<tr class="DongTieuDe">
-                                        <td>'.$ThongTinSV['MSSV'].'</td>
-                                        <td>'.$ThongTinSV['HoTen'].'</td>
-                                        <td>'.$ThongTinSV['GioiTinh'].'</td>
-                                        <td>'.$ThongTinSV['NgaySinh'].'</td>
-                                        <td>'.$TenKhoa.'</td>
-                                        <td>'.$TenNganh.'</td>
-                                        <td>
-                                        <a href="NhanXetSinhVien.php?MSCB='.$mscb.'&MSSV='.$ThongTinSV['MSSV'].'" class="NutNhanXet">Nhận xét</a>
-                                        </td>
-                                    </tr>';
-                        }
-                    ?>
+                <table id="CauHinhBangSVNhanXet" class="BangNhanXetSinhVien">
+                    <thead>
+                        <tr class="DongTieuDe">
+                            <th>Mã số sinh viên</th>
+                            <th>Họ tên</th>
+                            <th>Giới tính</th>
+                            <th>Ngày sinh</th>
+                            <th>Khoa</th>
+                            <th>Ngành</th>
+                            <th>Nhận xét</th>
+                        </tr>
+                    </thead>    
+                    <tbody>
+                        <?php
+                            while($row = mysqli_fetch_array($ThongTinPhieuTheoDoi)){
+                                $ThongTinSV = infSinhVien($row['MSSV']);
+                                $MaNganh = trim(NganhHocCuaSinhVien(trim($ThongTinSV['MaLop']))['MaNganh']);
+                                $TenNganh = trim(NganhHocCuaSinhVien(trim($ThongTinSV['MaLop']))['TenNganh']);
+                                $TenKhoa = NganhThuocKhoa($MaNganh)['tenKhoa'];
+                                $ktDaNhanXetHayChua = KiemTraSV_DaDuocCanBoNhanXetDanhGia($row['MSSV']);
+                                echo '<tr class="DongTieuDe">
+                                            <td>'.$ThongTinSV['MSSV'].'</td>
+                                            <td>'.$ThongTinSV['HoTen'].'</td>
+                                            <td>'.$ThongTinSV['GioiTinh'].'</td>
+                                            <td>'.$ThongTinSV['NgaySinh'].'</td>
+                                            <td>'.$TenKhoa.'</td>
+                                            <td>'.$TenNganh.'</td>';
+                                if($ktDaNhanXetHayChua < 1){
+                                    echo '<td>
+                                            <a href="NhanXetSinhVien.php?MSCB='.$mscb.'&MSSV='.$ThongTinSV['MSSV'].'" class="button-29">Chưa nhận xét</a>
+                                        </td>';
+                                }else{
+                                    echo '<td>
+                                            <a href="NhanXetSinhVien.php?MSCB='.$mscb.'&MSSV='.$ThongTinSV['MSSV'].'" class="button-29">Đã nhận xét</a>
+                                        </td>';
+                                }
+                                            
+                                echo   '</tr>';
+                            }
+                        ?>
+                    </tbody>
+                    <tfoot>
+                        <tr class="DongTieuDe">
+                            <th>Mã số sinh viên</th>
+                            <th>Họ tên</th>
+                            <th>Giới tính</th>
+                            <th>Ngày sinh</th>
+                            <th>Khoa</th>
+                            <th>Ngành</th>
+                            <th>Nhận xét</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </main>

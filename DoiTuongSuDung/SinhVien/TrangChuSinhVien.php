@@ -12,6 +12,11 @@
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
         <link rel="stylesheet" href="../../DinhDangWebSite/TrangDungChung/TrangChuCaNhan.css">
+        <style>
+            .NutDangNhap{
+                display: block;
+            }
+        </style>
         <!--JS-->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
 
@@ -289,7 +294,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="###" class="NutDangNhap">Tạo giấy giới thiệu</a>
+                                            <a href="NopCV/GiayGioiThieu.php?ID='.$maSo.'" class="NutDangNhap" >Xem giấy giới thiệu</a>
                                         </td>
                                         <td>
                                             <button type="submit" class="NutDangNhap"> Chỉnh sửa hồ sơ</button>
@@ -300,47 +305,41 @@
                     ?>
                     
                 </div>
-                <div class="KhungChonChucNang">
+                <div class="KhungChonChucNang"> 
                     <table class="BangChucNang">
                         <tr>
                             <td class="CotTieuDe">
                                 <a class="OChucNang" href="NopCV/ChuanBiNopCV.php?ID=<?php echo $_GET['ID'] ;?>">
-                                    <div></div>
+                                    <div>
+                                        <img src="../../Image/SinhVien/submission.png" class="AnhChucNang"/>
+                                    </div>
                                     <p>Nộp CV cá nhân đến đơn vị thực tập</p>
                                 </a>
                             </td>
                             <td class="CotTieuDe">
                                 <a class="OChucNang" href="NopPhieuTiepNhanChoGVHD/ChuanBiNopPhieu.php?ID=<?php echo $_GET['ID'];?>&Role=<?php echo $taiKhoan['UserRole'];?>">
-                                    <div></div>
-                                    <p>Nộp phiếu tiếp nhận thực tập đến giảng viên hướng dẫn phê duyệt</p>
+                                    <div>
+                                        <img src="../../Image/SinhVien/transfer.png" alt="" class="AnhChucNang">
+                                    </div>
+                                    <p>Nộp phiếu tiếp nhận thực tập đến <br> giảng viên hướng dẫn phê duyệt</p>
                                 </a>
                             </td>
                         </tr>
                         <tr>
                             <td class="CotTieuDe">
-                                <a class="OChucNang">
-                                    <div></div>
-                                    <p>Báo cáo kết quả thực tập</p>
+                                <a class="OChucNang" href="NopBaoCaoThucTap/ChuanBiNopBaoCao.php?MSSV=<?php echo $maSo;?>">
+                                    <div>
+                                        <img src="../../Image/SinhVien/upload.png" alt="" class="AnhChucNang">
+                                    </div>
+                                    <p>Nộp báo cáo kết quả thực tập</p>
                                 </a>
                             </td>
                             <td class="CotTieuDe">
-                                <a class="OChucNang">
-                                    <div></div>
+                                <a class="OChucNang" href="KetQua/BangKetQua.php?MSSV=<?php echo $maSo;?>">
+                                    <div>
+                                        <img src="../../Image/SinhVien/score.png" alt="" class="AnhChucNang">
+                                    </div>
                                     <p>Kết quả thực tập</p>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="CotTieuDe">
-                                <a class="OChucNang">
-                                    <div></div>
-                                    <p>Đơn vị thực tập tại khu vực</p>
-                                </a>
-                            </td>
-                            <td class="CotTieuDe">
-                                <a class="OChucNang">
-                                    <div></div>
-                                    <p>Thông tin tuyển dụng</p>
                                 </a>
                             </td>
                         </tr>

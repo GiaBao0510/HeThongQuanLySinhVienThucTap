@@ -198,3 +198,46 @@ function BieuMauTao_TKCBHD(){
         return true;
     }
 }
+
+//Biểu mẫu kiểm tra số điểm được chấm
+function RangBuocChamDiem(){
+    let BieuMau = document.forms['FchamDiemSinhVien'];
+    
+    //Kiểm tra chữ số
+    let diemSo = BieuMau['DiemCham[]'];
+
+    for(i=0 ; i<diemSo.length ; i++){
+        if(diemSo[i].value.trim() === ''){
+            Swal.fire('Không được bỏ trống ô điểm số.');
+            return false;
+        }
+        if(diemSo[i].value < 0 || diemSo[i].value > 10){
+            Swal.fire('Ô này cần điền chữ số có giá trị từ 0 - 10.');
+            return false;
+        }
+    }
+    
+    //Kiểm tra ô nhận xét
+    let DienNhanXet = document.forms['FchamDiemSinhVien']['NhanXetVeSinhVien'];
+    if(DienNhanXet.value.length == 0){
+        Swal.fire('Vui lòng ghi nhận xét về sinh viên trong suốt quá trình thực tập.');
+        return false;
+    }
+
+    //Kiểm tra ô đánh giá
+    let DemKT = 0;
+    let ONhanXet = document.querySelectorAll('input[type="checkbox"][name="DanhGia[]"][class="OcheckDanhGia"]');
+    for(const check of ONhanXet){
+        if(check.checked ){
+            DemKT = 1;
+        }
+    }
+    if(DemKT < 1){
+        Swal.fire('Vui lòng Chọn ít nhất 1 ô đánh giá về sinh viên..');
+        return false;
+    }
+
+    if(true){
+        return true;
+    }
+}

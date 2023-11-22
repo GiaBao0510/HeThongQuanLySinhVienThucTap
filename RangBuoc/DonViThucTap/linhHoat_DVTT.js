@@ -46,7 +46,6 @@ function DangKyTaiKhoanDVTT(){
 
     //Nếu các ràng buộc được đáp ứng thì mới thêm dữ liệu vào CSDL
     if(true){
-        alert("Thêm thành công.");
         return true;
     }
 }

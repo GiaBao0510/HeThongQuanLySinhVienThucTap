@@ -4,7 +4,7 @@
 
     $maDV =  trim(strval( $_POST['MaDVTT'] ));
     $massv = trim(strval($_POST['MaSSV']));
-    echo  $maDV;
+    //echo  $maDV;
     //Kiểm tra xen sinh veein có từng nộp CV cho đơn vị thực tập nào chưa nếu không thì thực hiện.Ngược lại thì hiện ra thông báo
     $DaNopCVChua = "SELECT COUNT(MaDVTT) dem
                     FROM phieutiepnhansinhvienthuctapthucte
@@ -14,8 +14,8 @@
     
     if($KetQuaKT < 1){
         $thucHien = "UPDATE phieutiepnhansinhvienthuctapthucte SET MaDVTT = '$maDV ' WHERE MSSV = '$massv'";
-        $chay = mysqli_query($connect,$thucHien) or die(mysqli_connect_error());
-        echo'<script async>
+        $chay = TruyVan($thucHien);
+        echo'<scrmysqli_query($connect,$thucHien) ipt async>
                 alert("Nộp giấy giới thiệu thành công.");
                 history.back();
             </script>';

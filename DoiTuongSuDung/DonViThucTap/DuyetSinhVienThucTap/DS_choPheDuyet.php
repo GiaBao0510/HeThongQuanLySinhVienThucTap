@@ -74,7 +74,7 @@
                                             <td> 
                                                 <a href="GiaoViec.php?ID='.$maSo.'&MSPXNTT='.$row['MSPXNTT'].'&MSSV='.$ThongTinSV['MSSV'].'" ><i class="fa-solid fa-check"></i></a>
                                             </td>
-                                            <td> <a href="" > <i class="fa-solid fa-x"></i> </a> </td>
+                                            <td> <a href="ThucHienKhongNhanSV.php?ID='.$maSo.'&MSPXNTT='.$row['MSPXNTT'].'&MSSV='.$ThongTinSV['MSSV'].'" > <i class="fa-solid fa-x"></i> </a> </td>
                                         </tr>';
                                     }
                                 }
@@ -85,8 +85,8 @@
                                     </tr>';
                             }
 
-                        ?> 
-                    </table>  
+                        ?> <a href=""></a>
+                    </table>
             </div>
         </main>
         <footer>

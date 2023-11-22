@@ -1,42 +1,47 @@
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Xóa mẫu tin sinh viên được chọn</title>
-    </head>
-    <body>
-        
-        <?php
-            //2.Xóa mẫu tin
-            function XoaMauTinSV(){
-                //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php
-                include ('../../../DoiTuongSuDung/TrangDungChung/KetNoi.php');
-            
-                //Kiểm tra xem nếu mảng checkbox này nếu không rỗng thì thực hiện công việc sau
-                if(!empty($_POST['checkbox'])){
-                    $checkbox = $_POST['checkbox'];
-                    //Kiểm tra xem đối tượng checkbox nayf có phải là mảng không
-                    if(is_array($checkbox)){
-                        //Thực hiện vòng lặp xóa những mẫu tin đã chọn
-                        foreach($checkbox as $key => $value ){
-                            //Câu lệnh
-                            $truyvan1 = "DELETE FROM sinhvien WHERE MSSV = '$value' ";
-                            $truyvan2 = "DELETE FROM taikhoan WHERE UserID = '$value' ";
-                            //Thực hiện xóa
-                            $thucHien1 = mysqli_query($connect,$truyvan1) or die(mysqli_connect_error());
-                            $thucHien1 = mysqli_query($connect,$truyvan2) or die(mysqli_connect_error());
-                        }
-                        echo'<p>Xóa thành công</p>';
-                    }
-                }else{
-                    echo'<p>Xóa thất bại</p>';
-                }
-                sleep(2);
-                header("Location: ../../../DoiTuongSuDung/QuanTriHeThong/TrangChu.php");
-            }
-            XoaMauTinSV()
-        ?>
-    </body>
-</html>
+<?php
+    include('../../TrangDungChung/KetNoi.php');
+    include('../../TrangDungChung/CacHamXuLy.php');
+    /*
+        - Đk: không được xóa thông tin sinh viên
+            Nếu sinh viên đã được chấm điểm thực tập hoặc 
+        được đơn vị thực tập chấp nhận cho thực tập hoặc 
+        được giáo viên chấp nhận thực tập, thì không được xóa.
+
+            Ngược lại thì xóa.
+    */
+    $mssv = $_GET['MSSV'];
+    
+    $dieuKien1 = checkSinhVienDaDuoc_GiangVienNhanThucTap($mssv);
+    $dieuKien2 = checkSinhVienDaDuoc_CanBoChamDiem($mssv);
+    $dieuKien3 = checkSinhVienDaDuoc_GiangVienChamDiem($mssv);
+    $dieuKien4 = SinhVienCo_PhieuDanhGiaKetQuaTT($mssv);
+
+    if($dieuKien1 > 0){
+        echo '<script>
+                alert("Sinh viên này đã được giáo viên chấp nhận thực tập. Nên không thể xóa");
+                history.back();
+            </script>';
+    }else if($dieuKien2 > 0){
+        echo '<script>
+                alert("Sinh viên này đã được cán bộ chấm điểm thực tập. Nên không thể xóa");
+                history.back();
+            </script>';
+    }else if($dieuKien3 > 0){
+        echo '<script>
+                alert("Sinh viên này đã được giảng viên chấm điểm thực tập. Nên không thể xóa");
+                history.back();
+            </script>';
+    }else if($dieuKien4 > 0){
+        echo '<script>
+                alert("Sinh viên này đã được ghi vài phiếu đánh giá kết quả thực tập. Nên không thể xóa");
+                history.back();
+            </script>';
+    }else{
+        $sql = "DELETE FROM sinhvien WHERE MSSV = '$mssv'";
+        TruyVan($sql);
+        echo '<script>
+                alert("Xóa thành công");
+                history.back();
+            </script>';
+    }
+?>
