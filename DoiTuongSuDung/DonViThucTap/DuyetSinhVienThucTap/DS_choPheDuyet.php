@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    ob_start();
+    include('../../TrangDungChung/KetNoi.php');
+    include('../../TrangDungChung/CacHamXuLy.php');
+    //Kiểm tra đăng nhập
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,8 +37,16 @@
                     <img src="../../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutThoat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="../TrangChuDVTT.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
@@ -48,33 +68,39 @@
                             <th class="TieuDeBangXetDuyet">Không nhận</th>
                         </tr> 
                         <?php
-                            include('../../TrangDungChung/KetNoi.php');
-                            include('../../TrangDungChung/CacHamXuLy.php');
-                            
-                            $maSo = $_GET['ID'];
-                            $ThongTinDVTT = madvtt_PhieuTiepNhanSinhVien($maSo);
+                            $maSo = $_SESSION['user'];
+                            $ThongTinDVTT = DS_ChoPheDuyet_DVTT($maSo);
                             //Kiểm tra có rỗng không Nếu rỗng thì không tin ra gì hết
                             if(!empty($ThongTinDVTT)){
                                 while($row =mysqli_fetch_array($ThongTinDVTT)){
-                                    $ThongTinSV = infSinhVien($row['MSSV']);
-
-                                    //Kiểm tra xem trên phiếu xác nhạn thực tập có cán bộ hướng dẫn chưa nếu có thì không hiển thị
-                                    $KiemTraCo_CBHD = "SELECT MSCB FROM phieutiepnhansinhvienthuctapthucte
-                                                WHERE MSSV = '".$row['MSSV']."'";
-                                    $ThucHienKiemTra_CBHD = mysqli_fetch_array(TruyVan($KiemTraCo_CBHD))['MSCB'];
+                                    $ThongTinSV = getSinhVien($row['MSSV']);
+                                    $nganhHoc = NganhHocCuaSinhVien($ThongTinSV['MaLop']);
+                                    $khoa = infKhoa($nganhHoc['MaKhoa'])['tenKhoa'];
+                                    //MSSV
+                                    if(empty($ThongTinSV['MSSV'])){
+                                        $mssv = 'null';
+                                    }else{
+                                        $mssv = $ThongTinSV['MSSV'];
+                                    }
+                                    //Họ tên
+                                    if(empty($ThongTinSV['HoTen'])){
+                                        $hoTen = 'null';
+                                    }else{
+                                        $hoTen = $ThongTinSV['HoTen'];
+                                    }
                                     if(empty($ThucHienKiemTra_CBHD)){
                                         echo'<tr>
-                                            <td>'.$ThongTinSV['tenKhoa'].'</td>
-                                            <td>'.$ThongTinSV['TenNganh'].'</td>
-                                            <td> <input type="hidden" name="MSSV" value="'.$ThongTinSV['MSSV'].'"/>'.$ThongTinSV['MSSV'].'</td>
-                                            <td>'.$ThongTinSV['HoTen'].'</td>
+                                            <td>'.$khoa.'</td>
+                                            <td>'.$nganhHoc['TenNganh'].'</td>
+                                            <td> <input type="hidden" name="MSSV" value="'.$mssv.'"/>'.$mssv.'</td>
+                                            <td>'.$hoTen.'</td>
                                             <td>
-                                                <a href="../../SinhVien/NopCV/GiayGioiThieu.php?ID='.$ThongTinSV['MSSV'].' ">Xem giấy giới thiệu</a>
+                                                <a href="../../SinhVien/NopCV/GiayGioiThieu.php?ID='.$mssv.' ">Xem giấy giới thiệu</a>
                                             </td>
                                             <td> 
-                                                <a href="GiaoViec.php?ID='.$maSo.'&MSPXNTT='.$row['MSPXNTT'].'&MSSV='.$ThongTinSV['MSSV'].'" ><i class="fa-solid fa-check"></i></a>
+                                                <a href="GiaoViec.php?MSPXNTT='.$row['MSPXNTT'].'&MSSV='.$mssv.'" ><i class="fa-solid fa-check"></i></a>
                                             </td>
-                                            <td> <a href="ThucHienKhongNhanSV.php?ID='.$maSo.'&MSPXNTT='.$row['MSPXNTT'].'&MSSV='.$ThongTinSV['MSSV'].'" > <i class="fa-solid fa-x"></i> </a> </td>
+                                            <td> <a href="ThucHienKhongNhanSV.php?ID='.$maSo.'&MSPXNTT='.$row['MSPXNTT'].'&MSSV='.$mssv.'" > <i class="fa-solid fa-x"></i> </a> </td>
                                         </tr>';
                                     }
                                 }

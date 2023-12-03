@@ -1,6 +1,15 @@
 <?php
+    session_start();
+    ob_start();
     include('../../TrangDungChung/KetNoi.php');
     include('../../TrangDungChung/CacHamXuLy.php');
+    //Kiểm tra đăng nhâp
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
+    
     /*
         - Đk: không được xóa thông tin sinh viên
             Nếu sinh viên đã được chấm điểm thực tập hoặc 

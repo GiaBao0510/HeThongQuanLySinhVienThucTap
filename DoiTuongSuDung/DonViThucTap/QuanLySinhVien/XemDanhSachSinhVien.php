@@ -31,9 +31,18 @@
         <script defer src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
         <script defer src="../../../RangBuoc/DonViThucTap/CauHinhBangDVTT.js"></script>
         <?php
-            include('../../TrangDungChung/CacHamXuLy.php');
+            session_start();
+            ob_start();
             include('../../TrangDungChung/KetNoi.php');
-            $mdvtt = trim($_GET['MDVTT']);
+            include('../../TrangDungChung/CacHamXuLy.php');
+            //Kiểm tra đăng nhập
+            if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }
+
+            $mdvtt = $_SESSION['user'];
             $role = mysqli_fetch_array(infTaiKhoan($mdvtt))['UserRole'];
         ?>
     </head>
@@ -44,8 +53,16 @@
                     <img src="../../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="../TrangChuDVTT.php?ID=<?php echo $_GET['MDVTT']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutThoat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="../TrangChuDVTT.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
@@ -78,17 +95,16 @@
                                                 WHERE gv.MSSV = '$mssv'";
                                 if(!empty(mysqli_fetch_array(TruyVan($kt_mssv_GVTD)))){
                                     $macb = trim(mysqli_fetch_array(TruyVan($kt_mssv_GVTD))['MSCB']);
-                                    $infor_svtt = infSinhVien($mssv);
-                                    $MaNganh = trim(NganhHocCuaSinhVien(trim($infor_svtt['MaLop']))['MaNganh']);
-                                    $TenNganh = trim(NganhHocCuaSinhVien(trim($infor_svtt['MaLop']))['TenNganh']);
-                                    $TenKhoa = NganhThuocKhoa($MaNganh)['tenKhoa'];
+                                    $infor_svtt = getSinhVien($mssv);
+                                    $nganhHoc = NganhHocCuaSinhVien($infor_svtt['MaLop']);
+                                    $khoa = infKhoa($nganhHoc['MaKhoa'])['tenKhoa'];
                                     echo"<tr>
                                         <td>".$infor_svtt['MSSV']."</td>
                                         <td>".$infor_svtt['HoTen']."</td>
                                         <td>".$infor_svtt['GioiTinh']."</td>
                                         <td>".$infor_svtt['NgaySinh']."</td>
-                                        <td>".$TenKhoa."</td>
-                                        <td>".$TenNganh ."</td>
+                                        <td>".$khoa."</td>
+                                        <td>".$nganhHoc['TenNganh'] ."</td>
                                         <td><a class='NutXemChiTietPGV' href='../../SinhVien/NopPhieuTiepNhanChoGVHD/ChuanBiNopPhieu.php?ID=".$mssv."&Role=".$role."'>Xem</a></td>";
                         ?>
                         <?php     

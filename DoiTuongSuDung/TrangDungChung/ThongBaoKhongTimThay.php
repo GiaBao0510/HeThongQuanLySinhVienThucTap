@@ -7,7 +7,7 @@
         <title>Tài Khoản không tồn tại</title>
         <script async>
             alert("Không tìm thấy tài khoản");
-            window.location.href="index.html";
+            window.location.href="index.php";
         </script>
     </head>
     <body>

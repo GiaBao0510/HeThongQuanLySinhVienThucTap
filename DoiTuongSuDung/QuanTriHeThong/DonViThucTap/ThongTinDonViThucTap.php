@@ -9,6 +9,8 @@
     </head>
     <body>
         <?php
+            session_start();
+            ob_start();
             //header("Access-Control-Allow-Methods: GET, POST");
             header('Access-Control-Allow-Methods: POST');
             //Thêm phần kết nối
@@ -16,6 +18,12 @@
             //Thêm phần hàm xử lý
             include('../../TrangDungChung/CacHamXuLy.php');
 
+            //Kiểm tra
+            if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }
 
             if(empty($_POST['tenDonViThucTap']) || empty($_POST['diaChi_dvtt']) ||
             empty($_POST['sdt_dvtt']) || empty($_POST['Email_DVTT']) ||

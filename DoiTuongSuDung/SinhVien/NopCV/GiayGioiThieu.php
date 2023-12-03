@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    ob_start();
+    include('../../TrangDungChung/KetNoi.php');
+    include('../../TrangDungChung/CacHamXuLy.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,20 +29,84 @@
                 <div class="logo">
                     <img src="../../../Image/logo2.png" class="AnhLogo"/>
                 </div>
-                <div class="CacNut">
-                    <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="../TrangChuSinhVien.php?ID=<?php echo $_GET['ID'] ;?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
-                </div>
+                <!--1.Nếu là sinh viên-->
+                <?php
+                    if($_SESSION['role'] == 1){
+                ?>
+                    <div class="CacNut">
+                        <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                            <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                            <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                            <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                            <button type="submit" class="NutThoat">
+                                <i class="fa-solid fa-door-open"></i>Thoát
+                            </button>
+                        </form>
+                        <a href="../TrangChuSinhVien.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    </div>
+                <?php
+                    }elseif($_SESSION['role'] == 2){
+                ?>
+                    <div class="CacNut">
+                        <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                            <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                            <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                            <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                            <button type="submit" class="NutThoat">
+                                <i class="fa-solid fa-door-open"></i>Thoát
+                            </button>
+                        </form>
+                        <a href="../../GiaoVienHuongDan/TrangChuGiaoVien.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    </div>
+                <?php
+                    }elseif($_SESSION['role'] == 3){
+                ?>
+                    <div class="CacNut">
+                        <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                            <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                            <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                            <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                            <button type="submit" class="NutThoat">
+                                <i class="fa-solid fa-door-open"></i>Thoát
+                            </button>
+                        </form>
+                        <a href="../../DonViThucTap/TrangChuDVTT.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    </div>
+                <?php
+                    }elseif($_SESSION['role'] == 4){
+                ?>
+                    <div class="CacNut">
+                        <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                            <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                            <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                            <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                            <button type="submit" class="NutThoat">
+                                <i class="fa-solid fa-door-open"></i>Thoát
+                            </button>
+                        </form>
+                        <a href="../../CanBoHuongDan/TrangChuCanBoHuongDan.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    </div>
+                <?php
+                    }
+                ?>
             </div>
         </header>
         <main>
             <?php
-                include('../../TrangDungChung/KetNoi.php');
-                include('../../TrangDungChung/CacHamXuLy.php');
                 
-                $MaSSV = strval(trim($_GET['ID']));
+                $MaSSV = $_GET['ID'];
                 $LayTT = infSinhVien($MaSSV);
-                
+                //Kiểm tra đăng nhập
+                if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+                    include('../../TrangDungChung/DangNhapThatBai.php');
+                }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+                    include('../../TrangDungChung/DangNhapThatBai.php');
+                }
+
                 //ĐK: Nếu sinh viên chưa đăng ký thực tạp thì không thể xem
                 if(KiemTraSinhVien_DangKyThucTapHayChua($MaSSV) < 1){
                     echo "<script>

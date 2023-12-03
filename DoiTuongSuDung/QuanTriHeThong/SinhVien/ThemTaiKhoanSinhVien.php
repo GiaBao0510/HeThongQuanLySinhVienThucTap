@@ -29,7 +29,7 @@
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Ngày sinh:</p>
-                                <input class="LayThongTin" name="ngaySinh" id="ngaySinh" type="date" placeholder="Ngày sinh" value="Ngày sinh"/>
+                                <input class="LayThongTin" name="ngaySinh" id="ngaySinh" type="date" placeholder="Ngày sinh" value="2000-01-01">
                             </td>
                         </tr>
                         <tr>

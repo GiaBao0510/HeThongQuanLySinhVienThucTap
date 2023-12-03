@@ -36,7 +36,18 @@ function BieuMauGiaoViec(){
         }
     }
 
-    
+    //Kiểm tra xem có tích vào điều kiện thực tập hay không
+    let dkthuctap = bieuMau['DieuKienTT[]'];
+    let datich = 1;
+    for(i=0 ;i<buoi.length ;i++){
+        if(dkthuctap[i].value.trim() === ''){
+            datich =0;
+        }
+    }
+    if(datich < 1){
+        alert("Vui lòng tích vào chỗ điều kiện thực tập.");
+            return false;
+    }
 
     //Nếu các ràng buộc được đáp ứng thì mới thêm dữ liệu vào CSDL
     if(true){

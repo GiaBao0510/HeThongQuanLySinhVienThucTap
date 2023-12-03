@@ -1,13 +1,21 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php
+    session_start();
+    ob_start();
     include('../../TrangDungChung/KetNoi.php');
     include('../../TrangDungChung/CacHamXuLy.php');
+    //Kiểm tra đăng nhập
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
 
     $upLoad = 1;
     $NoiLuuTru ="../../DeTai/";
     $TepTepTinDuocNop = $_FILES['fileToUpload']['name'];
     //Lấy thông tin sinh viên
-    $mssv = $_GET['MSSV'];
+    $mssv = $_SESSION['user'];
     $mscb = "";
     $msgv = "";
     $MaKH = infNienKhoa_NamBatDau(date('Y'))['MaKH'];
@@ -74,13 +82,13 @@
     if(!in_array($fileExtention,$allowedExtentions)){
         $upLoad = 0;
     }
-    echo "<p>Điều kiện 1: ".$upLoad."</p>";
+    //echo "<p>Điều kiện 1: ".$upLoad."</p>";
 
     //2.Kiểm tra tệp tin này có tồn tại trong thư mục hay chưa
     if(KiemTraFileTonTai($NoiLuuTru) == 0){
         $upLoad = 0;
     }
-    echo "<p>Điều kiện 2: ".$upLoad."</p>";
+    //echo "<p>Điều kiện 2: ".$upLoad."</p>";
     
     //3.Kiểm tra xem biến upload nếu có giá trị là không thì thông báo rằng không thể lưu
     if($upLoad == 0){

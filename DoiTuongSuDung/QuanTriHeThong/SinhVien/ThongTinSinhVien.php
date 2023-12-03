@@ -1,7 +1,16 @@
 <?php
     //Kết Nối
+    session_start();
+    ob_start();
     include("../../TrangDungChung/KetNoi.php");
     include('../../TrangDungChung/CacHamXuLy.php');
+
+    //Kiểm tra
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
 
     //Chấp nhân với phương thức post
     header('Access-Control-Allow-Methods: POST');
@@ -32,88 +41,90 @@
             !empty($_POST['diaChi_sv']) and !empty($_POST['maLop']) and !empty($_POST['pw_sv']) and !empty($_POST['sdt_sv'])
             and !empty($_POST['cccd']) and !empty($_POST['Email_sv'])){
                 //Thực hiện chuyển cơ sở dữ liệu
-                $chuyen1 = mysqli_query($connect, $chenMauTin_sv) or die(mysqli_connect_error());
-                $chuyen2 = mysqli_query($connect,$chenMauTin_taiKhoan) or die(mysqli_connect_error());
-            
+                TruyVan($chenMauTin_sv);
+                TruyVan($chenMauTin_taiKhoan);
                 
             //Tạo giấy phiếu cho sinh viên
             //Biến hỗ trợ
             $STT = ThongTinDotThucTap(date('Y'))['STT'];
             $phieuTiepNhanTT = mssv_PhieuTiepNhanSinhVien($mssv);
-            //1.Kiểm tra xem mã số sinh viên có trong bảng giấy giới thiệu không.nếu không có thì chỉ thêm vài biễu mẫu
-            $kiemTraMauTin = "SELECT COUNT(*) Co
-                                FROM giaygioithieu 
-                                WHERE MSSV = '$mssv'";
-            $ThucHien2 = mysqli_query($connect,$kiemTraMauTin) or die(mysqli_connect_error());
-            $Co = intval(mysqli_fetch_array($ThucHien2)['Co']) ;
-            if($Co == 0){
+            //Lấy thông tin sinh viên vừa được tạo
+            $ketqua = infSinhVien($mssv);
+            
+            //Kiểm tra xem có bảng giấy giới thiệu có mẫu tin nào không. Nếu không thì tạo ID mẫu tin giấy giới thiệu
+            $DemSoLuong = "SELECT COUNT(*) dem FROM giaygioithieu";
+            $ThucHien3 = mysqli_query($connect,$DemSoLuong) or die(mysqli_connect_error());
+            $Dem = intval(mysqli_fetch_array($ThucHien3)['dem']);
 
-                //Kiểm tra xem có bảng giấy giới thiệu có mẫu tin nào không. Nếu không thì tạo ID mẫu tin giấy giới thiệu
-                $DemSoLuong = "SELECT COUNT(*) dem FROM giaygioithieu";
-                $ThucHien3 = mysqli_query($connect,$DemSoLuong) or die(mysqli_connect_error());
-                $Dem = intval(mysqli_fetch_array($ThucHien3)['dem']);
+            if($Dem < 1){
+                $ThemMauTinDau = "INSERT INTO giaygioithieu VALUES('cv01','hv04','".$ketqua['MaNganh']."','".$ketqua['MSSV']."','','','','')";
+                TruyVan($ThemMauTinDau);
+            }else{
+                //Ngược lại thì ta lấy Chữ cái đầu và tăng số cuối chuỗi
+                $IDCV_Cuoi = "SELECT * FROM giaygioithieu ORDER BY IDCV DESC LIMIT 1";
+                $ThucHienLay = mysqli_query($connect,$IDCV_Cuoi) or die(mysqli_connect_error());
+                $ketQua1 = mysqli_fetch_array($ThucHienLay);
+                $newID = IncreaseIDIndex($ketQua1['IDCV']);
+                $ThemMauTinCuoi = "INSERT INTO giaygioithieu VALUES('".$newID."','hv04','".$ketqua['MaNganh']."','".$ketqua['MSSV']."','','','','')";
+                TruyVan($ThemMauTinCuoi);
+            }
+            
 
-                if($Dem < 1){
-                    $ThemMauTinDau = "INSERT INTO giaygioithieu VALUES('cv01','hv04','".$ketqua['MaNganh']."','".$ketqua['MSSV']."','','','','')";
-                    $ThucHIenThemMauTinDau = mysqli_query($connect,$ThemMauTinDau) or die(mysqli_connect_error());
-                }else{
-                    //Ngược lại thì ta lấy Chữ cái đầu và tăng số cuối chuỗi
-                    $IDCV_Cuoi = "SELECT * FROM giaygioithieu ORDER BY IDCV DESC LIMIT 1";
-                    $ThucHienLay = mysqli_query($connect,$IDCV_Cuoi) or die(mysqli_connect_error());
-                    $ketQua1 = mysqli_fetch_array($ThucHienLay);
-                    $newID = IncreaseIDIndex($ketQua1['IDCV']);
-                    $ThemMauTinCuoi = "INSERT INTO giaygioithieu VALUES('".$newID."','hv04','".$ketqua['MaNganh']."','".$ketqua['MSSV']."','','','','')";
-                    $ThucHIenThemMauTinCuoi = mysqli_query($connect,$ThemMauTinCuoi) or die(mysqli_connect_error());
-                }
+                //2. Tạo phiếu tiếp nhận sinh viên
+            //2.1Kiểm tra xem bảng xác nhận sinh viên thực tập có mẫu tin nào không. Nếu không thì tạo ID mẫu tin bảng theo dõi và bảng giao việc
+            $DemSoLuongPXNSV = "SELECT COUNT(*) dem FROM phieutiepnhansinhvienthuctapthucte";
+            $DemPXNSV = intval(mysqli_fetch_array(TruyVan($DemSoLuongPXNSV))['dem']);
+            //2.2 Nếu không có phiếu nào thì tạo mới
+            if($DemPXNSV < 1){
+                $ThemMauTinDauPhieuTiepNhan = "INSERT INTO phieutiepnhansinhvienthuctapthucte(MSPXNTT,ngayHetHan,MSSV,STT) VALUES('pgt01','".date('Y')."-04-28','".$mssv."','".$STT."')";
+                TruyVan($ThemMauTinDauPhieuTiepNhan);
+            }else{
+                //Ngược lại thì ta lấy Chữ cái đầu và tăng số cuối chuỗi
+                $IDPXNSV_Cuoi = "SELECT * FROM phieutiepnhansinhvienthuctapthucte ORDER BY MSPXNTT DESC LIMIT 1";
+                $LayIDpxnsvtt = mysqli_fetch_array(TruyVan($IDPXNSV_Cuoi));
+                $newIDpxnsvtt = IncreaseIDIndex($LayIDpxnsvtt['MSPXNTT']);
+                $ThemMauTinCuoi = "INSERT INTO phieutiepnhansinhvienthuctapthucte(MSPXNTT,ngayHetHan,MSSV,STT) VALUES('".$newIDpxnsvtt."','".date('Y')."-04-28','".$mssv."','".$STT."')";
+                TruyVan($ThemMauTinCuoi);
             }
 
-            //2.Kiểm tra xem mã số sinh viên có trong bảng phiếu theo dõi và giao việc không.nếu không có thì chỉ thêm vài biễu mẫu
-            $kiemTraMauTinTDvGV = "SELECT COUNT(*) Co
-                            FROM phieutheodoisinhvienthuctap td INNER JOIN phieugiaoviecsinhvienthuctap gv ON td.MSSV = gv.MSSV
-                            WHERE td.MSSV = '$mssv'";
-            $ThucHienKTgvVaTD = mysqli_query($connect,$kiemTraMauTinTDvGV) or die(mysqli_connect_error());
-            $Co = intval(mysqli_fetch_array($ThucHienKTgvVaTD)['Co']) ;
-            if($Co == 0){
+           
 
-                //Kiểm tra xem bảng theo dõi có mẫu tin nào không. Nếu không thì tạo ID mẫu tin bảng theo dõi và bảng giao việc
-                $DemSoLuongTD = "SELECT COUNT(*) dem FROM phieutheodoisinhvienthuctap";
-                $ThucHien3 = mysqli_query($connect,$DemSoLuongTD) or die(mysqli_connect_error());
-                $DemTD = intval(mysqli_fetch_array($ThucHien3)['dem']);
+            //3.Kiểm tra xem bảng theo dõi có mẫu tin nào không. Nếu không thì tạo ID mẫu tin bảng theo dõi và bảng giao việc
+            $DemSoLuongTD = "SELECT COUNT(*) dem FROM phieutheodoisinhvienthuctap";
+            $ThucHien3 = mysqli_query($connect,$DemSoLuongTD) or die(mysqli_connect_error());
+            $DemTD = intval(mysqli_fetch_array($ThucHien3)['dem']);
 
-                if($DemTD < 1){
-                    $ThemMauTinDau = "INSERT INTO phieutheodoisinhvienthuctap(MSPTDSV,MSSV,STT) VALUES('ptd01','".$mssv."','".$STT."')";
-                    $ThucHIenThemMauTinDau = mysqli_query($connect,$ThemMauTinDau) or die(mysqli_connect_error());
-                }else{
-                    //Ngược lại thì ta lấy Chữ cái đầu và tăng số cuối chuỗi
-                    $IDCV_Cuoi = "SELECT * FROM phieutheodoisinhvienthuctap ORDER BY MSPTDSV DESC LIMIT 1";
-                    $ThucHienLay = mysqli_query($connect,$IDCV_Cuoi) or die(mysqli_connect_error());
-                    $ketQua1 = mysqli_fetch_array($ThucHienLay);
-                    $newID = IncreaseIDIndex($ketQua1['MSPTDSV']);
-                    $ThemMauTinCuoi = "INSERT INTO phieutheodoisinhvienthuctap(MSPTDSV,MSSV,STT) VALUES('".$newID."','".$mssv."','".$STT."')";
-                    $ThucHIenThemMauTinCuoi = mysqli_query($connect,$ThemMauTinCuoi) or die(mysqli_connect_error());
-                }
+            if($DemTD < 1){
+                $ThemMauTinDau = "INSERT INTO phieutheodoisinhvienthuctap(MSPTDSV,MSSV,STT) VALUES('ptd01','".$mssv."','".$STT."')";
+                TruyVan($ThemMauTinDau);
+            }else{
+                //Ngược lại thì ta lấy Chữ cái đầu và tăng số cuối chuỗi
+                $IDCV_Cuoi = "SELECT * FROM phieutheodoisinhvienthuctap ORDER BY MSPTDSV DESC LIMIT 1";
+                $ThucHienLay = mysqli_query($connect,$IDCV_Cuoi) or die(mysqli_connect_error());
+                $ketQua1 = mysqli_fetch_array($ThucHienLay);
+                $newID = IncreaseIDIndex($ketQua1['MSPTDSV']);
+                $ThemMauTinCuoi = "INSERT INTO phieutheodoisinhvienthuctap(MSPTDSV,MSSV,STT) VALUES('".$newID."','".$mssv."','".$STT."')";
+                TruyVan($ThemMauTinCuoi);
+            }
 
-                //Kiểm tra xem bảng giao việc có mẫu tin nào không. Nếu không thì tạo ID mẫu tin bảng theo dõi và bảng giao việc
-                $DemSoLuongGV = "SELECT COUNT(*) dem FROM phieugiaoviecsinhvienthuctap";
-                $ThucHien4 = mysqli_query($connect,$DemSoLuongGV) or die(mysqli_connect_error());
-                $DemGV = intval(mysqli_fetch_array($ThucHien4)['dem']);
+            //4.Kiểm tra xem bảng giao việc có mẫu tin nào không. Nếu không thì tạo ID mẫu tin bảng theo dõi và bảng giao việc
+            $DemSoLuongGV = "SELECT COUNT(*) dem FROM phieugiaoviecsinhvienthuctap";
+            $ThucHien4 = mysqli_query($connect,$DemSoLuongGV) or die(mysqli_connect_error());
+            $DemGV = intval(mysqli_fetch_array($ThucHien4)['dem']);
 
-                if($DemGV < 1){
-                    $ThemMauTinDau = "INSERT INTO phieugiaoviecsinhvienthuctap(MSPGVSV,MSSV,STT) VALUES('ptd01','".$mssv."','".$STT."')";
-                    $ThucHIenThemMauTinDau = mysqli_query($connect,$ThemMauTinDau) or die(mysqli_connect_error());
-                }else{
-                    //Ngược lại thì ta lấy Chữ cái đầu và tăng số cuối chuỗi
-                    $IDCV_Cuoi = "SELECT * FROM phieugiaoviecsinhvienthuctap ORDER BY MSPGVSV DESC LIMIT 1";
-                    $ThucHienLay = mysqli_query($connect,$IDCV_Cuoi) or die(mysqli_connect_error());
-                    $ketQua1 = mysqli_fetch_array($ThucHienLay);
-                    $newID = IncreaseIDIndex($ketQua1['MSPGVSV']);
-                    $ThemMauTinCuoi = "INSERT INTO phieugiaoviecsinhvienthuctap(MSPGVSV,MSSV,STT) VALUES('".$newID."','".$mssv."','".$STT."')";
-                    $ThucHIenThemMauTinCuoi = mysqli_query($connect,$ThemMauTinCuoi) or die(mysqli_connect_error());
-                }
+            if($DemGV < 1){
+                $ThemMauTinDau = "INSERT INTO phieugiaoviecsinhvienthuctap(MSPGVSV,MSSV,STT) VALUES('ptd01','".$mssv."','".$STT."')";
+                TruyVan($ThemMauTinDau);
+            }else{
+                //Ngược lại thì ta lấy Chữ cái đầu và tăng số cuối chuỗi
+                $IDCV_Cuoi = "SELECT * FROM phieugiaoviecsinhvienthuctap ORDER BY MSPGVSV DESC LIMIT 1";
+                $ThucHienLay = mysqli_query($connect,$IDCV_Cuoi) or die(mysqli_connect_error());
+                $ketQua1 = mysqli_fetch_array($ThucHienLay);
+                $newID = IncreaseIDIndex($ketQua1['MSPGVSV']);
+                $ThemMauTinCuoi = "INSERT INTO phieugiaoviecsinhvienthuctap(MSPGVSV,MSSV,STT) VALUES('".$newID."','".$mssv."','".$STT."')";
+                TruyVan($ThemMauTinCuoi);
+            }
 
-            }    
-                //Thông báo thành công
-                echo "<p>Thêm thành công</p>";
             }else{
                 // Thông báo thất bại
                 echo "<p>Do một số trường không điển đầy đủ. => Thêm thất bại</p>";
@@ -121,7 +132,11 @@
         }else{
             echo "<p>Mã số sinh viên bị trùng. => Thêm thất bại</p>";
         }
-        header("Location: ../../QuanTriHeThong/TrangChu.php");
+        //Thông báo thành công
+        echo "<script>
+                alert('Thêm thành công');
+                history.back();
+            </script>";
         
     }
 

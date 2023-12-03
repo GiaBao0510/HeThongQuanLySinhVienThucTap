@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    ob_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,6 +19,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <style>
+            .KhungDoThiHocLuc{
+                margin-top: 2vw;
+                width: 50vw;
+                height: 60vh;
+            }
+        </style>
         <!--
             Java script
         -->
@@ -22,13 +33,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
-        <script src="../../RangBuoc/TrangDungChung/DungChung.js"></script>
-        <script src="../../RangBuoc/QuanTriHeThong/trangchu.js" async></script>
-        <script src="../../RangBuoc/QuanTriHeThong/ChuyenQuaLai.js" async></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script defer src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script defer src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
         <script defer src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+        <script src="../../RangBuoc/TrangDungChung/DungChung.js" async></script>
+        <script src="../../RangBuoc/QuanTriHeThong/trangchu.js" async></script>
+        <script src="../../RangBuoc/QuanTriHeThong/ChuyenQuaLai.js" async></script>
         <!--
             PHP
         -->
@@ -36,10 +48,14 @@
             include('../TrangDungChung/KetNoi.php');
             include('../TrangDungChung/CacHamXuLy.php');
 
-            session_start();
-            if(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+            $maDinhDanh = $_SESSION['user'];
+            
+            if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+                include('../TrangDungChung/DangNhapThatBai.php');
+            }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
                 include('../TrangDungChung/DangNhapThatBai.php');
             }
+
             //Kiểm tra năm bắt đầu thực tập có nhỏ hơn năm hiện tại hay không
             //Nếu nhỏ hơn thì tạo đợt thực tập mới
             $DotThucTapGanDay = "SELECT * ,year(ngayBatDau) nam 
@@ -70,13 +86,21 @@
     </head>
     <body>
         <header>
-            <div class="DauTrang">
-                <div class="logo">
-                    <img src="../../../Image/logo2.png" class="AnhLogo"/>
+            <div class="DauTrangChu">
+                <div class="Logo">
+                   <img src="../../Image/QuanTriHeThong/protection.png" class="anhAdmin">
                 </div>
-                <div class="CacNut">
-                <a href="../TrangDungChung/ThucHienDangXuat.php" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                <div class="CacNutDauTrang">
+                    <form action="../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutDangXuat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="./TrangChu.php" class="NutVeTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
@@ -110,7 +134,7 @@
                     ### Bản tin ###
                 -->
                 <div class="ThanhThongTin">
-                <h1>Thống kê đợt thực tập <?php echo ngayThangNam_VN($ngayBatDau);?> - <?php echo ngayThangNam_VN($ngayKetThuc);?></h1>
+                    <h1>Học kỳ 3 - Thống kê đợt thực tập <?php echo ngayThangNam_VN($ngayBatDau);?> - <?php echo ngayThangNam_VN($ngayKetThuc);?></h1>
                     <div class="ThongTinThongKe">
                         <div class="ChiTietThongKe">
                             
@@ -156,16 +180,56 @@
                                 <div class="ThongKeSoLuongChung DocMau8">
                                     <p>
                                         Số lượng sinh viên đậu trong kỳ thực tập 2023:
+                                        <?php
+                                            echo (DemSoLuongSinhVienYeu()+DemSoLuongSinhVienTrungBinhYeu()+DemSoLuongSinhVienTrungBinh()
+                                        +DemSoLuongSinhVienKha() +DemSoLuongSinhVienGioi()+DemSoLuongSinhVienXuatSat()  );
+                                        ?>
                                     </p>
                                 </div>
                                 <div class="ThongKeSoLuongChung DocMau7">
                                     <p>
                                         Số lượng sinh viên rớt:
+                                        <?php echo DemSoLuongSinhVienKem();?>
                                     </p>
                                 </div>
                             </div> 
-                        </div>
-                        
+                        <!--
+                            Vẽ sơ đồ
+                        -->
+                        <div>
+                            <div class="KhungDoThiHocLuc">
+                                <h2>Thống kê điểm số sinh viên thực tập theo đợt</h2>
+                                <canvas id="DoThiHocLuc"></canvas>
+                                <?php
+                                    echo "<script>
+                                            var dt1 = document.getElementById('DoThiHocLuc').getContext('2d');
+        
+                                            var data = {
+                                            labels: ['Kém', 'Yếu', 'Trung bình yếu', 'Trung bình', 'Khá', 'Giỏi', 'Xuất sắt'],
+                                            datasets: [{
+                                                data: [".DemSoLuongSinhVienKem().",".DemSoLuongSinhVienYeu()." ,".DemSoLuongSinhVienTrungBinhYeu()." 
+                                                ,".DemSoLuongSinhVienTrungBinh()." ,".DemSoLuongSinhVienKha()." ,".DemSoLuongSinhVienGioi()." 
+                                                ,".DemSoLuongSinhVienXuatSat()." ],
+                                                backgroundColor: ['#141617','#6a6a6b','#e50303','#7003e5',
+                                                 '#fa9703', '#e5dd00','#16e503']
+                                            }]
+                                            };
+        
+                                            var myChart = new Chart(dt1,{
+                                            type: 'bar',
+                                            data: data,
+                                            options:{
+                                                title:{
+                                                    text:'Học lực các sinh viên'
+                                                }
+                                            }
+                                            });
+                                        </script>";
+                                ?>
+                            </div>
+                            
+                        </div> 
+                       </div> 
                     </div>
                     <!--Sinhvien-->
                     <div class="ThongTinSinhVien">
@@ -338,4 +402,3 @@
         </footer>
     </body>
 </html>
-<a href="../../DoiTuongSuDung/DonViThucTap/QuanLyCanBoHuongDan/ThucHienXoaCanBo.php"></a>

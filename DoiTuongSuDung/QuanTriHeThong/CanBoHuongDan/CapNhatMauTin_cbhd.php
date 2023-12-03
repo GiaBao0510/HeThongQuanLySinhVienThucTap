@@ -11,18 +11,40 @@
         <link rel="stylesheet" href="../../../DoiTuongSuDung/QuanTriHeThong/GiaoVienHuongDan/GiaoDienTaoTaiKhoanGVHD.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienCapNhat.css">
     </head>
+        
+    <?php
+        session_start();
+        ob_start();
+        include('../../TrangDungChung/KetNoi.php');
+        include('../../TrangDungChung/CacHamXuLy.php');
+        
+        //Kiểm tra đăng nhâp
+        if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+            include('../../TrangDungChung/DangNhapThatBai.php');
+        }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+            include('../../TrangDungChung/DangNhapThatBai.php');
+        }
+    ?>
     <body>
-        <head>
-            <div class="DauTrang">
-                <div class="logo">
-                    <img src="../../../Image/logo2.png" class="AnhLogo"/>
+        <header>
+            <div class="DauTrangChu">
+                <div class="Logo">
+                   <img src="../../../Image/QuanTriHeThong/protection.png" class="anhAdmin">
                 </div>
-                <div class="CacNut">
-                    <a href="../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                <div class="CacNutDauTrang">
+                    <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutDangXuat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="../TrangChu.php" class="NutVeTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
-       </head>
+        </header>
         <main>
             <?php 
                 //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php

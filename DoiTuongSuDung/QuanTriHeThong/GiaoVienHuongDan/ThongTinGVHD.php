@@ -1,10 +1,19 @@
 <?php
     //Kết Nối
+    session_start();
+    ob_start();
     include("../../TrangDungChung/KetNoi.php");
-
+    include("../../TrangDungChung/CacHamXuLy.php");
     //Chấp nhân với phương thức post
     header('Access-Control-Allow-Methods: POST');
     
+    //Kiểm tra
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
+
     $ma = trim($_POST['MaKhoa']);
 
     //Thực hiện tìm kiếm có lớp nào trùng không
@@ -31,15 +40,15 @@
         $masoTrung = "SELECT * FROM giangvienhuongdan WHERE MSGV = '$maso' ";
         $thucHienTimMaSoTrung = mysqli_query($connect,$masoTrung);
         if(empty(mysqli_fetch_array($thucHienTimMaSoTrung))){
+
            //Lệnh dùng để xen mẫu tin
             $chenMauTin = "INSERT INTO giangvienhuongdan values ('".$_POST['MSGV']."','".$_POST['HoTen']."','".$_POST['ngaySinh']."','".$_POST['gioitinh']."','".$_POST['diaChi_gv']."','".$_POST['sdt_gv']."','".$_POST['Email_gvhd']."','".$_POST['cccd']."','".$ma."') ";
             $role = 2;
             $chenMauTin_taiKhoan = "INSERT INTO taikhoan VALUES('".$_POST['MSGV']."','".$_POST['pw_gvhd']."','".$role."') ";
             
             //Điều kiện trước khi xen nếu toàn bộ trường được điền thì xen
-            if(!empty($_POST['HoTen']) and !empty($_POST['ngaySinh']) and !empty($_POST['gioitinh']) and
-            !empty($_POST['diaChi_gv']) and !empty($_POST['MaKhoa']) and !empty($_POST['pw_gvhd']) and !empty($_POST['sdt_gv'])
-            and !empty($_POST['cccd']) and !empty($_POST['Email_gvhd'])){
+            if(!empty($_POST['HoTen']) and !empty($_POST['ngaySinh']) and !empty($_POST['gioitinh']) and !empty($_POST['MaKhoa']) and !empty($_POST['pw_gvhd'])
+            and !empty($_POST['Email_gvhd'])){
                 //Thực hiện chuyển cơ sở dữ liệu
                 $chuyen1 = mysqli_query($connect, $chenMauTin) or die(mysqli_connect_error());
                 $chuyen2 = mysqli_query($connect,$chenMauTin_taiKhoan) or die(mysqli_connect_error());

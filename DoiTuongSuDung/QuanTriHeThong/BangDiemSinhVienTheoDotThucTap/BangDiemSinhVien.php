@@ -46,7 +46,12 @@
                         $dsSinhVien = DS_SinhVien();
 
                         while($row = mysqli_fetch_array($dsSinhVien)){
-                            $tenGV = infGiangVienHuongDan($row['MSGV'])['HoTen'];
+                            
+                            if(empty(getGiangVienHuongDan($row['MSGV']))){
+                                $tenGV = 'null';
+                            }else{
+                                $tenGV = getGiangVienHuongDan($row['MSGV'])['HoTen'];
+                            }
                             $tenDV = infDonViThucTap($row['MaDVTT'])['TenDVTT'];
                             
                             if(gettype($row['MSCB']) != 'NULL'){

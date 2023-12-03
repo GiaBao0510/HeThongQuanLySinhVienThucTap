@@ -1,6 +1,6 @@
 <?php
     include('KetNoi.php');
-
+    
     //Tạo các session với các giá trị mặc định
     function update_value_session($key,$value){
         echo"<p>".$key."</p>";
@@ -206,7 +206,6 @@
 
     /*7. Lấy thông tin phiếu tiếp nhận sinh viên thực tập thông qua mã số sinh viên */
     function mssv_PhieuTiepNhanSinhVien($mssv){
-        global $connect;
         $sql ="SELECT * 
             FROM phieutiepnhansinhvienthuctapthucte
             WHERE MSSV = '$mssv'";
@@ -1203,4 +1202,157 @@
         $thucHien = TruyVan($sql);
         return mysqli_fetch_array($thucHien)['dem'];
     }
+
+    /*100. Danh sách chờ phê duyệt theo mã số đơn vị thực tập*/
+    function DS_ChoPheDuyet_DVTT($maDVTT){
+        $sql ="SELECT * 
+        FROM phieutiepnhansinhvienthuctapthucte
+        WHERE MaDVTT = '$maDVTT' AND MSCB IS NULL ";
+        $Chay = TruyVan($sql);
+        return $Chay;
+    }
+
+    /*101. Lấy mã số cán bộ gần nhất*/
+    function MSCB_current(){
+        $sql ="SELECT *
+        FROM canbohuongdan
+        ORDER BY MSCB DESC LIMIT 1  ";
+        $Chay = mysqli_fetch_array(TruyVan($sql))['MSCB'];
+        return $Chay;
+    }
+
+    /*102.MSCB _ thông tin giảng viên hướng dẫn*/
+    function getGiangVienHuongDan($MSGV){
+        $sql = " SELECT * FROM giangvienhuongdan 
+        WHERE MSGV = '$MSGV' ";
+        $thucHien = TruyVan($sql);
+        return mysqli_fetch_array($thucHien);
+    }
+
+    /*103. Đếm số lượng sinh viên xuất sắc*/
+    function DemSoLuongSinhVienXuatSat(){
+        $dem = 0;
+        $dssv = DS_SinhVien();
+        while($row = mysqli_fetch_array($dssv)){
+            $diemSo = 0;
+            if(empty(MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV'])) ){
+                $diemSo = 0;
+            }else{
+                $diemSo = MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV']);
+                if($diemSo >= 9){
+                    $dem++;
+                }
+            }
+        }
+        return $dem;
+    }
+
+    /*104. Đếm số lượng sinh viên giỏi*/
+    function DemSoLuongSinhVienGioi(){
+        $dem = 0;
+        $dssv = DS_SinhVien();
+        while($row = mysqli_fetch_array($dssv)){
+            $diemSo = 0;
+            if(empty(MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV'])) ){
+                $diemSo = 0;
+            }else{
+                $diemSo = MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV']);
+                if($diemSo >= 8 and $diemSo <= 8.9){
+                    $dem++;
+                }
+            }
+        }
+        return $dem;
+    }
+
+    /*105. Đếm số lượng sinh viên khá*/
+    function DemSoLuongSinhVienKha(){
+        $dem = 0;
+        $dssv = DS_SinhVien();
+        while($row = mysqli_fetch_array($dssv)){
+            $diemSo = 0;
+            if(empty(MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV'])) ){
+                $diemSo = 0;
+            }else{
+                $diemSo = MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV']);
+                if($diemSo >= 6.5 and $diemSo <= 7.9){
+                    $dem++;
+                }
+            }
+        }
+        return $dem;
+    }
+
+    /*106. Đếm số lượng sinh viên trung bình*/
+    function DemSoLuongSinhVienTrungBinh(){
+        $dem = 0;
+        $dssv = DS_SinhVien();
+        while($row = mysqli_fetch_array($dssv)){
+            $diemSo = 0;
+            if(empty(MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV'])) ){
+                $diemSo = 0;
+            }else{
+                $diemSo = MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV']);
+                if($diemSo >= 5.5 and $diemSo <= 6.4){
+                    $dem++;
+                }
+            }
+        }
+        return $dem;
+    }
+
+    /*107. Đếm số lượng sinh viên trung bình yếu*/
+    function DemSoLuongSinhVienTrungBinhYeu(){
+        $dem = 0;
+        $dssv = DS_SinhVien();
+        while($row = mysqli_fetch_array($dssv)){
+            $diemSo = 0;
+            if(empty(MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV'])) ){
+                $diemSo = 0;
+            }else{
+                $diemSo = MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV']);
+                if($diemSo >= 5.5 and $diemSo <= 6.4){
+                    $dem++;
+                }
+            }
+        }
+        return $dem;
+    }
+
+    /*107. Đếm số lượng sinh viên  yếu*/
+    function DemSoLuongSinhVienYeu(){
+        $dem = 0;
+        $dssv = DS_SinhVien();
+        while($row = mysqli_fetch_array($dssv)){
+            $diemSo = 0;
+            if(empty(MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV'])) ){
+                $diemSo = 0;
+            }else{
+                $diemSo = MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV']);
+                if($diemSo >= 4.0 and $diemSo <= 5.4){
+                    $dem++;
+                }
+            }
+        }
+        return $dem;
+    }
+
+    /*108. Đếm số lượng sinh viên  Kém*/
+    function DemSoLuongSinhVienKem(){
+        $dem = 0;
+        $dssv = DS_SinhVien();
+        while($row = mysqli_fetch_array($dssv)){
+            $diemSo = 0;
+            if(empty(MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV'])) ){
+                $diemSo = 0;
+            }else{
+                $diemSo = MSSV_TongBaoCaoKetQuaThucTapThucTe($row['MSSV']);
+                if($diemSo < 4){
+                    $dem++;
+                }
+            }
+        }
+        return $dem;
+    }
+
 ?>

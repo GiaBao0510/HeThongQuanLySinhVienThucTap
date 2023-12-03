@@ -22,9 +22,17 @@
         <script defer src="../../../RangBuoc/CanBoHuongDan/CauHinhBangCanBo.js"></script>
         <!--PHP-->
         <?php
+            session_start();
+            ob_start();
             include('../../TrangDungChung/KetNoi.php');
             include('../../TrangDungChung/CacHamXuLy.php');
-            $mscb = $_GET['MSCB'];
+            //Kiểm tra đăng nhập
+            if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }
+            $mscb = $_SESSION['user'];
             $ThongTinPhieuTheoDoi = mscb_PhieuTheoDoiThucTap($mscb);
         ?>
     </head>
@@ -35,8 +43,16 @@
                     <img src="../../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuCanBoHuongDan.php?ID=<?php echo $_GET['ID'] ;?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutThoat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="../TrangChuCanBoHuongDan.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
@@ -71,11 +87,11 @@
                                             <td>'.$TenNganh.'</td>';
                                 if($ktDaNhanXetHayChua < 1){
                                     echo '<td>
-                                            <a href="NhanXetSinhVien.php?MSCB='.$mscb.'&MSSV='.$ThongTinSV['MSSV'].'" class="button-29">Chưa nhận xét</a>
+                                            <a href="NhanXetSinhVien.php?MSSV='.$ThongTinSV['MSSV'].'" class="button-29">Chưa nhận xét</a>
                                         </td>';
                                 }else{
                                     echo '<td>
-                                            <a href="NhanXetSinhVien.php?MSCB='.$mscb.'&MSSV='.$ThongTinSV['MSSV'].'" class="button-29">Đã nhận xét</a>
+                                            <a href="NhanXetSinhVien.php?MSSV='.$ThongTinSV['MSSV'].'" class="button-29">Đã nhận xét</a>
                                         </td>';
                                 }
                                             

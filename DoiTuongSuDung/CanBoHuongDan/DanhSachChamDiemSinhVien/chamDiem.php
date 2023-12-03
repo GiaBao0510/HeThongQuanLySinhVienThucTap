@@ -201,7 +201,7 @@
                                             </td>';
                                         echo'        
                                             <td>
-                                                <input name="DiemCham[]" type="text" ID="VungChamDiem"/>
+                                                <input name="DiemCham[]" type="text" ID="VungChamDiem" value="10"/>
                                                 <input type="hidden" name="IDnddgkq[]" value='.$row['ID'].'>
                                             </td>';
                                     }

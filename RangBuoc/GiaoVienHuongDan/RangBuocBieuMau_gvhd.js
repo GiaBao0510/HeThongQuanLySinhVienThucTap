@@ -45,28 +45,28 @@ function BieuMauDangKy_TKGVHD(){
         return false;
     }
 
-    //Kiểm tra số điện thoại
-    let regSDT = /((09|08|07|03|05)+([0-9]{8})\b)/g;
-    let sdt = BieuMau['sdt_gv'].value;
-    if(regSDT.test(sdt) == false){
-        alert("Số điện thoại không hợp lệ.");
-        return false;
-    }
+    // //Kiểm tra số điện thoại
+    // let regSDT = /((09|08|07|03|05)+([0-9]{8})\b)/g;
+    // let sdt = BieuMau['sdt_gv'].value;
+    // if(regSDT.test(sdt) == false){
+    //     alert("Số điện thoại không hợp lệ.");
+    //     return false;
+    // }
 
-    //Kiểm tra căn cước công dân
-    let cccd = BieuMau['cccd'].value;
-    let regCCCD = /^[0-9]{12}$/;
-    if(regCCCD.test(cccd) == false){
-        alert('Căn cước công dân không hợp lệ.');
-        return false;
-    }
+    // //Kiểm tra căn cước công dân
+    // let cccd = BieuMau['cccd'].value;
+    // let regCCCD = /^[0-9]{12}$/;
+    // if(regCCCD.test(cccd) == false){
+    //     alert('Căn cước công dân không hợp lệ.');
+    //     return false;
+    // }
 
-    //Kiểm tra địa chỉ
-    let diachi = BieuMau['diaChi_gv'];
-    if(diachi.value.length < 10){
-        alert('Phần điền địa chỉ phải lớn hơn 10 ký tự.');
-        return false;
-    }
+    // //Kiểm tra địa chỉ
+    // let diachi = BieuMau['diaChi_gv'];
+    // if(diachi.value.length < 10){
+    //     alert('Phần điền địa chỉ phải lớn hơn 10 ký tự.');
+    //     return false;
+    // }
 
     if(true){
         alert("Đăng ký thành công");

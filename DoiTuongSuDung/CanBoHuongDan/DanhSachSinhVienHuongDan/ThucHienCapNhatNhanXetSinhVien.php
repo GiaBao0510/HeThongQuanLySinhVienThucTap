@@ -1,7 +1,15 @@
 <?php
+    session_start();
+    ob_start();
     include('../../TrangDungChung/KetNoi.php');
     include('../../TrangDungChung/CacHamXuLy.php');
-
+    //Kiểm tra đăng nhập
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
+    
     $mssv = $_POST['MSSV'];
     $msptntt = mssv_PhieuTiepNhanSinhVien($mssv)['MSPXNTT'];
     // echo $mssv;

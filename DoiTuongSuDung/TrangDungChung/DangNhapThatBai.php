@@ -1,3 +1,7 @@
+<?php
+    //Hủy hết phiên
+    session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Tài khoản không hợp lệ</title>
         <style>
-            .AnManHinh{
+            #AnManHinh{
                 position: fixed;
                 width: 100vw;
                 height: 100vh;
@@ -15,10 +19,10 @@
         </style>
         <script defer>
             alert("Tài khoản không hợp lệ");
-            window.location.href="../TrangDungChung/index.html";
+            window.location.href="/DoiTuongSuDung/TrangDungChung/index.php";
         </script>
     </head>
     <body>
-        <div class="AnManHinh"></div>
+        <div id="AnManHinh"></div>
     </body>
 </html>

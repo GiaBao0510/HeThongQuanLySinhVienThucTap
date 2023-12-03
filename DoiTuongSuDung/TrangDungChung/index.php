@@ -15,6 +15,9 @@
         <script src="../../RangBuoc/SinhVien/RangBuocBieuMau.js" async></script>
         <script src="../../RangBuoc/TrangDungChung/index.js" async></script>
         <script src="../../RangBuoc/TrangDungChung/DungChung.js"></script>
+        <!--
+            PHP
+        -->
         
     </head>
     <body>
@@ -24,7 +27,7 @@
                     <img src="../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="index.html" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <a href="index.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
@@ -73,7 +76,7 @@
                     <div class="CuaSo2">
                             <div class=" ChuyenTrangDangKy">
                                 <h1>Hệ thống quản lý sinh viên thực tập thực tế</h1>
-                                <p class="ThongTinDangKy">Sinh viên và đơn vị thực tập có thể đăng ký trực tiếp trên hệ thống.<br>Giảng viên hướng dẫn liên hệ với khoa để được cấp tài khoản đăng nhập. <br>Cán bộ hướng dẫn liên hệ với đơn vị thực tập để được cấp tài khoản. </p>
+                                <p class="ThongTinDangKy">Sinh viên và đơn vị thực tập có thể đăng ký trực tiếp trên hệ thống.<br>Giảng viên hướng dẫn liên hệ với khoa để được cấp tài khoản đăng nhập. <br>Đơn vị/ công ty thực tập sẽ được nhà trường cấp cho tài khoản hoặc có thể tự đăng ký tài khoản(Sau khi tạo tài khoản thành công thì phải chờ nhà trường duyệt thì tài khoản sẽ có hiệu lực)  <br>Cán bộ hướng dẫn liên hệ với đơn vị thực tập để được cấp tài khoản. </p>
                             </div>
                             <button class="NutChuyenTrang" id="NutDangKy">Đăng ký tài khoản</button>
                     </div>

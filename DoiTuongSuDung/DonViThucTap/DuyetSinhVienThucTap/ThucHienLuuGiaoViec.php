@@ -1,6 +1,14 @@
 <?php
-    include('../../TrangDungChung/CacHamXuLy.php');
+    session_start();
+    ob_start();
     include('../../TrangDungChung/KetNoi.php');
+    include('../../TrangDungChung/CacHamXuLy.php');
+    //Kiểm tra đăng nhập
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
     
     //1.Các mảng cần lưu
     $MangCongViec=$_POST['congViec'];
@@ -12,7 +20,7 @@
     //2.Thông tin chung cần lưu
     $MaCanboHD = $_POST['MSCB'];
     $MSSV = $_GET['MSSV'];
-    $MaDVTT = $_GET['DVTT'];
+    $MaDVTT = $_SESSION['user'];
 
     //3.Lấy thông tin phiếu tiếp nhận,giao việc,theo dõi sinh viên thông qua mã số sinh viên
     $PhieuTiepNhanSinhVien = mssv_PhieuTiepNhanSinhVien($MSSV);

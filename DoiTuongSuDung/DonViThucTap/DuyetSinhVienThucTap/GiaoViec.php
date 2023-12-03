@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    ob_start();
+    include('../../TrangDungChung/KetNoi.php');
+    include('../../TrangDungChung/CacHamXuLy.php');
+    //Kiểm tra đăng nhập
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,11 +30,6 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
         <script src="../../../RangBuoc/DonViThucTap/RangBuocGiaoViec.js" async></script>
         <script src="../../../RangBuoc/TrangDungChung/DungChung.js" async></script>
-        <!--PHP-->
-        <?php
-            include('../../TrangDungChung/KetNoi.php');
-            include('../../TrangDungChung/CacHamXuLy.php'); 
-        ?>
 
     </head>
     <body>
@@ -32,14 +39,22 @@
                     <img src="../../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutThoat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="../TrangChuDVTT.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
         <main>
             <div class="KhungVienBenNgoai">
-                <form action="ThucHienLuuGiaoViec.php?DVTT=<?php echo$_GET['ID'];?>&MSPXNTT=<?php echo$_GET['MSPXNTT'];?>&MSSV=<?php echo$_GET['MSSV'];?>" method="post" enctype="application/x-www-form-urlencoded" class="BieuMauGiaoViec" name="bieuMauGiaoViec" onsubmit="return GBieuMauGiaoViec()">
+                <form action="ThucHienLuuGiaoViec.php?MSPXNTT=<?php echo$_GET['MSPXNTT'];?>&MSSV=<?php echo$_GET['MSSV'];?>" method="post" enctype="application/x-www-form-urlencoded" class="BieuMauGiaoViec" name="bieuMauGiaoViec" onsubmit="return BieuMauGiaoViec()">
                     <div class="ThongTinPhieuTiepNhan">
                         <h1>
                             Phiếu giao việc cho sinh viên thực tập thực tế <br>
@@ -63,7 +78,7 @@
                             $LayTuanThucTap = TruyVan($TruyVanTuanThucTap);
 
                             //Lấy số lượng các bộ hướng dẫn dựa trên mã dvtt
-                            $maDVTT = $_GET['ID'];
+                            $maDVTT = $_SESSION['user'];
                             $truyVanSoLuongCanBo = "SELECT *
                                                     FROM canbohuongdan
                                                     WHERE MaDVTT = '$maDVTT'";
@@ -87,11 +102,11 @@
                                     <td>
                                         <div class="CotDienThoiGianLam">
                                             <div>
-                                                <input name="Gio[]" type="number" class="DienThoiGianLam">
+                                                <input name="Gio[]" type="number" class="DienThoiGianLam" value="7">
                                                 <span class="PhanGiaoViec">giờ/buổi</span>
                                             </div>
                                             <div>
-                                                <input name="Buoi[]" type="number" class="DienThoiGianLam">
+                                                <input name="Buoi[]" type="number" class="DienThoiGianLam" value="6">
                                                 <span class="PhanGiaoViec">buổi/tuần</span>
                                             </div>
                                         </div>

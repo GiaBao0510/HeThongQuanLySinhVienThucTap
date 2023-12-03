@@ -42,7 +42,7 @@
                     <img src="../../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
+                    <a href="../../TrangDungChung/index.php" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
                     <a href="TrangChuCanBoHuongDan.php?ID=<?php echo $_GET['ID'] ;?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>

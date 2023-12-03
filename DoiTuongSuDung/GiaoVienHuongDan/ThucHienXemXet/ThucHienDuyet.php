@@ -1,9 +1,17 @@
 <?php
+    session_start();
+    ob_start();
     include('../../TrangDungChung/KetNoi.php');
     include('../../TrangDungChung/CacHamXuLy.php');
+    //Kiểm tra đăng nhập
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
 
     $mssv = trim($_GET['MSSV']);
-    $msgv = trim($_GET['MSGV']);
+    $msgv = $_SESSION['user'];
 
     //Kiểm tra mã sô giáo viên có trong phiếu này hay chưa nếu có rồi thì không cập nhật
     $kiemTra = "SELECT COUNT(*) dem FROM phieutheodoisinhvienthuctap td

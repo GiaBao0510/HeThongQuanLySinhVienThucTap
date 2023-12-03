@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    ob_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,18 +14,49 @@
         <link rel="stylesheet" href="../../../DinhDangWebSite/TrangDungChung/DinhDangDungChungChoTatCa.css">
         <link rel="stylesheet" href="../../../DoiTuongSuDung/QuanTriHeThong/TaiKhoan/GiaoDienTaoTaiKhoan.css">
         <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienQuanTri.css">
+        <link rel="stylesheet" href="../../../DinhDangWebSite/QuanTriHeThong/GiaoDienCapNhat.css">
+        <!--
+            PHP
+        -->
+        <?php
+            //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php
+            include ('../../TrangDungChung/KetNoi.php');
+            //Áp dụng vài hàm
+            include('../../TrangDungChung/CacHamXuLy.php');
+
+            //Kiểm tra đăng nhâp
+            
+            if(empty($_SESSION[$_SESSION['QuanTri']]['user']) || empty($_SESSION[$_SESSION['QuanTri']]['pw'])){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }elseif(KiemTraTaiKhoanDangNhap($_SESSION[$_SESSION['QuanTri']]['user'],$_SESSION[$_SESSION['QuanTri']]['pw']) < 1){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }
+        ?>
     </head>
     <body>
-        <head></head>
+        <header>
+            <div class="DauTrangChu">
+                <div class="Logo">
+                   <img src="../../../Image/QuanTriHeThong/protection.png" class="anhAdmin">
+                </div>
+                <div class="CacNutDauTrang">
+                    <form action="../../TrangDungChung/ThucHienDangXuat.php?ROLE=0" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION[$_SESSION['QuanTri']]['user'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutDangXuat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="../TrangChu.php" class="NutVeTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                </div>
+            </div>
+        </header>
         <main>
             <div class="QuayVe">
                 <a href="../../QuanTriHeThong/TrangChu.php" ><i class="fa-solid fa-backward"></i></a>
             </div>
             <?php 
-                //Áp dụng đường dẫn tương đối đến tệp tin ketNoi.php
-                include ('../../TrangDungChung/KetNoi.php');
-                //Áp dụng vài hàm
-                include('../../TrangDungChung/CacHamXuLy.php');
+                
 
                 $maSo = trim($_GET['UserID']);
                 //Tìm kiếm thông tin của mã đơn vị thực tập vừa được tìm
@@ -41,12 +76,12 @@
                     $row = mysqli_fetch_array($thucHien );
                     echo'
                         <form action="../../QuanTriHeThong/SinhVien/ThucHienCapNhat_sv.php" method="post" enctype="application/x-www-form-urlencoded" class="BieuMauCapNhat">
-                            <div class="KhungTongQuat">
-                            <div class="KhungDau">
-                                <div class="Dau1">
-                                    <img src="https://beebom.com/wp-content/uploads/2023/04/featured-new.jpg?w=290&h=290&crop=1&quality=75" alt="">
+                            <div class="KhungHienThiChinh">
+                            <div class="KhungHienThiDau">
+                                <div class="DauThu1">
+                                <img src="../../../Image/QuanTriHeThong/user.png" alt="" class="AnhDaiDien">
                                 </div>
-                                <div class="Dau2">
+                                <div class="DauThu2">
                                     <table>
                                         <tr>
                                         <td>
@@ -97,7 +132,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="KhungDuoi">
+                            <div class="KhungHienThiDuoi">
                                 <table>
                                 <tr>
                                     <td>

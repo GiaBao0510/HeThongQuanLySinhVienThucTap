@@ -25,11 +25,18 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><!--JQuery-->
         <!--PHP-->
         <?php
+            session_start();
+            ob_start();
             include('../../TrangDungChung/KetNoi.php');
             include('../../TrangDungChung/CacHamXuLy.php');
-
+            //Kiểm tra đăng nhập
+            if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+                include('../../TrangDungChung/DangNhapThatBai.php');
+            }
             $mssv = trim($_GET['MSSV']);
-            $mscb = trim($_GET['MSCB']);
+            $mscb = $_SESSION['user'];
 
             //Lấy thông tin qua hàm
             $TTsinhVien = infSinhVien($mssv);
@@ -50,8 +57,16 @@
                     <img src="../../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuCanBoHuongDan.php?ID=<?php echo $_GET['ID'] ;?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutThoat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="../TrangChuCanBoHuongDan.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
@@ -86,7 +101,7 @@
                     </table>
                 </div>
                 <div class="ThongTinDanhGia">
-                    <form action="ThucHienCapNhatNhanXetSinhVien.php?MSCB=<?php echo $mscb;?>&MSPTDSV=<?php echo $TTphieuTheoDoi['MSPTDSV'];?>" method="post" enctype="application/x-www-form-urlencoded">
+                    <form action="ThucHienCapNhatNhanXetSinhVien.php?MSPTDSV=<?php echo $TTphieuTheoDoi['MSPTDSV'];?>" method="post" enctype="application/x-www-form-urlencoded">
                         <table class="BangThongTinDanhgia">
                             <tr class="DongTieuDe">
                                 <th>Tuần</th>
@@ -99,19 +114,19 @@
                                 $ttPhieuTheoDoi_SV_CB = mscb_mssv_PhieuThoeDoiThucTap($mscb,$mssv);
                                 $msptdsv = trim($ttPhieuTheoDoi_SV_CB['MSPTDSV']);
                                 $TTchiTietPhieuDanhGiaVaTheoDoi = msptd_ChiTietPhieuTheoDoiVaPhieuDanhGia($msptdsv);
-                                $NhanXetCoSan = "";
+                                $NhanXetCoSan = "Tốt";
                                 while($row = mysqli_fetch_array($TTchiTietPhieuDanhGiaVaTheoDoi)){
                                     //Kiểm tra xem nhận xết có rồng không nếu rồng thì đặt là ô khoảng trắng
                                     $NhanXetCoSan = strval(LayNhanXetTuBangChiTietDanhGiaVaTheoDoi($row['IDCongViec'],$msptdsv)['NhanXet']);
                                     if(strlen($NhanXetCoSan) <1){
-                                        $NhanXetCoSan = "";
+                                        $NhanXetCoSan = "Tốt";
                                     }
                                     echo '<tr>
                                             <td>'.$row['tuan'].'</td>
                                             <td>'.infCongViec($row['IDCongViec'])['NoiDung'].'</td>
                                             <td class="CotGhiNhanXet">
                                                 <input type="hidden" name="IDcongViec[]" value='.$row['IDCongViec'].'>
-                                                <textarea  name="NhanXet[]" type="text" class="OghiNhanXet" placeholder="Đánh giá tiến độ công việc">'.$NhanXetCoSan.'</textarea>
+                                                <textarea  name="NhanXet[]" type="text" class="OghiNhanXet" placeholder="Đánh giá tiến độ công việc" >'.$NhanXetCoSan.'</textarea>
                                             </td>
                                             <td>'.infCongViec($row['IDCongViec'])['BuoiLamViec'].'</td>
                                         </tr>';

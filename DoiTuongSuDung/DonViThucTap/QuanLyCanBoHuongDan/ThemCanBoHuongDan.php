@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    ob_start();
+    include('../../TrangDungChung/KetNoi.php');
+    include('../../TrangDungChung/CacHamXuLy.php');
+    //Kiểm tra đăng nhập
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../../TrangDungChung/DangNhapThatBai.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,9 +32,7 @@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" async></script>
         <!--PHP-->
         <?php
-            include('../../TrangDungChung/CacHamXuLy.php');
-            include('../../TrangDungChung/KetNoi.php');
-            $mdvtt = trim($_GET['MDVTT']);
+            $mdvtt = $_SESSION['user'];
             $ThongTinDonViTT = infDonViThucTap($mdvtt);
         ?>
     </head>
@@ -33,15 +43,23 @@
                     <img src="../../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="../../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <form action="../../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutThoat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="../TrangChuDVTT.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
         <main>
             <div class="KhungChua"> 
                 <h1 class="TieuDeDangKy">Cán bộ hướng dẫn</h1><!--onsubmit="return BieuMauDangKy_TKSV()"-->
-                <form action="ThucHienThemCanBo.php?MaDVTT=<?php echo $mdvtt;?>" class="BangChinh" method="post" name="bieuMauDangKy_CBHD" id="BieuMauDangKySinhVien" autocomplete="off" enctype="application/x-www-form-urlencoded" onsubmit="return BieuMauTao_TKCBHD()">
+                <form action="ThucHienThemCanBo.php" class="BangChinh" method="post" name="bieuMauDangKy_CBHD" id="BieuMauDangKySinhVien" autocomplete="off" enctype="application/x-www-form-urlencoded" onsubmit="return BieuMauTao_TKCBHD()">
                     <table class="Bang1">
                         <tr>
                             <td>
@@ -58,13 +76,15 @@
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Tên Tài khoản:</p>
-                                <input class="LayThongTin" name="MSCB" id="MSCB" type="text" placeholder="Tài khoản"/>
+                                <input class="LayThongTin HienThiMaDonViThucTap" value='<?php echo IncreaseIDIndex(MSCB_current());?>' type="text" placeholder="Tài khoản" disabled/>
+                                <input type="hidden" name="MSCB" value='<?php echo IncreaseIDIndex(MSCB_current());?>'>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <p class="TieuDeDien">Mã đơn vị thực tập:</p>
-                                <input class="LayThongTin HienThiMaDonViThucTap" name="MaDVTT" id="MaDVTT" value="<?php echo $ThongTinDonViTT['MaDVTT'];?>" type="text"  placeholder="Mã  đơn vị thực tập" disabled/>
+                                <input class="LayThongTin HienThiMaDonViThucTap" value="<?php echo $ThongTinDonViTT['MaDVTT'];?>" type="text"  placeholder="Mã  đơn vị thực tập" disabled/>
+                                <input type="hidden" name="MaDVTT" value="<?php echo $ThongTinDonViTT['MaDVTT'];?>">
                             </td>
                         </tr>
                         <tr>

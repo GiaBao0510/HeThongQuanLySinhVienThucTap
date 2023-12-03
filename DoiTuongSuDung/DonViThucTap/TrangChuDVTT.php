@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    ob_start();
+    include('../TrangDungChung/KetNoi.php');
+    include('../TrangDungChung/CacHamXuLy.php');
+    //Kiểm tra đăng nhập
+    if(empty($_SESSION['user']) || empty($_SESSION['pw'])|| $_SESSION['active']== false){
+        include('../TrangDungChung/DangNhapThatBai.php');
+    }elseif(KiemTraTaiKhoanDangNhap($_SESSION['user'],$_SESSION['pw']) < 1){
+        include('../TrangDungChung/DangNhapThatBai.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,8 +36,16 @@
                     <img src="../../Image/logo2.png" class="AnhLogo"/>
                 </div>
                 <div class="CacNut">
-                    <a href="../TrangDungChung/index.html" class="NutThoat"><i class="fa-solid fa-door-open"></i>Thoát</a>
-                    <a href="TrangChuDVTT.php?ID=<?php echo $_GET['ID']; ?>" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
+                    <form action="../TrangDungChung/ThucHienDangXuat.php" method="post" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="taikhoan" value="<?php echo $_SESSION['user'];?>">
+                        <input type="hidden" name="matkhau" value="<?php echo $_SESSION['pw'];?>">
+                        <input type="hidden" name="vaitro" value="<?php echo $_SESSION['role'];?>">
+                        <input type="hidden" name="loithoat" value="../TrangDungChung/index.php">
+                        <button type="submit" class="NutThoat">
+                            <i class="fa-solid fa-door-open"></i>Thoát
+                        </button>
+                    </form>
+                    <a href="TrangChuDVTT.php" class="NutTrangChu"><i class="fa-solid fa-house"></i>Trang chủ</a>
                 </div>
             </div>
         </header>
@@ -33,10 +53,8 @@
             <div class="KhungChot">
                 <div class="KhungCaNhan">
                     <?php 
-                        include('../TrangDungChung/KetNoi.php');
-                        include('../TrangDungChung/CacHamXuLy.php');
                         //Lấy Mã số đơn vị để hiển thị thông tin
-                        $maSo = trim($_GET['ID']);
+                        $maSo = $_SESSION['user'];
                         
                         //Thực hiện lấy thông tin
                         $layThongTin = "SELECT *
@@ -124,7 +142,7 @@
                                 </a>
                             </td>
                             <td class="CotTieuDe">
-                                <a class="OChucNang" href="DuyetSinhVienThucTap/DS_choPheDuyet.php?ID=<?php echo $_GET['ID']; ?>">
+                                <a class="OChucNang" href="DuyetSinhVienThucTap/DS_choPheDuyet.php">
                                     <div>
                                         <img src="../../Image/DonViThucTap/verified.png" class="AnhChucNang" alt="">
                                     </div>
@@ -134,7 +152,7 @@
                         </tr>
                         <tr>
                             <td class="CotTieuDe">
-                                <a class="OChucNang" href="QuanLyCanBoHuongDan/DanhSachCanBoHuongDan.php?MDVTT=<?php echo $maSo;?>">
+                                <a class="OChucNang" href="QuanLyCanBoHuongDan/DanhSachCanBoHuongDan.php">
                                     <div>
                                         <img src="../../Image/DonViThucTap/employee.png" class="AnhChucNang" alt="">
                                     </div>
@@ -142,7 +160,7 @@
                                 </a>
                             </td>
                             <td class="CotTieuDe">
-                                <a class="OChucNang" href="QuanLySinhVien/XemDanhSachSinhVien.php?MDVTT=<?php echo $maSo;?>">
+                                <a class="OChucNang" href="QuanLySinhVien/XemDanhSachSinhVien.php">
                                     <div>
                                         <img src="../../Image/DonViThucTap/student.png" class="AnhChucNang" alt="">
                                     </div>
